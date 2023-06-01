@@ -1,469 +1,608 @@
-﻿
-<div b-k77jb5jgnz="" class="container">
-    <main b-k77jb5jgnz="" role="main" class="pb-3">
-
-        <section class="breadcrumbs-wrapper pt-50 pb-50 bg-primary-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="breadcrumbs-style breadcrumbs-style-1 d-md-flex justify-content-between align-items-center">
-                            <div class="breadcrumb-left">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Category</li>
-                                </ol>
+@{
+    Layout = "_Layout";
+}
+<!--====== Breadcrumbs Part Start ======-->
+<section class="breadcrumbs-wrapper pt-50 pb-50 bg-primary-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumbs-style breadcrumbs-style-1 d-md-flex justify-content-between align-items-center">
+                    <div class="breadcrumb-left">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Product Details</li>
+                        </ol>
+                    </div>
+                    <div class="breadcrumb-right">
+                        <h5 class="heading-5 font-weight-500">Product Details</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== Breadcrumbs Part Ends ======-->
+<!--====== Product Details Style 1 Part Start ======-->
+<section class="product-details-wrapper pt-50 pb-100">
+    <div class="container">
+        <div class="product-details-style-1">
+            <div class="row flex-lg-row-reverse align-items-center">
+                <div class="col-lg-6">
+                    <div class="product-details-image mt-50">
+                        <div class="product-image">
+                            <div class="product-image-active-1">
+                                <div class="single-image">
+                                    <img src="/assets/images/product-details-1/product-1.jpg" alt="">
+                                </div>
+                                <div class="single-image">
+                                    <img src="/assets/images/product-details-1/product-2.jpg" alt="">
+                                </div>
+                                <div class="single-image">
+                                    <img src="/assets/images/product-details-1/product-3.jpg" alt="">
+                                </div>
+                                <div class="single-image">
+                                    <img src="/assets/images/product-details-1/product-4.jpg" alt="">
+                                </div>
+                                <div class="single-image">
+                                    <img src="/assets/images/product-details-1/product-5.jpg" alt="">
+                                </div>
+                                <div class="single-image">
+                                    <img src="/assets/images/product-details-1/product-3.jpg" alt="">
+                                </div>
                             </div>
-                            <div class="breadcrumb-right">
-                                <h5 class="heading-5 font-weight-500">Category</h5>
+                        </div>
+                        <div class="product-thumb-image">
+                            <div class="product-thumb-image-active-1">
+                                <div class="single-thumb">
+                                    <img src="/assets/images/product-details-1/thunb-1.jpg" alt="">
+                                </div>
+                                <div class="single-thumb">
+                                    <img src="/assets/images/product-details-1/thunb-2.jpg" alt="">
+                                </div>
+                                <div class="single-thumb">
+                                    <img src="/assets/images/product-details-1/thunb-3.jpg" alt="">
+                                </div>
+                                <div class="single-thumb">
+                                    <img src="/assets/images/product-details-1/thunb-4.jpg" alt="">
+                                </div>
+                                <div class="single-thumb">
+                                    <img src="/assets/images/product-details-1/thunb-5.jpg" alt="">
+                                </div>
+                                <div class="single-thumb">
+                                    <img src="/assets/images/product-details-1/thunb-3.jpg" alt="">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+                <div class="col-lg-6">
+                    <div class="product-details-content mt-45">
+                        <p class="sub-title">All-In-One VR</p>
+                        <h2 class="title">Oculus VR</h2>
 
-
-        <section class="category-wrapper pt-50">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="filter-style-1 mt-0">
-                            <div class="filter-title">
-                                <h4 class="title">Filter</h4>
-                            </div>
-                            <div class="filter-btn">
-                                <a class="main-btn primary-btn" href="javascript:void(0)">Reset</a>
-                            </div>
-                        </div>
-                        <div class="filter-style-2">
-                            <div class="filter-title">
-                                <a class="title" data-toggle="collapse" href="#pricingOne" role="button" aria-expanded="false">
-                                    Pricing Range
-                                </a>
-                            </div>
-                            <div class="collapse show" id="pricingOne">
-                                <div class="price-range">
-                                    <div class="price-amount">
-                                        <div class="amount-input">
-                                            <label>Minimum Price</label>
-                                            <input type="text" id="minAmount">
-                                        </div>
-                                        <div class="amount-input">
-                                            <label>Maximum Price</label>
-                                            <input type="text" id="maxAmount">
-                                        </div>
+                        <div class="product-items flex-wrap">
+                            <h6 class="item-title">Select Your Oculus: </h6>
+                            <div class="items-wrapper">
+                                <div class="single-item active">
+                                    <div class="items-image">
+                                        <img src="/assets/images/product-details-1/product-items-1.jpg" alt="product">
                                     </div>
-                                    <div id="slider-range" class="slider-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 15%; width: 45%;"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 15%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 60%;"></span></div>
+                                    <p class="text">Oculus Go</p>
+                                </div>
+                                <div class="single-item">
+                                    <div class="items-image">
+                                        <img src="/assets/images/product-details-1/product-items-2.jpg" alt="product">
+                                    </div>
+                                    <p class="text">Oculus Quest</p>
+                                </div>
+                                <div class="single-item">
+                                    <div class="items-image">
+                                        <img src="/assets/images/product-details-1/product-items-3.jpg" alt="product">
+                                    </div>
+                                    <p class="text">Oculus Rift S</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="filter-style-3">
-                            <div class="filter-title">
-                                <a class="title" data-toggle="collapse" href="#type" role="button" aria-expanded="false">
-                                    Type
-                                </a>
+
+                        <div class="product-select-wrapper flex-wrap">
+                            <div class="select-item">
+                                <h6 class="select-title">Select Color: <span>Grey</span></h6>
+                                <ul class="color-select">
+                                    <li class="active" data-color="#EFEFEF"></li>
+                                    <li data-color="#FAE5EC"></li>
+                                    <li data-color="#4C4C4C"></li>
+                                </ul>
                             </div>
-                            <div class="collapse show" id="type">
-                                <div class="filter-type">
-                                    <ul>
-                                        <li>
-                                            <div class="type-check">
-                                                <input type="checkbox" id="type-1">
-                                                <label for="type-1"><span></span> Standalone</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="type-check">
-                                                <input type="checkbox" id="type-2">
-                                                <label for="type-2"><span></span> Mobile</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="type-check">
-                                                <input type="checkbox" id="type-3">
-                                                <label for="type-3"><span></span> Tethered</label>
-                                            </div>
-                                        </li>
-                                    </ul>
+                            <div class="select-item">
+                                <h6 class="select-title">Memory (GB): </h6>
+                                <div class="size-select">
+                                    <select>
+                                        <option value="">32gb</option>
+                                        <option value="">64gb</option>
+                                        <option value="">128 gb</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="select-item">
+                                <h6 class="select-title">Select Quantity: </h6>
+
+                                <div class="select-quantity">
+                                    <button type="button" id="sub" class="sub"><i class="mdi mdi-minus"></i></button>
+                                    <input type="text" value="1" />
+                                    <button type="button" id="add" class="add"><i class="mdi mdi-plus"></i></button>
+                                </div>
+                            </div>
+                            <div class="select-item">
+                                <h6 class="select-title">Select Shipping Country: </h6>
+                                <div class="country-select">
+                                    <select>
+                                        <option value="0">-- Select Country --</option>
+                                        <option value="1">Bangladesh</option>
+                                        <option value="2">india</option>
+                                        <option value="3">Pakistan</option>
+                                        <option value="4">Australia</option>
+                                        <option value="5">Canada</option>
+                                        <option value="6">Spain</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="filter-style-4">
-                            <div class="filter-title">
-                                <a class="title" data-toggle="collapse" href="#size" role="button" aria-expanded="false">
-                                    Select Size
-                                </a>
-                            </div>
-                            <div class="collapse show" id="size">
-                                <div class="filter-size">
-                                    <ul>
-                                        <li>XS</li>
-                                        <li>S</li>
-                                        <li class="active">M</li>
-                                        <li>LG</li>
-                                        <li>XL</li>
-                                        <li>XXL</li>
-                                    </ul>
-                                </div>
-                            </div>
+
+                        <div class="product-price">
+                            <h6 class="price-title">Price: </h6>
+                            <p class="sale-price">$ 149 USD</p>
+                            <p class="regular-price">$ 179 USD</p>
                         </div>
-                        <div class="filter-style-7">
-                            <div class="filter-title">
-                                <a class="title" data-toggle="collapse" href="#color" role="button" aria-expanded="false">
-                                    Select Size
-                                </a>
-                            </div>
-                            <div class="collapse show" id="color">
-                                <div class="filter-color">
-                                    <ul>
-                                        <li>
-                                            <div class="color-check">
-                                                <p><span style="background-color: #00C2FE;"></span> <strong>Blue</strong></p>
-                                                <input type="checkbox" id="color-1">
-                                                <label for="color-1"><span></span></label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="color-check">
-                                                <p><span style="background-color: #E14C7B;"></span> <strong>Red</strong></p>
-                                                <input type="checkbox" id="color-2">
-                                                <label for="color-2"><span></span></label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="color-check">
-                                                <p><span style="background-color: #7CB637;"></span> <strong>Green</strong></p>
-                                                <input type="checkbox" id="color-3">
-                                                <label for="color-3"><span></span></label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="color-check">
-                                                <p><span style="background-color: #161359;"></span> <strong>Dark</strong></p>
-                                                <input type="checkbox" id="color-4">
-                                                <label for="color-4"><span></span></label>
-                                            </div>
-                                        </li>
-                                    </ul>
+
+                        <div class="product-btn">
+                            <a href="javascript:void(0)" class="main-btn primary-btn">
+                                <img src="/assets/images/icon-svg/cart-4.svg" alt="">
+                                Add to cart
+                            </a>
+                            <a href="javascript:void(0)" class="main-btn secondary-1-btn">
+                                <img src="/assets/images/icon-svg/cart-8.svg" alt="">
+                                Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== Product Details Style 1 Part Ends ======-->
+<!--====== Reviews Part Start ======-->
+<section class="reviews-wrapper pt-100 pb-100 ">
+    <div class="container">
+        <div class="reviews-style">
+            <div class="reviews-menu">
+
+                <ul class="breadcrumb-list-grid nav nav-tabs border-0" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                            Details
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                           aria-selected="false">
+                            Reviews
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a id="specifications-tab" data-toggle="tab" href="#specifications" role="tab" aria-controls="specifications"
+                           aria-selected="false">
+                            specifications
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="details-wrapper">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="reviews-title">
+                                    <h4 class="title">Oculus VR</h4>
                                 </div>
+                                <p class="mb-15 pt-30">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime quod sequi vitae atque
+                                    perspiciatis voluptas recusandae explicabo ea dolores numquam ratione, obcaecati ullam, ipsam minima vero nostrum
+                                    nesciunt facere laudantium? Facere animi rem veniam quibusdam nam sed ex maxime laboriosam a vero nesciunt tenetur,
+                                    eius autem fugiat quod expedita dignissimos.
+                                </p>
+                                <p class="mb-30">
+                                    Repellendus, doloribus illum expedita, dolorem voluptas doloremque voluptatibus, magni tempora
+                                    laboriosam deserunt suscipit labore dolorum aperiam cum veniam accusamus? Consequatur dolore facere perferendis
+                                    repellat, modi in consectetur ipsum atque quos natus.
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-8">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="breadcrumbs-style breadcrumbs-style-1 d-md-flex justify-content-between align-items-center">
-                                    <div class="breadcrumb-left">
-                                        <p>Showing 01-09 of 17 Results</p>
+                </div>
+                <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="review-wrapper">
+                        <div class="reviews-title">
+                            <h4 class="title">Customer Reviews (38)</h4>
+                        </div>
+
+                        <div class="reviews-rating-wrapper flex-wrap">
+                            <div class="reviews-rating-star">
+                                <p class="rating-review"><i class="mdi mdi-star"></i> <span>4.5</span> of 5</p>
+
+                                <div class="reviews-rating-bar">
+                                    <div class="single-reviews-rating-bar">
+                                        <p class="value">5 Starts</p>
+                                        <div class="rating-bar-inner">
+                                            <div class="bar-inner" style="width: 60%;"></div>
+                                        </div>
+                                        <p class="percent">60%</p>
                                     </div>
-                                    <div class="breadcrumb-right">
-                                        <ul class="breadcrumb-list-grid nav nav-tabs border-0" id="myTab" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <a id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
-                                                    <i class="mdi mdi-view-list"></i>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <a class="active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-                                                    <i class="mdi mdi-view-grid"></i>
-                                                </a>
-                                            </li>
+                                </div>
+                                <div class="reviews-rating-bar">
+                                    <div class="single-reviews-rating-bar">
+                                        <p class="value">4 Starts</p>
+                                        <div class="rating-bar-inner">
+                                            <div class="bar-inner" style="width: 20%;"></div>
+                                        </div>
+                                        <p class="percent">20%</p>
+                                    </div>
+                                </div>
+                                <div class="reviews-rating-bar">
+                                    <div class="single-reviews-rating-bar">
+                                        <p class="value">3 Starts</p>
+                                        <div class="rating-bar-inner">
+                                            <div class="bar-inner" style="width: 10%;"></div>
+                                        </div>
+                                        <p class="percent">10%</p>
+                                    </div>
+                                </div>
+                                <div class="reviews-rating-bar">
+                                    <div class="single-reviews-rating-bar">
+                                        <p class="value">2 Starts</p>
+                                        <div class="rating-bar-inner">
+                                            <div class="bar-inner" style="width: 5%;"></div>
+                                        </div>
+                                        <p class="percent">05%</p>
+                                    </div>
+                                </div>
+                                <div class="reviews-rating-bar">
+                                    <div class="single-reviews-rating-bar">
+                                        <p class="value">1 Starts</p>
+                                        <div class="rating-bar-inner">
+                                            <div class="bar-inner" style="width: 0;"></div>
+                                        </div>
+                                        <p class="percent">0%</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="reviews-rating-form">
+                                <div class="rating-star">
+                                    <p>Click on star to review</p>
+                                    <ul id="stars" class="stars">
+                                        <li class="star" data-value='1'><i class="mdi mdi-star"></i></li>
+                                        <li class="star" data-value='2'><i class="mdi mdi-star"></i></li>
+                                        <li class="star" data-value='3'><i class="mdi mdi-star"></i></li>
+                                        <li class="star" data-value='4'><i class="mdi mdi-star"></i></li>
+                                        <li class="star" data-value='5'><i class="mdi mdi-star"></i></li>
+                                    </ul>
+                                </div>
+                                <div class="rating-form">
+                                    <form action="#">
+                                        <div class="single-form form-default">
+                                            <label>Write your Review</label>
+                                            <div class="form-input">
+                                                <textarea placeholder="Your review here"></textarea>
+                                                <i class="mdi mdi-message-text-outline"></i>
+                                            </div>
+                                        </div>
+                                        <div class="single-rating-form flex-wrap">
+                                            <div class="rating-form-file">
+                                                <div class="file">
+                                                    <input type="file" id="file-1">
+                                                    <label for="file-1"><i class="mdi mdi-camera"></i></label>
+                                                </div>
+                                                <div class="file">
+                                                    <input type="file" id="file-1">
+                                                    <label for="file-1"><i class="mdi mdi-attachment"></i></label>
+                                                </div>
+                                            </div>
+                                            <div class="rating-form-btn">
+                                                <button class="main-btn primary-btn">write a Review</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="reviews-btn flex-wrap">
+                            <div class="reviews-btn-left">
+                                <div class="dropdown-style">
+                                    <div class="dropdown dropdown-white">
+                                        <button class="main-btn primary-btn" type="button" id="dropdownMenu-1" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="true">
+                                            All Stars (213) <i class="mdi mdi-chevron-down"></i>
+                                        </button>
+
+                                        <ul class="dropdown-menu sub-menu-bar" aria-labelledby="dropdownMenu-1">
+                                            <li><a href="#">Dropped Menu 1</a></li>
+                                            <li><a href="#">Dropped Menu 2</a></li>
+                                            <li><a href="#">Dropped Menu 3</a></li>
+                                            <li><a href="#">Dropped Menu 4</a></li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="product-style-7 mt-30">
-                                                    <div class="product-image">
-                                                        <div class="product-active slick-initialized slick-slider">
-                                                            <span class="prev slick-arrow slick-disabled" aria-disabled="true" style=""><i class="mdi mdi-chevron-left"></i></span>
-                                                            <div class="slick-list draggable">
-                                                                <div class="slick-track" style="opacity: 1; width: 480px; transform: translate3d(0px, 0px, 0px);">
-                                                                    <div class="product-item active slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 240px;">
-                                                                        <img data-pagespeed-high-res-src="/assets/images/product-4/xproduct-1.jpg" alt="product" data-pagespeed-url-hash="1876901454" src="data:image/webp;base64,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" onload="pagespeed.switchToHighResAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.switchToHighResAndMaybeBeacon(this);">
-                                                                    </div><div class="product-item slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" style="width: 240px;">
-                                                                        <img data-pagespeed-high-res-src="/assets/images/product-4/xproduct-2.jpg.pagespeed.ic.38DFj2OEya.webp" alt="product" data-pagespeed-url-hash="2171401375" src="data:image/webp;base64,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" onload="pagespeed.switchToHighResAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.switchToHighResAndMaybeBeacon(this);">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                <div class="dropdown-style">
+                                    <div class="dropdown dropdown-white">
+                                        <button class="main-btn primary-btn-border" type="button" id="dropdownMenu-1" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="true">
+                                            Sort by Latest <i class="mdi mdi-chevron-down"></i>
+                                        </button>
 
-                                                            <span class="next slick-arrow" style="" aria-disabled="false"><i class="mdi mdi-chevron-right"></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-content">
-                                                        <ul class="product-meta">
-                                                            <li>
-                                                                <a class="add-wishlist" href="javascript:void(0)">
-                                                                    <i class="mdi mdi-heart-outline"></i>
-                                                                    Add to Favorite
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <span><i class="mdi mdi-star"></i> 4.5/5</span>
-                                                            </li>
-                                                        </ul>
-                                                        <h4 class="title"><a href="product-details-page.html">Metro 38 Date</a></h4>
-                                                        <p>Reference 1102</p>
-                                                        <span class="price">$ 399</span>
-                                                        <a href="javascript:void(0)" class="main-btn primary-btn">
-                                                            <img src="/assets/images/icon-svg/cart-4.svg" alt="" data-pagespeed-url-hash="1615722757" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <div class="product-style-7 mt-30">
-                                                    <div class="product-image">
-                                                        <div class="product-active slick-initialized slick-slider">
-                                                            <span class="prev slick-arrow slick-disabled" aria-disabled="true" style=""><i class="mdi mdi-chevron-left"></i></span>
-                                                            <div class="slick-list draggable">
-                                                                <div class="slick-track" style="opacity: 1; width: 480px; transform: translate3d(0px, 0px, 0px);">
-                                                                    <div class="product-item active slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 240px;">
-                                                                        <img data-pagespeed-lazy-src="/assets/images/product-4/xproduct-3.jpg.pagespeed.ic.YEzSOqJJQR.webp" alt="product" data-pagespeed-url-hash="2465901296" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                                                                    </div><div class="product-item slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" style="width: 240px;">
-                                                                        <img data-pagespeed-lazy-src="/assets/images/product-4/xproduct-4.jpg.pagespeed.ic.KNcv5Dfran.webp" alt="product" data-pagespeed-url-hash="2760401217" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <span class="next slick-arrow" style="" aria-disabled="false"><i class="mdi mdi-chevron-right"></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-content">
-                                                        <ul class="product-meta">
-                                                            <li>
-                                                                <a class="add-wishlist" href="javascript:void(0)">
-                                                                    <i class="mdi mdi-heart-outline"></i>
-                                                                    Add to Favorite
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <span><i class="mdi mdi-star"></i> 4.5/5</span>
-                                                            </li>
-                                                        </ul>
-                                                        <h4 class="title"><a href="product-details-page.html">Man's Shoe</a></h4>
-                                                        <p>Reference 1102</p>
-                                                        <span class="price">$ 399</span>
-                                                        <a href="javascript:void(0)" class="main-btn primary-btn">
-                                                            <img src="/assets/images/icon-svg/cart-4.svg" alt="" data-pagespeed-url-hash="1615722757" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <div class="product-style-7 mt-30">
-                                                    <div class="product-image">
-                                                        <div class="product-active slick-initialized slick-slider">
-                                                            <span class="prev slick-arrow slick-disabled" aria-disabled="true" style=""><i class="mdi mdi-chevron-left"></i></span>
-                                                            <div class="slick-list draggable">
-                                                                <div class="slick-track" style="opacity: 1; width: 480px; transform: translate3d(0px, 0px, 0px);">
-                                                                    <div class="product-item active slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 240px;">
-                                                                        <img data-pagespeed-lazy-src="/assets/images/product-4/xproduct-5.jpg.pagespeed.ic.AcMxVb2sI7.webp" alt="product" data-pagespeed-url-hash="3054901138" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                                                                    </div><div class="product-item slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" style="width: 240px;">
-                                                                        <img data-pagespeed-lazy-src="/assets/images/product-4/xproduct-6.jpg.pagespeed.ic.c-IUL_Wl0s.webp" alt="product" data-pagespeed-url-hash="3349401059" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <span class="next slick-arrow" style="" aria-disabled="false"><i class="mdi mdi-chevron-right"></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-content">
-                                                        <ul class="product-meta">
-                                                            <li>
-                                                                <a class="add-wishlist" href="javascript:void(0)">
-                                                                    <i class="mdi mdi-heart-outline"></i>
-                                                                    Add to Favorite
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <span><i class="mdi mdi-star"></i> 4.5/5</span>
-                                                            </li>
-                                                        </ul>
-                                                        <h4 class="title"><a href="product-details-page.html">T Shirt 23</a></h4>
-                                                        <p>Reference 1102</p>
-                                                        <span class="price">$ 399</span>
-                                                        <a href="javascript:void(0)" class="main-btn primary-btn">
-                                                            <img src="/assets/images/icon-svg/cart-4.svg" alt="" data-pagespeed-url-hash="1615722757" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
-                                                            Add to Cart
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        <div class="row">
-                                            @for (int i = 0; i < 6; i++)
-                                            {
-                                                <div class="col-lg-6 col-sm-6">
-                                                    <div class="product-style-1 mt-30">
-                                                        <div class="product-image">
-                                                            <div class="product-active slick-initialized slick-slider">
-                                                                <span class="prev slick-arrow slick-disabled" aria-disabled="true" style=""><i class="mdi mdi-chevron-left"></i></span>
-                                                                <div class="slick-list draggable">
-                                                                    <div class="slick-track" style="opacity: 1; width: 806px; transform: translate3d(0px, 0px, 0px);">
-                                                                        <div class="product-item active slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 403px;">
-                                                                            <img src="/assets/images/product-4/product-4.jpg">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <span class="next slick-arrow" style="" aria-disabled="false"><i class="mdi mdi-chevron-right"></i></span>
-                                                            </div>
-                                                            <a class="add-wishlist" href="javascript:void(0)">
-                                                                <i class="mdi mdi-heart-outline"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="product-content text-center">
-                                                            <h4 class="title"><a href="product-details-page.html">Metro 38 Date</a></h4>
-                                                            <p>Reference 1102</p>
-                                                            <a href="javascript:void(0)" class="main-btn secondary-1-btn">
-                                                                <img data-pagespeed-lazy-src="/assets/images/icon-svg/cart-7.svg" alt="" data-pagespeed-url-hash="2499222520" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                                                                $ 399
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
+                                        <ul class="dropdown-menu sub-menu-bar" aria-labelledby="dropdownMenu-1">
+                                            <li><a href="#">Dropped Menu 1</a></li>
+                                            <li><a href="#">Dropped Menu 2</a></li>
+                                            <li><a href="#">Dropped Menu 3</a></li>
+                                            <li><a href="#">Dropped Menu 4</a></li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="reviews-btn-right">
+                                <a href="#" class="main-btn">with photo (18)</a>
+                                <a href="#" class="main-btn">additional feedback (23)</a>
+                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="pagination-wrapper pt-70">
-                                    <ul class="d-flex justify-content-center">
+
+                        <div class="reviews-comment">
+                            <ul class="comment-items">
+                                <li>
+                                    <div class="single-review-comment">
+                                        <div class="comment-user-info">
+                                            <div class="comment-author">
+                                                <img src="/assets/images/review/author-1.jpg" alt="">
+                                            </div>
+                                            <div class="comment-content">
+                                                <h6 class="name">User Name</h6>
+
+                                                <p>
+                                                    <i class="mdi mdi-star"></i>
+                                                    <span class="rating"><strong>4</strong> of 5</span>
+                                                    <span class="date">20 Nov 2019 22:01</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="comment-user-text">
+                                            <p>
+                                                Good headphones. The sound is clear. AND the bottoms repyat and top ring. Currently
+                                                are really not taken. For me quiet. With my Beats of course can not be compared. But
+                                                for the money and definitely recommend. The one who took happy as an elephant.
+                                                Product as advertised, looks good Quality, sound is not the best but because of
+                                                cost-benefit ratio it seems very good to me, recommended the seller .
+                                            </p>
+                                            <ul class="comment-meta">
+                                                <li><i class="mdi mdi-thumb-up"></i> <span>31</span></li>
+                                                <li><a href="#">Like</a></li>
+                                                <li><a href="#">Replay</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <ul class="comment-replay">
                                         <li>
-                                            <a href="javascript:void(0)"><i class="lni lni-chevron-left"></i></a>
+                                            <div class="single-review-comment">
+                                                <div class="comment-user-info">
+                                                    <div class="comment-author">
+                                                        <img src="/assets/images/review/author-2.jpg" alt="">
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <h6 class="name">User Name</h6>
+
+                                                        <p>
+                                                            <i class="mdi mdi-star"></i>
+                                                            <span class="rating"><strong>4</strong> of 5</span>
+                                                            <span class="date">20 Nov 2019 22:01</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-user-text">
+                                                    <p>
+                                                        Good headphones. The sound is clear. AND the bottoms repyat and top ring.
+                                                        Currently are really not taken.
+                                                    </p>
+                                                    <div class="comment-image flex-wrap">
+                                                        <div class="image">
+                                                            <img src="/assets/images/review/attachment-1.jpg" alt="">
+                                                        </div>
+                                                        <div class="image">
+                                                            <img src="/assets/images/review/attachment-2.jpg" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <ul class="comment-meta">
+                                                        <li><i class="mdi mdi-thumb-up"></i> <span>31</span></li>
+                                                        <li><a href="#">Like</a></li>
+                                                        <li><a href="#">Replay</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0)" class="active">1</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)">2</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)">3</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)">4</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"><i class="lni lni-chevron-right"></i></a>
+                                            <div class="single-review-comment">
+                                                <div class="comment-user-info">
+                                                    <div class="comment-author">
+                                                        <img src="/assets/images/review/author-3.jpg" alt="">
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <h6 class="name">User Name</h6>
+
+                                                        <p>
+                                                            <i class="mdi mdi-star"></i>
+                                                            <span class="rating"><strong>4</strong> of 5</span>
+                                                            <span class="date">20 Nov 2019 22:01</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-user-text">
+                                                    <p>
+                                                        Good headphones. The sound is clear. AND the bottoms repyat and top ring.
+                                                        Currently are really not taken.
+                                                    </p>
+                                                    <ul class="comment-meta">
+                                                        <li><i class="mdi mdi-thumb-up"></i> <span>31</span></li>
+                                                        <li><a href="#">Like</a></li>
+                                                        <li><a href="#">Replay</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </li>
                                     </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                                </li>
+                                <li>
+                                    <div class="single-review-comment">
+                                        <div class="comment-user-info">
+                                            <div class="comment-author">
+                                                <img src="/assets/images/review/author-4.jpg" alt="">
+                                            </div>
+                                            <div class="comment-content">
+                                                <h6 class="name">User Name</h6>
 
-
-        <section class="clients-logo-section pt-70 pb-70">
-            <div class="container">
-                <div class="row client-logo-active slick-initialized slick-slider">
-                    <div class="slick-list draggable">
-                        <div class="slick-track" style="opacity: 1; width: 1256px; transform: translate3d(0px, 0px, 0px);">
-                            <div class="col-lg-3 slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 314px;">
-                                <div class="single-logo-wrapper">
-                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/uideck-logo.svg" alt="" data-pagespeed-url-hash="4261711840" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                                </div>
-                            </div><div class="col-lg-3 slick-slide slick-active" data-slick-index="1" aria-hidden="false" tabindex="0" style="width: 314px;">
-                                <div class="single-logo-wrapper">
-                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/graygrids-logo.svg" alt="" data-pagespeed-url-hash="266707489" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                                </div>
-                            </div><div class="col-lg-3 slick-slide slick-active" data-slick-index="2" aria-hidden="false" tabindex="0" style="width: 314px;">
-                                <div class="single-logo-wrapper">
-                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/lineicons-logo.svg" alt="" data-pagespeed-url-hash="2372294821" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                                </div>
-                            </div><div class="col-lg-3 slick-slide slick-active" data-slick-index="3" aria-hidden="false" tabindex="0" style="width: 314px;">
-                                <div class="single-logo-wrapper">
-                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/pagebulb-logo.svg" alt="" data-pagespeed-url-hash="282558957" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                </div>
-            </div>
-        </section>
-
-
-        <section class="subscribe-section pt-70 pb-70 bg-primary-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 mx-auto">
-                        <div class="heading text-center">
-                            <h1 class="heading-1 font-weight-700 text-white mb-10">Subscribe Newsletter</h1>
-                            <p class="gray-3">
-                                Be the first to know when new products drop and get behind-the-scenes content
-                                straight.
-                            </p>
-                        </div>
-                        <div class="subscribe-form">
-                            <form action="#" class="has-validation-callback">
-                                <div class="single-form form-default">
-                                    <label class="text-white-50">Enter your email address</label>
-                                    <div class="form-input">
-                                        <input type="text" placeholder="user@email.com">
-                                        <i class="mdi mdi-account"></i>
-                                        <button class="main-btn primary-btn"><span class="mdi mdi-send"></span></button>
+                                                <p>
+                                                    <i class="mdi mdi-star"></i>
+                                                    <span class="rating"><strong>4</strong> of 5</span>
+                                                    <span class="date">20 Nov 2019 22:01</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="comment-user-text">
+                                            <p>
+                                                Good headphones. The sound is clear. AND the bottoms repyat and top ring. Currently
+                                                are really not taken. For me quiet. With my Beats of course can not be compared. But
+                                                for the money and definitely recommend. The one who took happy as an elephant.
+                                                Product as advertised, looks good Quality, sound is not the best but because of
+                                                cost-benefit ratio it seems very good to me, recommended the seller .
+                                            </p>
+                                            <ul class="comment-meta">
+                                                <li><i class="mdi mdi-thumb-up"></i> <span>31</span></li>
+                                                <li><a href="#">Like</a></li>
+                                                <li><a href="#">Replay</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
+                    <div class="specifications-wrapper">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="reviews-title">
+                                    <h4 class="title">Oculus VR</h4>
                                 </div>
-                            </form>
+                                <p class="mb-15 pt-30">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime quod sequi vitae
+                                    atque
+                                    perspiciatis voluptas recusandae explicabo ea dolores numquam ratione, obcaecati ullam, ipsam minima
+                                    vero nostrum
+                                    nesciunt facere laudantium? Facere animi rem veniam quibusdam nam sed ex maxime laboriosam a vero
+                                    nesciunt tenetur,
+                                    eius autem fugiat quod expedita dignissimos.
+                                </p>
+                                <p class="mb-30">
+                                    Repellendus, doloribus illum expedita, dolorem voluptas doloremque voluptatibus, magni
+                                    tempora
+                                    laboriosam deserunt suscipit labore dolorum aperiam cum veniam accusamus? Consequatur dolore facere
+                                    perferendis
+                                    repellat, modi in consectetur ipsum atque quos natus.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-    </main>
-</div>
-
-<div style="display: none" class="ubey-RecordingScreen-count-down ubey-RecordingScreen-count-down-container">
-    <style>
-        .ubey-RecordingScreen-count-down-container {
-            position: fixed;
-            height: 100vh;
-            width: 100vw;
-            top: 0;
-            left: 0;
-            z-index: 9999999999999;
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-
-        .ubey-RecordingScreen-count-down-content {
-            position: absolute;
-            display: flex;
-            top: 50%;
-            left: 50%;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            height: 15em;
-            width: 15em;
-            transform: translate(-50%, -100%);
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 50%;
-        }
-
-        #ubey-RecordingScreen-count-count {
-            font-size: 14em;
-            transform: translateY(-2%);
-        }
-    </style>
-    <div class="ubey-RecordingScreen-count-down-content">
-        <span id="ubey-RecordingScreen-count-count"></span>
+        </div>
     </div>
-</div>
-<live-preview-root></live-preview-root>
+</section>
+<!--====== Reviews Part Ends ======-->
+<!--====== Subscribe Part Start ======-->
+<section class="subscribe-section pt-70 pb-70 bg-primary-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 mx-auto">
+                <div class="heading text-center">
+                    <h1 class="heading-1 font-weight-700 text-white mb-10">You are using free lite version</h1>
+                    <p class="gray-3">Please, purchase full version of the template to get all pages, sections, features and permission to remove footer credits.</p>
+                    </br>
+                    <a href="https://rebrand.ly/estore-gg" rel="nofollow" target="_blank" class="main-btn secondary-1-btn">
+                        <img src="/assets/images/icon-svg/cart-7.svg" alt="">
+                        PURCHASE NOW
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== Subscribe Part Ends ======-->
+<!--====== Clients Logo Part Start ======-->
+<section class="clients-logo-section pt-70 pb-70">
+    <div class="container">
+        <div class="row client-logo-active">
+            <div class="col-lg-3">
+                <div class="single-logo-wrapper">
+                    <img src="/assets/images/client-logo/uideck-logo.svg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="single-logo-wrapper">
+                    <img src="/assets/images/client-logo/graygrids-logo.svg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="single-logo-wrapper">
+                    <img src="/assets/images/client-logo/lineicons-logo.svg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="single-logo-wrapper">
+                    <img src="/assets/images/client-logo/pagebulb-logo.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== Clients Logo Part Ends ======-->
+<!--====== Subscribe Part Start ======-->
+<section class="subscribe-section pt-70 pb-70 bg-primary-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="heading text-center">
+                    <h1 class="heading-1 font-weight-700 text-white mb-10">Subscribe Newsletter</h1>
+                    <p class="gray-3">
+                        Be the first to know when new products drop and get behind-the-scenes content
+                        straight.
+                    </p>
+                </div>
+                <div class="subscribe-form">
+                    <form action="#">
+                        <div class="single-form form-default">
+                            <label class="text-white-50">Enter your email address</label>
+                            <div class="form-input">
+                                <input type="text" placeholder="user@email.com">
+                                <i class="mdi mdi-account"></i>
+                                <button class="main-btn primary-btn"><span class="mdi mdi-send"></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== Subscribe Part Ends ======-->
