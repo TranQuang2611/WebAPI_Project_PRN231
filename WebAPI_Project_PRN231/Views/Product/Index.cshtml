@@ -8,12 +8,12 @@
                         <div class="breadcrumbs-style breadcrumbs-style-1 d-md-flex justify-content-between align-items-center">
                             <div class="breadcrumb-left">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Category</li>
+                                    <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Products</li>
                                 </ol>
                             </div>
                             <div class="breadcrumb-right">
-                                <h5 class="heading-5 font-weight-500">Category</h5>
+                                <h5 class="heading-5 font-weight-500">Products</h5>
                             </div>
                         </div>
                     </div>
@@ -28,6 +28,9 @@
                         <div class="filter-style-1 mt-0">
                             <div class="filter-title">
                                 <h4 class="title">Filter</h4>
+                            </div>
+                            <div class="filter-btn">
+                                <a class="main-btn" style="background-color:#17a2b8; color:white" href="javascript:void(0)">Filter</a>
                             </div>
                             <div class="filter-btn">
                                 <a class="main-btn primary-btn" href="javascript:void(0)">Reset</a>
@@ -58,30 +61,21 @@
                         <div class="filter-style-3">
                             <div class="filter-title">
                                 <a class="title" data-toggle="collapse" href="#type" role="button" aria-expanded="false">
-                                    Type
+                                    Categories
                                 </a>
                             </div>
                             <div class="collapse show" id="type">
                                 <div class="filter-type">
                                     <ul>
-                                        <li>
-                                            <div class="type-check">
-                                                <input type="checkbox" id="type-1">
-                                                <label for="type-1"><span></span> Standalone</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="type-check">
-                                                <input type="checkbox" id="type-2">
-                                                <label for="type-2"><span></span> Mobile</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="type-check">
-                                                <input type="checkbox" id="type-3">
-                                                <label for="type-3"><span></span> Tethered</label>
-                                            </div>
-                                        </li>
+                                        @for (int i = 0; i < 3; i++)
+                                        {
+                                            <li>
+                                                <div class="type-check">
+                                                    <input type="checkbox" id="type-1">
+                                                    <label for="type-1"><span></span> Standalone</label>
+                                                </div>
+                                            </li>
+                                        }
                                     </ul>
                                 </div>
                             </div>
@@ -89,18 +83,17 @@
                         <div class="filter-style-4">
                             <div class="filter-title">
                                 <a class="title" data-toggle="collapse" href="#size" role="button" aria-expanded="false">
-                                    Select Size
+                                    RAM
                                 </a>
                             </div>
                             <div class="collapse show" id="size">
                                 <div class="filter-size">
                                     <ul>
-                                        <li>XS</li>
-                                        <li>S</li>
-                                        <li class="active">M</li>
-                                        <li>LG</li>
-                                        <li>XL</li>
-                                        <li>XXL</li>
+                                        <li>1GB</li>
+                                        <li>2GB</li>
+                                        <li class="active">4GB</li>
+                                        <li>8GB</li>
+                                        <li>12GB</li>
                                     </ul>
                                 </div>
                             </div>
@@ -182,7 +175,7 @@
                                                                 <div class="slick-list draggable">
                                                                     <div class="slick-track" style="opacity: 1; width: 480px; transform: translate3d(0px, 0px, 0px);">
                                                                         <div class="product-item active slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 240px;">
-                                                                            <img src="/assets/images/product-1/product-12.jpg" />
+                                                                            <img src="/assets/images/product-1/oppo1.jpg" />
                                                                         </div>
                                                                     </div>
 
@@ -227,7 +220,7 @@
                                                                 <div class="slick-list draggable">
                                                                     <div class="slick-track" style="opacity: 1; width: 806px; transform: translate3d(0px, 0px, 0px);">
                                                                         <div class="product-item active slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 403px;">
-                                                                            <img src="/assets/images/product-1/product-12.jpg">
+                                                                            <img src="/assets/images/product-1/oppo1.jpg">
                                                                         </div>
                                                                     </div>
                                                                 </div>
