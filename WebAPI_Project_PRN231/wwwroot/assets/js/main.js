@@ -791,7 +791,7 @@ $(function() {
         range: true,
         min: 0,
         max: 2000,
-        values: [ 300, 1200 ],
+        values: [$("#minAmount").val(), $("#maxAmount").val() ],
         slide: function( event, ui ) {
             $( "#minAmount" ).val( "$" + ui.values[ 0 ] );
             $( "#maxAmount" ).val( "$" + ui.values[ 1 ] );

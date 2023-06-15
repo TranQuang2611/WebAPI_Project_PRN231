@@ -1,6 +1,5 @@
-
-
-
+drop database ReviewStore
+create database ReviewStore
 
 CREATE TABLE Users (
     UserID INT PRIMARY KEY identity(1,1),
@@ -10,17 +9,17 @@ CREATE TABLE Users (
 
 Create TABLE Category(
 	CategoryID int primary key identity(1,1),
-	CategoryName nvarchar
+	CategoryName nvarchar(100)
 )
 
 Create TABLE Brand(
 	BrandID int primary key identity(1,1),
-	BrandName nvarchar
+	BrandName nvarchar(100)
 )
 
 Create TABLE Color(
 	ColorID int primary key identity(1,1),
-	ColorName nvarchar
+	ColorName nvarchar(100)
 )
 
 Create TABLE Size(

@@ -1,4 +1,7 @@
-﻿
+﻿@{
+    Layout = "_Layout";
+}
+
 <div b-k77jb5jgnz="" class="container">
     <main b-k77jb5jgnz="" role="main" class="pb-3">
         <section class="breadcrumbs-wrapper pt-50 pb-50 bg-primary-4">
@@ -25,121 +28,126 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="filter-style-1 mt-0">
-                            <div class="filter-title">
-                                <h4 class="title">Filter</h4>
-                            </div>
-                            <div class="filter-btn">
-                                <a class="main-btn" style="background-color:#17a2b8; color:white" href="javascript:void(0)">Filter</a>
-                            </div>
-                            <div class="filter-btn">
-                                <a class="main-btn primary-btn" href="javascript:void(0)">Reset</a>
-                            </div>
-                        </div>
-                        <div class="filter-style-2">
-                            <div class="filter-title">
-                                <a class="title" data-toggle="collapse" href="#pricingOne" role="button" aria-expanded="false">
-                                    Pricing Range
-                                </a>
-                            </div>
-                            <div class="collapse show" id="pricingOne">
-                                <div class="price-range">
-                                    <div class="price-amount">
-                                        <div class="amount-input">
-                                            <label>Minimum Price</label>
-                                            <input type="text" id="minAmount">
-                                        </div>
-                                        <div class="amount-input">
-                                            <label>Maximum Price</label>
-                                            <input type="text" id="maxAmount">
-                                        </div>
-                                    </div>
-                                    <div id="slider-range" class="slider-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 15%; width: 45%;"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 15%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 60%;"></span></div>
+                        <form id="searchForm" action="/Product/Index" method="get">
+                            <div class="filter-style-1 mt-0">
+                                <div class="filter-title">
+                                    <h4 class="title">Filter</h4>
+                                </div>
+                                <div class="filter-btn">
+                                    <a class="main-btn" style="background-color:#17a2b8; color:white" href="javascript:void(0)" onclick="searchForm()">Filter</a>
+                                </div>
+                                <div class="filter-btn">
+                                    <a class="main-btn primary-btn" href="javascript:void(0)" onclick="resetFormSearch()">Reset</a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="filter-style-3">
-                            <div class="filter-title">
-                                <a class="title" data-toggle="collapse" href="#type" role="button" aria-expanded="false">
-                                    Categories
-                                </a>
+                            <div class="filter-style-2">
+                                <div class="filter-title">
+                                    <a class="title" data-toggle="collapse" href="#pricingOne" role="button" aria-expanded="false">
+                                        Pricing Range
+                                    </a>
+                                </div>
+                                <div class="collapse show" id="pricingOne">
+                                    <div class="price-range">
+                                        <div class="price-amount">
+                                            <div class="amount-input">
+                                                <label>Minimum Price</label>
+                                                <input name="minPrice" type="text" id="minAmount" value="10">
+                                            </div>
+                                            <div class="amount-input">
+                                                <label>Maximum Price</label>
+                                                <input name="maxPrice" type="text" id="maxAmount" value="1000">
+                                            </div>
+                                        </div>
+                                        <div id="slider-range" class="slider-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 15%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 60%;"></span></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="collapse show" id="type">
-                                <div class="filter-type">
-                                    <ul>
-                                        @for (int i = 0; i < 3; i++)
-                                        {
-                                            <li>
-                                                <div class="type-check">
-                                                    <input type="checkbox" id="type-1">
-                                                    <label for="type-1"><span></span> Standalone</label>
+                            <div class="filter-style-3">
+                                <div class="filter-title">
+                                    <a class="title" data-toggle="collapse" href="#type" role="button" aria-expanded="false">
+                                        Categories
+                                    </a>
+                                </div>
+                                <div class="collapse show" id="type">
+                                    <div class="filter-type">
+                                        <ul>
+                                            @for (int i = 1; i <= 3; i++)
+                                            {
+                                                <li class="typeproduct">
+                                                    <div class="type-check">
+                                                        <input name="catId" type="checkbox" id="type-@i" value="@i">
+                                                        <label for="type-@i"><span></span> Standalone</label>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="filter-style-4">
+                                <div class="filter-title">
+                                    <a class="title" data-toggle="collapse" href="#size" role="button" aria-expanded="false">
+                                        RAM
+                                    </a>
+                                </div>
+                                <div class="collapse show" id="size">
+                                    <div class="filter-size">
+                                        <ul>
+                                            @for (int i = 1; i < 5; i++)
+                                            {
+                                                <li class="sizeproduct" size-value="@i">
+                                                    @(i+"GB")
+                                                </li>
+                                            }
+                                            <input name="sizeSearch" id="sizeSearch" type="hidden" />
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="filter-style-7">
+                                <div class="filter-title">
+                                    <a class="title" data-toggle="collapse" href="#color" role="button" aria-expanded="false">
+                                        Select Size
+                                    </a>
+                                </div>
+                                <div class="collapse show" id="color">
+                                    <div class="filter-color">
+                                        <ul>
+                                            <li class="colorproduct">
+                                                <div class="color-check">
+                                                    <p><span style="background-color: #00C2FE;"></span> <strong>Blue</strong></p>
+                                                    <input name="colorSearch" type="checkbox" id="color-1" value="1">
+                                                    <label for="color-1"><span></span></label>
                                                 </div>
                                             </li>
-                                        }
-                                    </ul>
+                                            <li class="colorproduct">
+                                                <div class="color-check">
+                                                    <p><span style="background-color: #E14C7B;"></span> <strong>Red</strong></p>
+                                                    <input name="colorSearch" type="checkbox" id="color-2" value="2">
+                                                    <label for="color-2"><span></span></label>
+                                                </div>
+                                            </li>
+                                            <li class="colorproduct">
+                                                <div class="color-check">
+                                                    <p><span style="background-color: #7CB637;"></span> <strong>Green</strong></p>
+                                                    <input name="colorSearch" type="checkbox" id="color-3" value="3">
+                                                    <label for="color-3"><span></span></label>
+                                                </div>
+                                            </li>
+                                            <li class="colorproduct">
+                                                <div class="color-check">
+                                                    <p><span style="background-color: #161359;"></span> <strong>Dark</strong></p>
+                                                    <input name="colorSearch" type="checkbox" id="color-4" value="4">
+                                                    <label for="color-4"><span></span></label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="filter-style-4">
-                            <div class="filter-title">
-                                <a class="title" data-toggle="collapse" href="#size" role="button" aria-expanded="false">
-                                    RAM
-                                </a>
-                            </div>
-                            <div class="collapse show" id="size">
-                                <div class="filter-size">
-                                    <ul>
-                                        <li>1GB</li>
-                                        <li>2GB</li>
-                                        <li class="active">4GB</li>
-                                        <li>8GB</li>
-                                        <li>12GB</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="filter-style-7">
-                            <div class="filter-title">
-                                <a class="title" data-toggle="collapse" href="#color" role="button" aria-expanded="false">
-                                    Select Size
-                                </a>
-                            </div>
-                            <div class="collapse show" id="color">
-                                <div class="filter-color">
-                                    <ul>
-                                        <li>
-                                            <div class="color-check">
-                                                <p><span style="background-color: #00C2FE;"></span> <strong>Blue</strong></p>
-                                                <input type="checkbox" id="color-1">
-                                                <label for="color-1"><span></span></label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="color-check">
-                                                <p><span style="background-color: #E14C7B;"></span> <strong>Red</strong></p>
-                                                <input type="checkbox" id="color-2">
-                                                <label for="color-2"><span></span></label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="color-check">
-                                                <p><span style="background-color: #7CB637;"></span> <strong>Green</strong></p>
-                                                <input type="checkbox" id="color-3">
-                                                <label for="color-3"><span></span></label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="color-check">
-                                                <p><span style="background-color: #161359;"></span> <strong>Dark</strong></p>
-                                                <input type="checkbox" id="color-4">
-                                                <label for="color-4"><span></span></label>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
+                    
                     <div class="col-lg-8">
                         <div class="row">
                             <div class="col-lg-12">
@@ -198,7 +206,7 @@
                                                                 <p>Reference 1102</p>
                                                                 <span class="price">$ 399</span>
                                                                 <a href="javascript:void(0)" class="main-btn primary-btn">
-                                                                    <img src="/assets/images/icon-svg/cart-4.svg" alt="" data-pagespeed-url-hash="1615722757" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                                                                    <img src="/assets/images/icon-svg/cart-4.svg" alt="">
                                                                     Add to Cart
                                                                 </a>
                                                             </div>
@@ -235,7 +243,7 @@
                                                             <h4 class="title"><a href="product-details-page.html">Metro 38 Date</a></h4>
                                                             <p>Reference 1102</p>
                                                             <a href="javascript:void(0)" class="main-btn secondary-1-btn">
-                                                                <img data-pagespeed-lazy-src="/assets/images/icon-svg/cart-7.svg" alt="" data-pagespeed-url-hash="2499222520" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+                                                                <img data-pagespeed-lazy-src="/assets/images/icon-svg/cart-7.svg" alt="" src="/pagespeed_static/1.JiBnMqyl6S.gif">
                                                                 $ 399
                                                             </a>
                                                         </div>
@@ -285,19 +293,19 @@
                         <div class="slick-track" style="opacity: 1; width: 1256px; transform: translate3d(0px, 0px, 0px);">
                             <div class="col-lg-3 slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 314px;">
                                 <div class="single-logo-wrapper">
-                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/uideck-logo.svg" alt="" data-pagespeed-url-hash="4261711840" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/uideck-logo.svg" alt="" src="/pagespeed_static/1.JiBnMqyl6S.gif" >
                                 </div>
                             </div><div class="col-lg-3 slick-slide slick-active" data-slick-index="1" aria-hidden="false" tabindex="0" style="width: 314px;">
                                 <div class="single-logo-wrapper">
-                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/graygrids-logo.svg" alt="" data-pagespeed-url-hash="266707489" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/graygrids-logo.svg" alt="" src="/pagespeed_static/1.JiBnMqyl6S.gif" >
                                 </div>
                             </div><div class="col-lg-3 slick-slide slick-active" data-slick-index="2" aria-hidden="false" tabindex="0" style="width: 314px;">
                                 <div class="single-logo-wrapper">
-                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/lineicons-logo.svg" alt="" data-pagespeed-url-hash="2372294821" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/lineicons-logo.svg" alt="" src="/pagespeed_static/1.JiBnMqyl6S.gif" >
                                 </div>
                             </div><div class="col-lg-3 slick-slide slick-active" data-slick-index="3" aria-hidden="false" tabindex="0" style="width: 314px;">
                                 <div class="single-logo-wrapper">
-                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/pagebulb-logo.svg" alt="" data-pagespeed-url-hash="282558957" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/pagebulb-logo.svg" alt="" src="/pagespeed_static/1.JiBnMqyl6S.gif" >
                                 </div>
                             </div>
                         </div>
@@ -376,4 +384,54 @@
         <span id="ubey-RecordingScreen-count-count"></span>
     </div>
 </div>
-<live-preview-root></live-preview-root>
+
+<script>
+    function resetFormSearch(){
+       
+    }
+
+    function searchForm(){
+        $(".typeproduct").each(function(){
+            var isChecked = $(this).find('input[name=catId]').is(":checked");
+            if (!isChecked){
+                $(this).find('input[name=catId]').val("");
+            }else{
+                var typeValue = $(this).find('input[name=catId]').val();
+                console.log(typeValue);
+            }
+        })
+
+        $(".colorproduct").each(function () {
+            var isChecked = $(this).find('input[name=colorSearch]').is(":checked");
+            if (!isChecked) {
+                $(this).find('input[name=colorSearch]').val("");
+            } else {
+                var typeValue = $(this).find('input[name=colorSearch]').val();
+                console.log(typeValue);
+            }
+        })
+
+        //$(".sizeproduct").each(function () {
+        //    var isActive = $(this).hasClass("active");
+        //    if (!isActive) {
+        //        $(this).find('input[name=sizeSearch]').val("");
+        //    } else {
+        //        var typeValue = $(this).find('input[name=sizeSearch]').val();
+        //        console.log(typeValue);
+        //    }
+        //})
+        var minA = $("#minAmount").val().replace("$","");
+        var maxA = $("#maxAmount").val().replace("$", "");
+        $("#minAmount").val(minA)
+        $("#maxAmount").val(maxA)
+        $(".sizeproduct").each(function () {
+            var isActive = $(this).hasClass("active");
+            if (isActive) {
+                console.log($(this).attr('size-value'));
+                $("#sizeSearch").val($(this).attr('size-value'));
+            }
+        })
+        //$("#searchForm").submit();
+    }
+
+</script>
