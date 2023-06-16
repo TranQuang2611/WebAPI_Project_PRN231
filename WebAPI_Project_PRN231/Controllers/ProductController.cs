@@ -10,7 +10,16 @@ namespace WebAPI_Project_PRN231.Controllers
         public async Task<IActionResult> Index(SearchForm modelSearch)
         {
             List<ColorDTO> colors = await new CallApi().GetAllColors();
-            return View("Index");
+            List<RamDTO> rams = await new CallApi().GetAllRams();
+            List<CategoryDTO> categories = await new CallApi().GetAllCategory();
+            List<SizeDTO> sizes = await new CallApi().GetAllSizes();
+            List<ProductDTO> products = await new CallApi().SearchProduct(modelSearch);
+            ViewBag.listColor = colors;
+            ViewBag.listRam = rams;
+            ViewBag.Size = sizes;
+            ViewBag.listCategory = categories;
+            ViewBag.modelSearch = modelSearch;
+            return View("Index", products);
         }
 
         public IActionResult Detail()

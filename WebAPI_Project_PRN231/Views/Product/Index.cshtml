@@ -1,7 +1,14 @@
-﻿@{
+﻿@using WebAPI_Project_PRN231.DTO;
+@{
     Layout = "_Layout";
+    List<ColorDTO> listColor = (List<ColorDTO>)ViewBag.listColor;
+    List<RamDTO> listRam = (List<RamDTO>)ViewBag.listRam;
+    List<SizeDTO> listSize = (List<SizeDTO>)ViewBag.Size;
+    List<CategoryDTO> listCategory = (List<CategoryDTO>)ViewBag.listCategory;
+    SearchForm searchForm = (SearchForm)ViewBag.modelSearch;
+    int i = 0;
 }
-
+@model List<ProductDTO>
 <div b-k77jb5jgnz="" class="container">
     <main b-k77jb5jgnz="" role="main" class="pb-3">
         <section class="breadcrumbs-wrapper pt-50 pb-50 bg-primary-4">
@@ -71,12 +78,34 @@
                                 <div class="collapse show" id="type">
                                     <div class="filter-type">
                                         <ul>
-                                            @for (int i = 1; i <= 3; i++)
+                                            @for (int v = 0; v <= listCategory.Count() - 1; v++)
                                             {
                                                 <li class="typeproduct">
                                                     <div class="type-check">
-                                                        <input name="catId" type="checkbox" id="type-@i" value="@i">
-                                                        <label for="type-@i"><span></span> Standalone</label>
+                                                        <input name="catId" type="checkbox" id="type-@v" value="@(listCategory[v].CategoryId)">
+                                                        <label for="type-@v"><span></span> @listCategory[v].CategoryName</label>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="filter-style-3">
+                                <div class="filter-title">
+                                    <a class="title" data-toggle="collapse" href="#type" role="button" aria-expanded="false">
+                                        Categories
+                                    </a>
+                                </div>
+                                <div class="collapse show" id="type">
+                                    <div class="filter-type">
+                                        <ul>
+                                            @for (int v = 0; v <= listCategory.Count() -1; v++)
+                                            {
+                                                <li class="typeproduct">
+                                                    <div class="type-check">
+                                                        <input name="catId" type="checkbox" id="type-@v" value="@(listCategory[v].CategoryId)">
+                                                        <label for="type-@v"><span></span> @listCategory[v].CategoryName</label>
                                                     </div>
                                                 </li>
                                             }
@@ -93,54 +122,58 @@
                                 <div class="collapse show" id="size">
                                     <div class="filter-size">
                                         <ul>
-                                            @for (int i = 1; i < 5; i++)
+                                            @for (int h = 0; h < listRam.Count(); h++)
                                             {
-                                                <li class="sizeproduct" size-value="@i">
-                                                    @(i+"GB")
+                                                <li class="ramproduct" size-value="@listRam[h].RamId">
+                                                    @(listRam[h].RamSize+"GB")
                                                 </li>
                                             }
-                                            <input name="sizeSearch" id="sizeSearch" type="hidden" />
+                                            <input name="ramSearch" id="ramSearch" type="hidden" />
                                         </ul>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="filter-style-4">
+                                <div class="filter-title">
+                                    <a class="title" data-toggle="collapse" href="#size" role="button" aria-expanded="false">
+                                        Size
+                                    </a>
+                                </div>
+                                <div class="collapse show" id="size">
+                                    <div class="filter-size">
+                                        <ul>
+                                            @for (int z = 0; z < listSize.Count(); z++)
+                                            {
+                                                <li class="ramproduct" size-value="@listSize[z].SizeId">
+                                                    @(listSize[z].Size1 + " inch")
+                                                </li>
+                                            }
+                                            <input name="ramSearch" id="ramSearch" type="hidden" />
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="filter-style-7">
                                 <div class="filter-title">
                                     <a class="title" data-toggle="collapse" href="#color" role="button" aria-expanded="false">
-                                        Select Size
+                                        Color
                                     </a>
                                 </div>
                                 <div class="collapse show" id="color">
                                     <div class="filter-color">
                                         <ul>
-                                            <li class="colorproduct">
-                                                <div class="color-check">
-                                                    <p><span style="background-color: #00C2FE;"></span> <strong>Blue</strong></p>
-                                                    <input name="colorSearch" type="checkbox" id="color-1" value="1">
-                                                    <label for="color-1"><span></span></label>
-                                                </div>
-                                            </li>
-                                            <li class="colorproduct">
-                                                <div class="color-check">
-                                                    <p><span style="background-color: #E14C7B;"></span> <strong>Red</strong></p>
-                                                    <input name="colorSearch" type="checkbox" id="color-2" value="2">
-                                                    <label for="color-2"><span></span></label>
-                                                </div>
-                                            </li>
-                                            <li class="colorproduct">
-                                                <div class="color-check">
-                                                    <p><span style="background-color: #7CB637;"></span> <strong>Green</strong></p>
-                                                    <input name="colorSearch" type="checkbox" id="color-3" value="3">
-                                                    <label for="color-3"><span></span></label>
-                                                </div>
-                                            </li>
-                                            <li class="colorproduct">
-                                                <div class="color-check">
-                                                    <p><span style="background-color: #161359;"></span> <strong>Dark</strong></p>
-                                                    <input name="colorSearch" type="checkbox" id="color-4" value="4">
-                                                    <label for="color-4"><span></span></label>
-                                                </div>
-                                            </li>
+                                            @for (int c = 0; c < listColor.Count(); c++)
+                                            {
+                                                <li class="colorproduct">
+                                                    <div class="color-check">
+                                                        <p><span style="background-color: @listColor[c].ColorValue;"></span> <strong>Blue</strong></p>
+                                                        <input name="colorSearch" type="checkbox" id="color-@c" value="@listColor[c].ColorId">
+                                                        <label for="color-@c"><span></span></label>
+                                                    </div>
+                                                </li>
+                                            }
                                         </ul>
                                     </div>
                                 </div>
@@ -173,7 +206,7 @@
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
-                                            @for (int i = 0; i < 3; i++)
+                                            @for (int n = 0; n < 3; n++)
                                             {
                                                 <div class="col-lg-12 d-flex justify-content-center">
                                                     <div class="product-style-7 mt-30">
@@ -218,7 +251,7 @@
                                     </div>
                                     <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="row">
-                                            @for (int i = 0; i < 6; i++)
+                                            @for (int k = 0; k < 6; k++)
                                             {
                                                 <div class="col-lg-6 col-sm-6">
                                                     <div class="product-style-1 mt-30">
@@ -411,12 +444,12 @@
             }
         })
 
-        //$(".sizeproduct").each(function () {
+        //$(".ramproduct").each(function () {
         //    var isActive = $(this).hasClass("active");
         //    if (!isActive) {
-        //        $(this).find('input[name=sizeSearch]').val("");
+        //        $(this).find('input[name=ramSearch]').val("");
         //    } else {
-        //        var typeValue = $(this).find('input[name=sizeSearch]').val();
+        //        var typeValue = $(this).find('input[name=ramSearch]').val();
         //        console.log(typeValue);
         //    }
         //})
@@ -424,11 +457,11 @@
         var maxA = $("#maxAmount").val().replace("$", "");
         $("#minAmount").val(minA)
         $("#maxAmount").val(maxA)
-        $(".sizeproduct").each(function () {
+        $(".ramproduct").each(function () {
             var isActive = $(this).hasClass("active");
             if (isActive) {
                 console.log($(this).attr('size-value'));
-                $("#sizeSearch").val($(this).attr('size-value'));
+                $("#ramSearch").val($(this).attr('size-value'));
             }
         })
         $("#searchForm").submit();

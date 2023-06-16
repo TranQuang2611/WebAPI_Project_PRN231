@@ -2,5 +2,7 @@
 {
     public class RamDTO
     {
+        public int RamId { get; set; }
+        public int? RamSize { get; set; }
     }
 }

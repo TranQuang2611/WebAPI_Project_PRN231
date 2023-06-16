@@ -2,11 +2,12 @@
 {
     public class SearchForm
     {
-        public List<int> catId { get; set; }
-        public List<int> colorSearch { get; set; }
+        public List<int?> catId { get; set; } = new List<int?>();
+        public List<int?> colorSearch { get; set; } = new List<int?>();
         //public List<int> sizeSearch { get; set; }
-        public int sizeSearch { get; set; }
-        public string minPrice { get; set; }
-        public string maxPrice { get; set; }
+        public int sizeSearch { get; set; } = 0;
+        public int ramSearch { get; set; } = 0;
+        public string minPrice { get; set; } = string.Empty;
+        public string maxPrice { get; set; } = string.Empty;
     }
 }
