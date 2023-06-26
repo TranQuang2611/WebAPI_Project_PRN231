@@ -775,7 +775,8 @@ $(function() {
     =============================================*/
 
 	$('.filter-size ul li').on("click", function() {
-		$(this).siblings(this).removeClass('active').end().addClass('active');
+		//$(this).siblings(this).removeClass('active').end().addClass('active');
+        $(this).toggleClass('active');
 	});
     
     /*=====  End of Product Size Active ======*/
@@ -791,7 +792,7 @@ $(function() {
         range: true,
         min: 0,
         max: 2000,
-        values: [ 300, 1200 ],
+        values: [$("#minAmount").val(), $("#maxAmount").val() ],
         slide: function( event, ui ) {
             $( "#minAmount" ).val( "$" + ui.values[ 0 ] );
             $( "#maxAmount" ).val( "$" + ui.values[ 1 ] );

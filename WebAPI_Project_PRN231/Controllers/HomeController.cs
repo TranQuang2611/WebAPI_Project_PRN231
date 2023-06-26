@@ -1,21 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Net.Http;
+using WebAPI_Project_PRN231.Api;
+using WebAPI_Project_PRN231.DTO;
 using WebAPI_Project_PRN231.Models;
 
 namespace WebAPI_Project_PRN231.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> _logger;       
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View("Index");
+            var listProd = await new CallApi().GetNewestProduct<ProductDTO>();
+            return View("Index", listProd);
         }
 
         public IActionResult Privacy()
@@ -28,5 +34,6 @@ namespace WebAPI_Project_PRN231.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        
     }
 }

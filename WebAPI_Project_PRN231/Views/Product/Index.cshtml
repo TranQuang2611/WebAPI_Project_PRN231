@@ -1,4 +1,15 @@
-﻿
+﻿@using WebAPI_Project_PRN231.DTO;
+@{
+    Layout = "_Layout";
+    List<ColorDTO> listColor = (List<ColorDTO>)ViewBag.listColor;
+    List<RamDTO> listRam = (List<RamDTO>)ViewBag.listRam;
+    List<SizeDTO> listSize = (List<SizeDTO>)ViewBag.Size;
+    List<CategoryDTO> listCategory = (List<CategoryDTO>)ViewBag.listCategory;
+    List<BrandDTO> listBrand = (List<BrandDTO>)ViewBag.listBrand;
+    SearchForm searchForm = (SearchForm)ViewBag.modelSearch;
+    int i = 0;
+}
+@model List<ProductDTO>
 <div b-k77jb5jgnz="" class="container">
     <main b-k77jb5jgnz="" role="main" class="pb-3">
         <section class="breadcrumbs-wrapper pt-50 pb-50 bg-primary-4">
@@ -25,121 +36,153 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="filter-style-1 mt-0">
-                            <div class="filter-title">
-                                <h4 class="title">Filter</h4>
+                        <form id="searchForm" action="/Product/Index" method="get">
+                            <div class="filter-style-1 mt-0">
+                                <div class="filter-title">
+                                    <h4 class="title">Filter</h4>
+                                </div>
+                                <div class="filter-btn">
+                                    <a class="main-btn" style="background-color:#17a2b8; color:white" href="javascript:void(0)" onclick="searchForm()">Filter</a>
+                                </div>
+                                <div class="filter-btn">
+                                    <a class="main-btn primary-btn" href="javascript:void(0)" onclick="resetFormSearch()">Reset</a>
+                                </div>
                             </div>
-                            <div class="filter-btn">
-                                <a class="main-btn" style="background-color:#17a2b8; color:white" href="javascript:void(0)">Filter</a>
-                            </div>
-                            <div class="filter-btn">
-                                <a class="main-btn primary-btn" href="javascript:void(0)">Reset</a>
-                            </div>
-                        </div>
-                        <div class="filter-style-2">
-                            <div class="filter-title">
-                                <a class="title" data-toggle="collapse" href="#pricingOne" role="button" aria-expanded="false">
-                                    Pricing Range
-                                </a>
-                            </div>
-                            <div class="collapse show" id="pricingOne">
-                                <div class="price-range">
-                                    <div class="price-amount">
-                                        <div class="amount-input">
-                                            <label>Minimum Price</label>
-                                            <input type="text" id="minAmount">
+                            <div class="filter-style-2">
+                                <div class="filter-title">
+                                    <a class="title" data-toggle="collapse" href="#pricingOne" role="button" aria-expanded="false">
+                                        Pricing Range
+                                    </a>
+                                </div>
+                                <div class="collapse show" id="pricingOne">
+                                    <div class="price-range">
+                                        <div class="price-amount">
+                                            <div class="amount-input">
+                                                <label>Minimum Price</label>
+                                                <input name="minPrice" type="text" id="minAmount" value="0" readonly>
+                                            </div>
+                                            <div class="amount-input">
+                                                <label>Maximum Price</label>
+                                                <input name="maxPrice" type="text" id="maxAmount" value="2000" readonly>
+                                            </div>
                                         </div>
-                                        <div class="amount-input">
-                                            <label>Maximum Price</label>
-                                            <input type="text" id="maxAmount">
-                                        </div>
+                                        <div id="slider-range" class="slider-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 15%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 60%;"></span></div>
                                     </div>
-                                    <div id="slider-range" class="slider-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 15%; width: 45%;"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 15%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 60%;"></span></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="filter-style-3">
-                            <div class="filter-title">
-                                <a class="title" data-toggle="collapse" href="#type" role="button" aria-expanded="false">
-                                    Categories
-                                </a>
-                            </div>
-                            <div class="collapse show" id="type">
-                                <div class="filter-type">
-                                    <ul>
-                                        @for (int i = 0; i < 3; i++)
-                                        {
-                                            <li>
-                                                <div class="type-check">
-                                                    <input type="checkbox" id="type-1">
-                                                    <label for="type-1"><span></span> Standalone</label>
-                                                </div>
-                                            </li>
-                                        }
-                                    </ul>
+                            <div class="filter-style-3">
+                                <div class="filter-title">
+                                    <a class="title" data-toggle="collapse" href="#type" role="button" aria-expanded="false">
+                                        Categories
+                                    </a>
+                                </div>
+                                <div class="collapse show" id="type">
+                                    <div class="filter-type">
+                                        <ul>
+                                            @for (int v = 0; v <= listCategory.Count() - 1; v++)
+                                            {
+                                                <li class="typeproduct">
+                                                    <div class="type-check">
+                                                        <input name="catId" type="checkbox" id="type-@v" value="@(listCategory[v].CategoryId)">
+                                                        <label for="type-@v"><span></span> @listCategory[v].CategoryName</label>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="filter-style-4">
-                            <div class="filter-title">
-                                <a class="title" data-toggle="collapse" href="#size" role="button" aria-expanded="false">
-                                    RAM
-                                </a>
-                            </div>
-                            <div class="collapse show" id="size">
-                                <div class="filter-size">
-                                    <ul>
-                                        <li>1GB</li>
-                                        <li>2GB</li>
-                                        <li class="active">4GB</li>
-                                        <li>8GB</li>
-                                        <li>12GB</li>
-                                    </ul>
+                            <div class="filter-style-3">
+                                <div class="filter-title">
+                                    <a class="title" data-toggle="collapse" href="#brand" role="button" aria-expanded="false">
+                                        Brand
+                                    </a>
+                                </div>
+                                <div class="collapse show" id="brand">
+                                    <div class="filter-type">
+                                        <ul>
+                                            @for (int b = 0; b <= listBrand.Count() -1; b++)
+                                            {
+                                                <li class="brandproduct">
+                                                    <div class="brand-check">
+                                                        <input name="brandId" type="checkbox" id="brand-@b" value="@(listBrand[b].BrandId)">
+                                                        <label for="brand-@b"><span></span> @listBrand[b].BrandName</label>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="filter-style-7">
-                            <div class="filter-title">
-                                <a class="title" data-toggle="collapse" href="#color" role="button" aria-expanded="false">
-                                    Select Size
-                                </a>
-                            </div>
-                            <div class="collapse show" id="color">
-                                <div class="filter-color">
-                                    <ul>
-                                        <li>
-                                            <div class="color-check">
-                                                <p><span style="background-color: #00C2FE;"></span> <strong>Blue</strong></p>
-                                                <input type="checkbox" id="color-1">
-                                                <label for="color-1"><span></span></label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="color-check">
-                                                <p><span style="background-color: #E14C7B;"></span> <strong>Red</strong></p>
-                                                <input type="checkbox" id="color-2">
-                                                <label for="color-2"><span></span></label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="color-check">
-                                                <p><span style="background-color: #7CB637;"></span> <strong>Green</strong></p>
-                                                <input type="checkbox" id="color-3">
-                                                <label for="color-3"><span></span></label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="color-check">
-                                                <p><span style="background-color: #161359;"></span> <strong>Dark</strong></p>
-                                                <input type="checkbox" id="color-4">
-                                                <label for="color-4"><span></span></label>
-                                            </div>
-                                        </li>
-                                    </ul>
+                            <div class="filter-style-4">
+                                <div class="filter-title">
+                                    <a class="title" data-toggle="collapse" href="#size" role="button" aria-expanded="false">
+                                        RAM
+                                    </a>
+                                </div>
+                                <div class="collapse show" id="size">
+                                    <div class="filter-size">
+                                        <ul>
+                                            @for (int h = 0; h < listRam.Count(); h++)
+                                            {
+                                                <li class="ramproduct" ram-value="@listRam[h].RamId">
+                                                    @(listRam[h].RamSize+"GB")
+                                                    <input name="ramId" id="ramId" type="hidden" value="@listRam[h].RamId" />
+                                                </li>
+                                                
+                                            }
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
+                            <div class="filter-style-4">
+                                <div class="filter-title">
+                                    <a class="title" data-toggle="collapse" href="#size" role="button" aria-expanded="false">
+                                        Size
+                                    </a>
+                                </div>
+                                <div class="collapse show" id="size">
+                                    <div class="filter-size">
+                                        <ul>
+                                            @for (int z = 0; z < listSize.Count(); z++)
+                                            {
+                                                <li class="sizeproduct" size-value="@listSize[z].SizeId">
+                                                    @(listSize[z].Size1 + " inch")
+                                                    <input name="sizeId" id="sizeId" value="@listSize[z].SizeId" type="hidden" />
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filter-style-7">
+                                <div class="filter-title">
+                                    <a class="title" data-toggle="collapse" href="#color" role="button" aria-expanded="false">
+                                        Color
+                                    </a>
+                                </div>
+                                <div class="collapse show" id="color">
+                                    <div class="filter-color">
+                                        <ul>
+                                            @for (int c = 0; c < listColor.Count(); c++)
+                                            {
+                                                <li class="colorproduct">
+                                                    <div class="color-check">
+                                                        <p><span style="background-color: @listColor[c].ColorValue;"></span> <strong>Blue</strong></p>
+                                                        <input name="colorId" type="checkbox" id="color-@c" value="@listColor[c].ColorId">
+                                                        <label for="color-@c"><span></span></label>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
+                    
                     <div class="col-lg-8">
                         <div class="row">
                             <div class="col-lg-12">
@@ -165,7 +208,7 @@
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
-                                            @for (int i = 0; i < 3; i++)
+                                            @foreach (var item in Model)
                                             {
                                                 <div class="col-lg-12 d-flex justify-content-center">
                                                     <div class="product-style-7 mt-30">
@@ -175,7 +218,7 @@
                                                                 <div class="slick-list draggable">
                                                                     <div class="slick-track" style="opacity: 1; width: 480px; transform: translate3d(0px, 0px, 0px);">
                                                                         <div class="product-item active slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 240px;">
-                                                                            <img src="/assets/images/product-1/oppo1.jpg" />
+                                                                            <img src="@item.ProductImg" />
                                                                         </div>
                                                                     </div>
 
@@ -185,22 +228,12 @@
                                                             <div class="product-content">
                                                                 <ul class="product-meta">
                                                                     <li>
-                                                                        <a class="add-wishlist" href="javascript:void(0)">
-                                                                            <i class="mdi mdi-heart-outline"></i>
-                                                                            Add to Favorite
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <span><i class="mdi mdi-star"></i> 4.5/5</span>
+                                                                        <span><i class="mdi mdi-star"></i> @item.AverageStar/5</span>
                                                                     </li>
                                                                 </ul>
-                                                                <h4 class="title"><a href="product-details-page.html">Metro 38 Date</a></h4>
-                                                                <p>Reference 1102</p>
-                                                                <span class="price">$ 399</span>
-                                                                <a href="javascript:void(0)" class="main-btn primary-btn">
-                                                                    <img src="/assets/images/icon-svg/cart-4.svg" alt="" data-pagespeed-url-hash="1615722757" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
-                                                                    Add to Cart
-                                                                </a>
+                                                                <h4 class="title"><a href="/Product/Detail">@item.ProductName</a></h4>
+                                                                <p>Instock : @item.UnitInStock</p>
+                                                                <span class="price">$ @item.UnitSellPrice</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -210,7 +243,7 @@
                                     </div>
                                     <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="row">
-                                            @for (int i = 0; i < 6; i++)
+                                            @foreach (var item in Model)
                                             {
                                                 <div class="col-lg-6 col-sm-6">
                                                     <div class="product-style-1 mt-30">
@@ -220,7 +253,7 @@
                                                                 <div class="slick-list draggable">
                                                                     <div class="slick-track" style="opacity: 1; width: 806px; transform: translate3d(0px, 0px, 0px);">
                                                                         <div class="product-item active slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 403px;">
-                                                                            <img src="/assets/images/product-1/oppo1.jpg">
+                                                                            <img src="@item.ProductImg">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -232,11 +265,11 @@
                                                             </a>
                                                         </div>
                                                         <div class="product-content text-center">
-                                                            <h4 class="title"><a href="product-details-page.html">Metro 38 Date</a></h4>
-                                                            <p>Reference 1102</p>
+                                                            <h4 class="title"><a href="/Product/Detail">@item.ProductName</a></h4>
+                                                            <p>Instock : @item.UnitInStock</p>
                                                             <a href="javascript:void(0)" class="main-btn secondary-1-btn">
-                                                                <img data-pagespeed-lazy-src="/assets/images/icon-svg/cart-7.svg" alt="" data-pagespeed-url-hash="2499222520" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-                                                                $ 399
+                                                                <img data-pagespeed-lazy-src="/assets/images/icon-svg/cart-7.svg" alt="" src="/pagespeed_static/1.JiBnMqyl6S.gif">
+                                                                $ @item.UnitSellPrice
                                                             </a>
                                                         </div>
                                                     </div>
@@ -285,19 +318,19 @@
                         <div class="slick-track" style="opacity: 1; width: 1256px; transform: translate3d(0px, 0px, 0px);">
                             <div class="col-lg-3 slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 314px;">
                                 <div class="single-logo-wrapper">
-                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/uideck-logo.svg" alt="" data-pagespeed-url-hash="4261711840" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/uideck-logo.svg" alt="" src="/pagespeed_static/1.JiBnMqyl6S.gif" >
                                 </div>
                             </div><div class="col-lg-3 slick-slide slick-active" data-slick-index="1" aria-hidden="false" tabindex="0" style="width: 314px;">
                                 <div class="single-logo-wrapper">
-                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/graygrids-logo.svg" alt="" data-pagespeed-url-hash="266707489" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/graygrids-logo.svg" alt="" src="/pagespeed_static/1.JiBnMqyl6S.gif" >
                                 </div>
                             </div><div class="col-lg-3 slick-slide slick-active" data-slick-index="2" aria-hidden="false" tabindex="0" style="width: 314px;">
                                 <div class="single-logo-wrapper">
-                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/lineicons-logo.svg" alt="" data-pagespeed-url-hash="2372294821" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/lineicons-logo.svg" alt="" src="/pagespeed_static/1.JiBnMqyl6S.gif" >
                                 </div>
                             </div><div class="col-lg-3 slick-slide slick-active" data-slick-index="3" aria-hidden="false" tabindex="0" style="width: 314px;">
                                 <div class="single-logo-wrapper">
-                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/pagebulb-logo.svg" alt="" data-pagespeed-url-hash="282558957" src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+                                    <img data-pagespeed-lazy-src="/assets/images/client-logo/pagebulb-logo.svg" alt="" src="/pagespeed_static/1.JiBnMqyl6S.gif" >
                                 </div>
                             </div>
                         </div>
@@ -376,4 +409,74 @@
         <span id="ubey-RecordingScreen-count-count"></span>
     </div>
 </div>
-<live-preview-root></live-preview-root>
+
+<script>
+    function resetFormSearch(){
+        document.location.href = "/Product/Index";
+    }
+
+    function searchForm(){
+        //Get checked category
+        $(".typeproduct").each(function(){
+            var isChecked = $(this).find('input[name=catId]').is(":checked");
+            if (!isChecked){
+                $(this).find('input[name=catId]').val("");
+            }else{
+                var typeValue = $(this).find('input[name=catId]').val();
+                console.log("category - " + typeValue);
+            }
+        })
+
+        //Get checked color
+        $(".colorproduct").each(function () {
+            var isChecked = $(this).find('input[name=colorId]').is(":checked");
+            if (!isChecked) {
+                $(this).find('input[name=colorId]').val("");
+            } else {
+                var typeValue = $(this).find('input[name=colorId]').val();
+                console.log("color - " + typeValue);
+            }
+        })
+
+        //Get checked color
+        $(".brandproduct").each(function () {
+            var isChecked = $(this).find('input[name=brandId]').is(":checked");
+            if (!isChecked) {
+                $(this).find('input[name=brandId]').val("");
+            } else {
+                var typeValue = $(this).find('input[name=brandId]').val();
+                console.log("brand - " + typeValue);
+            }
+        })
+
+        //Get select ram
+        $(".ramproduct").each(function () {
+            var isActive = $(this).hasClass("active");
+            if(!isActive){
+                $(this).find('input[name=ramId]').val("");
+            }else{
+                var typeValue = $(this).find('input[name=ramId]').val();
+                console.log("ram - " + typeValue);
+            }
+        })
+
+        //Get select size
+        $(".sizeproduct").each(function () {
+            var isActive = $(this).hasClass("active");
+            if (!isActive) {
+                $(this).find('input[name=sizeId]').val("");
+            } else {
+                var typeValue = $(this).find('input[name=sizeId]').val();
+                console.log("size - " + typeValue);
+            }
+        })
+
+        var minA = $("#minAmount").val().replace("$","");
+        var maxA = $("#maxAmount").val().replace("$", "");
+        $("#minAmount").val(minA)
+        $("#maxAmount").val(maxA)
+
+        $("#searchForm").submit();
+    }
+
+</script>

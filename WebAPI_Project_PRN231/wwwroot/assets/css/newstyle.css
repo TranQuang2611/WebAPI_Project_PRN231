@@ -7460,67 +7460,70 @@ p {
             content: "\F0140"
         }
 
-    .filter-style-3 .filter-type {
-        padding-top: 4px
-    }
+.filter-style-3 .filter-type {
+padding-top: 4px
+}
 
-        .filter-style-3 .filter-type .type-check {
-            margin-top: 8px
-        }
 
-            .filter-style-3 .filter-type .type-check input[type=checkbox] {
-                display: none
-            }
+/* Style for category */
+.filter-style-3 .filter-type .type-check {
+margin-top: 8px
+}
 
-                .filter-style-3 .filter-type .type-check input[type=checkbox] + label span {
-                    width: 17px;
-                    height: 17px;
-                    border: 2px solid rgba(0,0,0,.64);
-                    border-radius: 4px;
-                    cursor: pointer;
-                    position: relative;
-                    display: inline-block;
-                    margin: 0 5px -3px 0;
-                    -webkit-transition: all .4s linear;
-                    transition: all .4s linear
-                }
+.filter-style-3 .filter-type .type-check input[type=checkbox] {
+display: none
+}
 
-                    .filter-style-3 .filter-type .type-check input[type=checkbox] + label span::before {
-                        position: absolute;
-                        content: '\F012C';
-                        font-family: material design icons;
-                        -webkit-font-smoothing: antialiased;
-                        -moz-osx-font-smoothing: grayscale;
-                        top: 0;
-                        left: -1px;
-                        width: 100%;
-                        height: 100%;
-                        -webkit-transition: all .4s linear;
-                        transition: all .4s linear;
-                        line-height: .8;
-                        font-size: 16px;
-                        color: #fff;
-                        opacity: 0;
-                        visibility: hidden
-                    }
+.filter-style-3 .filter-type .type-check input[type=checkbox] + label span {
+width: 17px;
+height: 17px;
+border: 2px solid rgba(0,0,0,.64);
+border-radius: 4px;
+cursor: pointer;
+position: relative;
+display: inline-block;
+margin: 0 5px -3px 0;
+-webkit-transition: all .4s linear;
+transition: all .4s linear
+}
 
-                .filter-style-3 .filter-type .type-check input[type=checkbox]:checked + label span {
-                    background-color: #542ded;
-                    border-color: #542ded
-                }
+.filter-style-3 .filter-type .type-check input[type=checkbox] + label span::before {
+position: absolute;
+content: '\F012C';
+font-family: material design icons;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+top: 0;
+left: -1px;
+width: 100%;
+height: 100%;
+-webkit-transition: all .4s linear;
+transition: all .4s linear;
+line-height: .8;
+font-size: 16px;
+color: #fff;
+opacity: 0;
+visibility: hidden
+}
 
-                    .filter-style-3 .filter-type .type-check input[type=checkbox]:checked + label span::before {
-                        opacity: 1;
-                        visibility: visible
-                    }
+.filter-style-3 .filter-type .type-check input[type=checkbox]:checked + label span {
+background-color: #542ded;
+border-color: #542ded
+}
 
-            .filter-style-3 .filter-type .type-check label {
-                font-weight: 500;
-                font-size: 16px;
-                line-height: 22px;
-                color: #000;
-                margin-bottom: 0
-            }
+.filter-style-3 .filter-type .type-check input[type=checkbox]:checked + label span::before {
+opacity: 1;
+visibility: visible
+}
+
+.filter-style-3 .filter-type .type-check label {
+font-weight: 500;
+font-size: 16px;
+line-height: 22px;
+color: #000;
+margin-bottom: 0
+}
+/* Style for category */
 
     .filter-style-3.filter-dark {
         background-color: #161359
@@ -7550,6 +7553,65 @@ p {
             .filter-style-3.filter-dark .filter-type .type-check label {
                 color: #fff
             }
+
+/* Style for brand */
+.filter-style-3 .filter-type .brand-check {
+margin-top: 8px
+}
+
+.filter-style-3 .filter-type .brand-check input[type=checkbox] {
+display: none
+}
+
+.filter-style-3 .filter-type .brand-check input[type=checkbox] + label span {
+width: 17px;
+height: 17px;
+border: 2px solid rgba(0,0,0,.64);
+border-radius: 4px;
+cursor: pointer;
+position: relative;
+display: inline-block;
+margin: 0 5px -3px 0;
+-webkit-transition: all .4s linear;
+transition: all .4s linear
+}
+.filter-style-3 .filter-type .brand-check input[type=checkbox] + label span::before {
+position: absolute;
+content: '\F012C';
+font-family: material design icons;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+top: 0;
+left: -1px;
+width: 100%;
+height: 100%;
+-webkit-transition: all .4s linear;
+transition: all .4s linear;
+line-height: .8;
+font-size: 16px;
+color: #fff;
+opacity: 0;
+visibility: hidden
+}
+
+.filter-style-3 .filter-type .brand-check input[type=checkbox]:checked + label span {
+background-color: #542ded;
+border-color: #542ded
+}
+
+.filter-style-3 .filter-type .brand-check input[type=checkbox]:checked + label span::before {
+opacity: 1;
+visibility: visible
+}
+.filter-style-3 .filter-type .brand-check label {
+font-weight: 500;
+font-size: 16px;
+line-height: 22px;
+color: #000;
+margin-bottom: 0
+}
+/*End tyle for brand */
+
 
 .filter-style-4 {
     padding: 16px;
