@@ -15,11 +15,11 @@ VALUES ('Apple'),
 ('Oppo'),
 ('Asus');
 
-INSERT INTO Color (ColorName)
-VALUES ('Black'),
-('White'),
-('Blue'),
-('Red');
+INSERT INTO Color (ColorName, ColorValue)
+VALUES ('Black','#000000'),
+('White','#F8F8FF'),
+('Blue','#0000FF'),
+('Red','#FF0000');
 
 INSERT INTO Size (Size)
 VALUES (13),
@@ -36,7 +36,7 @@ VALUES (2),
 (10),
 (12)
 
-/assets/images/Laptop/asus1.jpg
+--/assets/images/Laptop/asus1.jpg
 
 INSERT INTO 
 Products (ProductName, ProductImg, RamID, BrandID, UnitPrice, ColorID, SizeID, UnitSellPrice, UnitInStock, [Description], CategoryID)

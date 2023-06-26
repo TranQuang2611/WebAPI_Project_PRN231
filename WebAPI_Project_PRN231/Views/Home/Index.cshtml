@@ -1,6 +1,7 @@
 @using WebAPI_Project_PRN231.DTO;
 @{
     Layout = "_Layout";
+    List<ProductDTO> listFeature = (List<ProductDTO>)ViewBag.listFeatureProd;
 }
 
 @model List<ProductDTO>
@@ -120,15 +121,11 @@
                                 <img src="/assets/images/product-1/product-2.jpg" alt="product">
                             </div>
                         </div>
-                        <a class="add-wishlist" href="javascript:void(0)">
-                            <i class="mdi mdi-heart-outline"></i>
-                        </a>
                     </div>
                     <div class="product-content text-center">
                         <h4 class="title"><a href="product-details-page.html">@item.ProductName</a></h4>
-                        <p>Reference 1102</p>
+                        <p>@item.Size.Size1 inch - @item.Ram.RamSize GB - @item.Color.ColorName</p>
                         <a href="javascript:void(0)" class="main-btn secondary-1-btn">
-                            <img src="/assets/images/icon-svg/cart-7.svg" alt="">
                             $ 399
                         </a>
                     </div>
@@ -146,34 +143,31 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="mb-50">
-                    <h1 class="heading-1 font-weight-700">Featured Product</h1>
+                    <h1 class="heading-1 font-weight-700">Featured Product</h1><h3>(Highest Rating)</h3>
                 </div>
             </div>
         </div>
         <div class="row">
-        @for (int i = 0; i < 6; i++)
+        @foreach (var item in listFeature)
         {
             <div class="col-lg-6">
                 <div class="product-style-7 mt-30">
                     <div class="product-image">
                         <div class="product-active">
                             <div class="product-item active">
-                                <img src="/assets/images/product-4/product-1.jpg" alt="product">
-                            </div>
-                            <div class="product-item">
-                                <img src="/assets/images/product-4/product-2.jpg" alt="product">
+                                <img src="@item.ProductImg" alt="product">
                             </div>
                         </div>
                     </div>
                     <div class="product-content">
                         <ul class="product-meta">
                             <li>
-                                <span><i class="mdi mdi-star"></i> 4.5/5</span>
+                                <span><i class="mdi mdi-star"></i> @item.AverageStar/5</span>
                             </li>
                         </ul>
-                        <h4 class="title"><a href="product-details-page.html">Metro 38 Date</a></h4>
-                        <p>Reference 1102</p>
-                        <span class="price">$ 399</span>
+                            <h4 class="title"><a href="product-details-page.html">@item.ProductName</a></h4>
+                        <p>@item.Size.Size1 inch - @item.Ram.RamSize GB - @item.Color.ColorName</p>
+                        <span class="price">$ @item.UnitSellPrice</span>
                         <a href="javascript:void(0)" class="main-btn primary-btn">
                            View detail
                         </a>

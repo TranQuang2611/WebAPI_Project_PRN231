@@ -21,6 +21,8 @@ namespace WebAPI_Project_PRN231.Controllers
         public async Task<IActionResult> Index()
         {
             var listProd = await new CallApi().GetNewestProduct<ProductDTO>();
+            var listFeatureProd = await new CallApi().GetFeatureProd<ProductDTO>();
+            ViewBag.listFeatureProd = listFeatureProd;
             return View("Index", listProd);
         }
 
