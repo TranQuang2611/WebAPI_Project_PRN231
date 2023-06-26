@@ -5,6 +5,7 @@
     List<RamDTO> listRam = (List<RamDTO>)ViewBag.listRam;
     List<SizeDTO> listSize = (List<SizeDTO>)ViewBag.Size;
     List<CategoryDTO> listCategory = (List<CategoryDTO>)ViewBag.listCategory;
+    List<BrandDTO> listBrand = (List<BrandDTO>)ViewBag.listBrand;
     SearchForm searchForm = (SearchForm)ViewBag.modelSearch;
     int i = 0;
 }
@@ -58,11 +59,11 @@
                                         <div class="price-amount">
                                             <div class="amount-input">
                                                 <label>Minimum Price</label>
-                                                <input name="minPrice" type="text" id="minAmount" value="10">
+                                                <input name="minPrice" type="text" id="minAmount" value="0" readonly>
                                             </div>
                                             <div class="amount-input">
                                                 <label>Maximum Price</label>
-                                                <input name="maxPrice" type="text" id="maxAmount" value="1000">
+                                                <input name="maxPrice" type="text" id="maxAmount" value="2000" readonly>
                                             </div>
                                         </div>
                                         <div id="slider-range" class="slider-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 15%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 60%;"></span></div>
@@ -93,19 +94,19 @@
                             </div>
                             <div class="filter-style-3">
                                 <div class="filter-title">
-                                    <a class="title" data-toggle="collapse" href="#type" role="button" aria-expanded="false">
-                                        Categories
+                                    <a class="title" data-toggle="collapse" href="#brand" role="button" aria-expanded="false">
+                                        Brand
                                     </a>
                                 </div>
-                                <div class="collapse show" id="type">
+                                <div class="collapse show" id="brand">
                                     <div class="filter-type">
                                         <ul>
-                                            @for (int v = 0; v <= listCategory.Count() -1; v++)
+                                            @for (int b = 0; b <= listBrand.Count() -1; b++)
                                             {
-                                                <li class="typeproduct">
-                                                    <div class="type-check">
-                                                        <input name="catId" type="checkbox" id="type-@v" value="@(listCategory[v].CategoryId)">
-                                                        <label for="type-@v"><span></span> @listCategory[v].CategoryName</label>
+                                                <li class="brandproduct">
+                                                    <div class="brand-check">
+                                                        <input name="brandId" type="checkbox" id="brand-@b" value="@(listBrand[b].BrandId)">
+                                                        <label for="brand-@b"><span></span> @listBrand[b].BrandName</label>
                                                     </div>
                                                 </li>
                                             }
@@ -124,11 +125,12 @@
                                         <ul>
                                             @for (int h = 0; h < listRam.Count(); h++)
                                             {
-                                                <li class="ramproduct" size-value="@listRam[h].RamId">
+                                                <li class="ramproduct" ram-value="@listRam[h].RamId">
                                                     @(listRam[h].RamSize+"GB")
+                                                    <input name="ramId" id="ramId" type="hidden" value="@listRam[h].RamId" />
                                                 </li>
+                                                
                                             }
-                                            <input name="ramSearch" id="ramSearch" type="hidden" />
                                         </ul>
                                     </div>
                                 </div>
@@ -145,11 +147,11 @@
                                         <ul>
                                             @for (int z = 0; z < listSize.Count(); z++)
                                             {
-                                                <li class="ramproduct" size-value="@listSize[z].SizeId">
+                                                <li class="sizeproduct" size-value="@listSize[z].SizeId">
                                                     @(listSize[z].Size1 + " inch")
+                                                    <input name="sizeId" id="sizeId" value="@listSize[z].SizeId" type="hidden" />
                                                 </li>
                                             }
-                                            <input name="ramSearch" id="ramSearch" type="hidden" />
                                         </ul>
                                     </div>
                                 </div>
@@ -169,7 +171,7 @@
                                                 <li class="colorproduct">
                                                     <div class="color-check">
                                                         <p><span style="background-color: @listColor[c].ColorValue;"></span> <strong>Blue</strong></p>
-                                                        <input name="colorSearch" type="checkbox" id="color-@c" value="@listColor[c].ColorId">
+                                                        <input name="colorId" type="checkbox" id="color-@c" value="@listColor[c].ColorId">
                                                         <label for="color-@c"><span></span></label>
                                                     </div>
                                                 </li>
@@ -206,7 +208,7 @@
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
-                                            @for (int n = 0; n < 3; n++)
+                                            @foreach (var item in Model)
                                             {
                                                 <div class="col-lg-12 d-flex justify-content-center">
                                                     <div class="product-style-7 mt-30">
@@ -216,7 +218,7 @@
                                                                 <div class="slick-list draggable">
                                                                     <div class="slick-track" style="opacity: 1; width: 480px; transform: translate3d(0px, 0px, 0px);">
                                                                         <div class="product-item active slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 240px;">
-                                                                            <img src="/assets/images/product-1/oppo1.jpg" />
+                                                                            <img src="@item.ProductImg" />
                                                                         </div>
                                                                     </div>
 
@@ -226,22 +228,12 @@
                                                             <div class="product-content">
                                                                 <ul class="product-meta">
                                                                     <li>
-                                                                        <a class="add-wishlist" href="javascript:void(0)">
-                                                                            <i class="mdi mdi-heart-outline"></i>
-                                                                            Add to Favorite
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <span><i class="mdi mdi-star"></i> 4.5/5</span>
+                                                                        <span><i class="mdi mdi-star"></i> @item.AverageStar/5</span>
                                                                     </li>
                                                                 </ul>
-                                                                <h4 class="title"><a href="product-details-page.html">Metro 38 Date</a></h4>
-                                                                <p>Reference 1102</p>
-                                                                <span class="price">$ 399</span>
-                                                                <a href="javascript:void(0)" class="main-btn primary-btn">
-                                                                    <img src="/assets/images/icon-svg/cart-4.svg" alt="">
-                                                                    Add to Cart
-                                                                </a>
+                                                                <h4 class="title"><a href="/Product/Detail">@item.ProductName</a></h4>
+                                                                <p>Instock : @item.UnitInStock</p>
+                                                                <span class="price">$ @item.UnitSellPrice</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -251,7 +243,7 @@
                                     </div>
                                     <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="row">
-                                            @for (int k = 0; k < 6; k++)
+                                            @foreach (var item in Model)
                                             {
                                                 <div class="col-lg-6 col-sm-6">
                                                     <div class="product-style-1 mt-30">
@@ -261,7 +253,7 @@
                                                                 <div class="slick-list draggable">
                                                                     <div class="slick-track" style="opacity: 1; width: 806px; transform: translate3d(0px, 0px, 0px);">
                                                                         <div class="product-item active slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 403px;">
-                                                                            <img src="/assets/images/product-1/oppo1.jpg">
+                                                                            <img src="@item.ProductImg">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -273,11 +265,11 @@
                                                             </a>
                                                         </div>
                                                         <div class="product-content text-center">
-                                                            <h4 class="title"><a href="product-details-page.html">Metro 38 Date</a></h4>
-                                                            <p>Reference 1102</p>
+                                                            <h4 class="title"><a href="/Product/Detail">@item.ProductName</a></h4>
+                                                            <p>Instock : @item.UnitInStock</p>
                                                             <a href="javascript:void(0)" class="main-btn secondary-1-btn">
                                                                 <img data-pagespeed-lazy-src="/assets/images/icon-svg/cart-7.svg" alt="" src="/pagespeed_static/1.JiBnMqyl6S.gif">
-                                                                $ 399
+                                                                $ @item.UnitSellPrice
                                                             </a>
                                                         </div>
                                                     </div>
@@ -420,50 +412,70 @@
 
 <script>
     function resetFormSearch(){
-       
+        document.location.href = "/Product/Index";
     }
 
     function searchForm(){
+        //Get checked category
         $(".typeproduct").each(function(){
             var isChecked = $(this).find('input[name=catId]').is(":checked");
             if (!isChecked){
                 $(this).find('input[name=catId]').val("");
             }else{
                 var typeValue = $(this).find('input[name=catId]').val();
-                console.log(typeValue);
+                console.log("category - " + typeValue);
             }
         })
 
+        //Get checked color
         $(".colorproduct").each(function () {
-            var isChecked = $(this).find('input[name=colorSearch]').is(":checked");
+            var isChecked = $(this).find('input[name=colorId]').is(":checked");
             if (!isChecked) {
-                $(this).find('input[name=colorSearch]').val("");
+                $(this).find('input[name=colorId]').val("");
             } else {
-                var typeValue = $(this).find('input[name=colorSearch]').val();
-                console.log(typeValue);
+                var typeValue = $(this).find('input[name=colorId]').val();
+                console.log("color - " + typeValue);
             }
         })
 
-        //$(".ramproduct").each(function () {
-        //    var isActive = $(this).hasClass("active");
-        //    if (!isActive) {
-        //        $(this).find('input[name=ramSearch]').val("");
-        //    } else {
-        //        var typeValue = $(this).find('input[name=ramSearch]').val();
-        //        console.log(typeValue);
-        //    }
-        //})
+        //Get checked color
+        $(".brandproduct").each(function () {
+            var isChecked = $(this).find('input[name=brandId]').is(":checked");
+            if (!isChecked) {
+                $(this).find('input[name=brandId]').val("");
+            } else {
+                var typeValue = $(this).find('input[name=brandId]').val();
+                console.log("brand - " + typeValue);
+            }
+        })
+
+        //Get select ram
+        $(".ramproduct").each(function () {
+            var isActive = $(this).hasClass("active");
+            if(!isActive){
+                $(this).find('input[name=ramId]').val("");
+            }else{
+                var typeValue = $(this).find('input[name=ramId]').val();
+                console.log("ram - " + typeValue);
+            }
+        })
+
+        //Get select size
+        $(".sizeproduct").each(function () {
+            var isActive = $(this).hasClass("active");
+            if (!isActive) {
+                $(this).find('input[name=sizeId]').val("");
+            } else {
+                var typeValue = $(this).find('input[name=sizeId]').val();
+                console.log("size - " + typeValue);
+            }
+        })
+
         var minA = $("#minAmount").val().replace("$","");
         var maxA = $("#maxAmount").val().replace("$", "");
         $("#minAmount").val(minA)
         $("#maxAmount").val(maxA)
-        $(".ramproduct").each(function () {
-            var isActive = $(this).hasClass("active");
-            if (isActive) {
-                console.log($(this).attr('size-value'));
-                $("#ramSearch").val($(this).attr('size-value'));
-            }
-        })
+
         $("#searchForm").submit();
     }
 

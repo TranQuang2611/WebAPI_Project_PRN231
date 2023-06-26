@@ -775,7 +775,8 @@ $(function() {
     =============================================*/
 
 	$('.filter-size ul li').on("click", function() {
-		$(this).siblings(this).removeClass('active').end().addClass('active');
+		//$(this).siblings(this).removeClass('active').end().addClass('active');
+        $(this).toggleClass('active');
 	});
     
     /*=====  End of Product Size Active ======*/

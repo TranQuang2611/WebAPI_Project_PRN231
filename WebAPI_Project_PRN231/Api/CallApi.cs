@@ -90,5 +90,16 @@ namespace WebAPI_Project_PRN231.Api
 
             return ls;
         }
+
+        public async Task<List<BrandDTO>> GetAllBrand()
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync("api/Brand");
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            List<BrandDTO> ls = JsonConvert.DeserializeObject<List<BrandDTO>>(responseBody);
+
+            return ls;
+        }
     }
 }
