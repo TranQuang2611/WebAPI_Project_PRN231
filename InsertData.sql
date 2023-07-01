@@ -15,11 +15,11 @@ VALUES ('Apple'),
 ('Oppo'),
 ('Asus');
 
-INSERT INTO Color (ColorName)
-VALUES ('Black'),
-('White'),
-('Blue'),
-('Red');
+INSERT INTO Color (ColorName, ColorValue)
+VALUES ('Black','#000000'),
+('White','#F8F8FF'),
+('Blue','#0000FF'),
+('Red','#FF0000');
 
 INSERT INTO Size (Size)
 VALUES (13),
@@ -36,7 +36,7 @@ VALUES (2),
 (10),
 (12)
 
-/assets/images/Laptop/asus1.jpg
+--/assets/images/Laptop/asus1.jpg
 
 INSERT INTO 
 Products (ProductName, ProductImg, RamID, BrandID, UnitPrice, ColorID, SizeID, UnitSellPrice, UnitInStock, [Description], CategoryID)
@@ -80,3 +80,9 @@ VALUES (1, 2, 4, GETDATE(), 10, 'Great laptop'),
        (1, 11, 4, GETDATE(), 10, 'Great laptop'),
        (2, 12, 5, GETDATE(), 15, 'Excellent performance'),
        (3, 13, 5, GETDATE(), 15, 'Excellent performance')
+INSERT INTO Comments (UserID, ReviewID, CommentDate, LikeReact, Comment)
+VALUES (2, 1, '2023-05-30', 3, 'A great phone!'),
+(3, 1, '2023-05-30', 2, 'I prefer Android though.'),
+(1, 3, '2023-05-31', 5, 'Glad you like it!'),
+(2, 3, '2023-05-31', 1, 'Is the camera good?'),
+(3, 4, '2023-05-30', 0, 'Not my style.')

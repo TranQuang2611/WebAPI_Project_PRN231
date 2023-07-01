@@ -19,7 +19,8 @@ Create TABLE Brand(
 
 Create TABLE Color(
 	ColorID int primary key identity(1,1),
-	ColorName nvarchar(100)
+	ColorName nvarchar(100),
+	ColorValue nvarchar(100)
 )
 
 Create TABLE Size(

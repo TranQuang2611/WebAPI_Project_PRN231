@@ -9,5 +9,6 @@
         public List<int?> ramId { get; set; } = new List<int?>();
         public string minPrice { get; set; } = string.Empty;
         public string maxPrice { get; set; } = string.Empty;
+        public string nameProd { get; set; } = string.Empty;
     }
 }

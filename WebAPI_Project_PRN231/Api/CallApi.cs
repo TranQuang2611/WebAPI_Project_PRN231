@@ -36,6 +36,17 @@ namespace WebAPI_Project_PRN231.Api
             return ls;
         }
 
+        public async Task<List<ProductDTO>> GetFeatureProd<ProductDTO>()
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync("api/Products/Feature");
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            List<ProductDTO> ls = JsonConvert.DeserializeObject<List<ProductDTO>>(responseBody);
+
+            return ls;
+        }
+
         public async Task<List<ColorDTO>> GetAllColors()
         {
             HttpResponseMessage response = await _httpClient.GetAsync("api/Color");
@@ -100,6 +111,6 @@ namespace WebAPI_Project_PRN231.Api
             List<BrandDTO> ls = JsonConvert.DeserializeObject<List<BrandDTO>>(responseBody);
 
             return ls;
-        }
+        }        
     }
 }
