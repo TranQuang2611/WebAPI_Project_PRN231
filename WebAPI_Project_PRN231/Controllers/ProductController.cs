@@ -14,6 +14,9 @@ namespace WebAPI_Project_PRN231.Controllers
             List<CategoryDTO> categories = await new CallApi().GetAllCategory();
             List<SizeDTO> sizes = await new CallApi().GetAllSizes();
             List<BrandDTO> brands = await new CallApi().GetAllBrand();
+            if(modelSearch.nameProd == null) {
+                modelSearch.nameProd = ""; 
+            }
             List<ProductDTO> products = await new CallApi().SearchProduct(modelSearch);
             ViewBag.listColor = colors;
             ViewBag.listRam = rams;
@@ -24,9 +27,14 @@ namespace WebAPI_Project_PRN231.Controllers
             return View("Index", products);
         }
 
-        public IActionResult Detail()
+        public async Task<IActionResult> Detail(int id)
         {
-            return View();
+            ProductDTO product = await new CallApi().GetProductDetail(id);
+            if(product == null)
+            {
+                return Redirect("/Home/Error");
+            }
+            return View(product);
         }
     }
 }

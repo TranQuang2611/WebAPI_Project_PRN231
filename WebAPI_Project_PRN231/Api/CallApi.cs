@@ -111,6 +111,15 @@ namespace WebAPI_Project_PRN231.Api
             List<BrandDTO> ls = JsonConvert.DeserializeObject<List<BrandDTO>>(responseBody);
 
             return ls;
-        }        
+        }
+
+        public async Task<ProductDTO> GetProductDetail(int id)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync("api/Products/Detail?id="+id);
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+            ProductDTO result = JsonConvert.DeserializeObject<ProductDTO>(responseBody);
+            return result;
+        }
     }
 }

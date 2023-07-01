@@ -1,6 +1,9 @@
+@using WebAPI_Project_PRN231.DTO;
 @{
     Layout = "_Layout";
 }
+
+@model ProductDTO
 <!--====== Breadcrumbs Part Start ======-->
 <section class="breadcrumbs-wrapper pt-50 pb-50 bg-primary-4">
     <div class="container">
@@ -31,54 +34,29 @@
                     <div class="product-details-image mt-50">
                         <div class="product-image">
                             <div class="product-image-active-1">
-                                <div class="single-image">
-                                    <img src="/assets/images/product-details-1/product-1.jpg" alt="">
+                                @for (int i = 0; i < 6; i++)
+                                { <div class="single-image">
+                                        <img src="@Model.ProductImg" alt="">
                                 </div>
-                                <div class="single-image">
-                                    <img src="/assets/images/product-details-1/product-2.jpg" alt="">
-                                </div>
-                                <div class="single-image">
-                                    <img src="/assets/images/product-details-1/product-3.jpg" alt="">
-                                </div>
-                                <div class="single-image">
-                                    <img src="/assets/images/product-details-1/product-4.jpg" alt="">
-                                </div>
-                                <div class="single-image">
-                                    <img src="/assets/images/product-details-1/product-5.jpg" alt="">
-                                </div>
-                                <div class="single-image">
-                                    <img src="/assets/images/product-details-1/product-3.jpg" alt="">
-                                </div>
+                                }
                             </div>
                         </div>
                         <div class="product-thumb-image">
                             <div class="product-thumb-image-active-1">
-                                <div class="single-thumb">
-                                    <img src="/assets/images/product-details-1/thunb-1.jpg" alt="">
-                                </div>
-                                <div class="single-thumb">
-                                    <img src="/assets/images/product-details-1/thunb-2.jpg" alt="">
-                                </div>
-                                <div class="single-thumb">
-                                    <img src="/assets/images/product-details-1/thunb-3.jpg" alt="">
-                                </div>
-                                <div class="single-thumb">
-                                    <img src="/assets/images/product-details-1/thunb-4.jpg" alt="">
-                                </div>
-                                <div class="single-thumb">
-                                    <img src="/assets/images/product-details-1/thunb-5.jpg" alt="">
-                                </div>
-                                <div class="single-thumb">
-                                    <img src="/assets/images/product-details-1/thunb-3.jpg" alt="">
-                                </div>
+                                @for (int i = 0; i < 6; i++)
+                                {
+                                    <div class="single-thumb">
+                                        <img src="@Model.ProductImg" alt="">
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="product-details-content mt-45">
-                        <p class="sub-title">All-In-One VR</p>
-                        <h2 class="title">Oculus VR</h2>
+                        <p class="sub-title">@Model.Category.CategoryName - @Model.Brand.BrandName</p>
+                        <h2 class="title">@Model.ProductName</h2>
 
                         <div class="product-items flex-wrap">
                             <h6 class="item-title">Image: </h6>
@@ -87,7 +65,7 @@
                                 {
                                     <div class="single-item active">
                                         <div class="items-image">
-                                            <img src="/assets/images/product-details-1/product-items-1.jpg" alt="product">
+                                            <img src="@Model.ProductImg" alt="product">
                                         </div>
                                         <p class="text">Oculus Go</p>
                                     </div>
@@ -97,36 +75,42 @@
 
                         <div class="product-select-wrapper flex-wrap">
                             <div class="select-item" style="padding-right: 20px;">
-                                <h6 class="select-title">Color: <span>White, Black, Grey</span></h6>
+                                <h6 class="select-title">Color: <span>@Model.Color.ColorName</span></h6>
                                 <ul class="color-select">
-                                    <li class="active" data-color="#EFEFEF"></li>
-                                    <li data-color="#FAE5EC"></li>
-                                    <li data-color="#4C4C4C"></li>
+                                    <li data-color="@Model.Color.ColorValue"></li>
                                 </ul>
                             </div>
+
                             <div class="select-item" style="padding-right: 20px;">
                                 <h6 class="select-title">Memory (GB): </h6>
                                 <div class="size-select">
                                     <select>
-                                        <option value="">32gb</option>
-                                        <option value="">64gb</option>
-                                        <option value="">128 gb</option>
+                                        <option value="">@Model.Ram.RamSize GB</option>
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="select-item" style="padding-right: 20px;">
+                                <h6 class="select-title">Size (Inch): </h6>
+                                <div class="select-quantity">
+                                    <input style="width: 100px" type="text" value="@Model.Size.Size1 inch" readonly />
+                                </div>
+                            </div>
+
                             <div class="select-item" style="padding-right: 20px;">
                                 <h6 class="select-title">Quantity: </h6>
 
                                 <div class="select-quantity">
-                                    <input type="text" value="1" readonly/>
+                                    <input type="text" value="@Model.UnitInStock" readonly />
                                 </div>
                             </div>
+
                         </div>
 
                         <div class="product-price">
                             <h6 class="price-title">Price: </h6>
-                            <p class="sale-price">$ 149 USD</p>
-                            <p class="regular-price">$ 179 USD</p>
+                            <p class="sale-price">$ @Model.UnitSellPrice</p>
+                            <p class="regular-price">$ @Model.UnitPrice</p>
                         </div>
                     </div>
                 </div>
@@ -161,18 +145,10 @@
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="reviews-title">
-                                    <h4 class="title">Oculus VR</h4>
+                                    <h4 class="title">About this product</h4>
                                 </div>
                                 <p class="mb-15 pt-30">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime quod sequi vitae atque
-                                    perspiciatis voluptas recusandae explicabo ea dolores numquam ratione, obcaecati ullam, ipsam minima vero nostrum
-                                    nesciunt facere laudantium? Facere animi rem veniam quibusdam nam sed ex maxime laboriosam a vero nesciunt tenetur,
-                                    eius autem fugiat quod expedita dignissimos.
-                                </p>
-                                <p class="mb-30">
-                                    Repellendus, doloribus illum expedita, dolorem voluptas doloremque voluptatibus, magni tempora
-                                    laboriosam deserunt suscipit labore dolorum aperiam cum veniam accusamus? Consequatur dolore facere perferendis
-                                    repellat, modi in consectetur ipsum atque quos natus.
+                                    @Model.Description
                                 </p>
                             </div>
                         </div>
@@ -181,7 +157,7 @@
                 <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="review-wrapper">
                         <div class="reviews-title">
-                            <h4 class="title">Customer Reviews (38)</h4>
+                            <h4 class="title">Customer Reviews (@Model)</h4>
                         </div>
 
                         <div class="reviews-rating-wrapper flex-wrap">
