@@ -36,5 +36,6 @@ namespace WebAPI_Project_PRN231.Controllers
             }
             return View(product);
         }
+
     }
 }

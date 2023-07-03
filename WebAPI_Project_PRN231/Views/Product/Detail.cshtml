@@ -1,9 +1,35 @@
-@using WebAPI_Project_PRN231.DTO;
+﻿@using WebAPI_Project_PRN231.DTO;
+@model ProductDTO
+
 @{
     Layout = "_Layout";
+    decimal percentRateStar = Model.Reviews.Count();
+    decimal percentRate5Star = Model.Reviews.Where(x => x.Rating == 5).Count()* 100 / percentRateStar;
+    decimal percentRate4Star = Model.Reviews.Where(x => x.Rating == 4).Count()* 100 / percentRateStar;
+    decimal percentRate3Star = Model.Reviews.Where(x => x.Rating == 3).Count()* 100 / percentRateStar;
+    decimal percentRate2Star = Model.Reviews.Where(x => x.Rating == 2).Count()* 100 / percentRateStar;
+    decimal percentRate1Star = Model.Reviews.Where(x => x.Rating == 1).Count()* 100 / percentRateStar;
+    decimal percentRate0Star = Model.Reviews.Where(x => x.Rating == 0).Count()* 100 / percentRateStar;
 }
 
-@model ProductDTO
+<style>
+    .star-select .nice-select{
+        background: #542ded;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 500;
+        margin-top: 8px;
+    }
+
+    .star-select .nice-select ul li{
+        color: black;
+    }
+
+    .star-select .nice-select ul li:hover {
+        background: #542ded !important;
+        color: #fff !important
+    }
+</style>
 <!--====== Breadcrumbs Part Start ======-->
 <section class="breadcrumbs-wrapper pt-50 pb-50 bg-primary-4">
     <div class="container">
@@ -157,56 +183,65 @@
                 <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="review-wrapper">
                         <div class="reviews-title">
-                            <h4 class="title">Customer Reviews (@Model)</h4>
+                            <h4 class="title">Customer Reviews (@Model.Reviews.Count())</h4>
                         </div>
 
                         <div class="reviews-rating-wrapper flex-wrap">
                             <div class="reviews-rating-star">
-                                <p class="rating-review"><i class="mdi mdi-star"></i> <span>4.5</span> of 5</p>
+                                <p class="rating-review"><i class="mdi mdi-star"></i> <span>@Model.AverageStar</span> of 5</p>
 
                                 <div class="reviews-rating-bar">
                                     <div class="single-reviews-rating-bar">
-                                        <p class="value">5 Starts</p>
+                                        <p class="value">5 Star</p>
                                         <div class="rating-bar-inner">
-                                            <div class="bar-inner" style="width: 60%;"></div>
+                                            <div class="bar-inner" style="width: @(percentRate5Star)%;"></div>
                                         </div>
-                                        <p class="percent">60%</p>
+                                        <p class="percent">@(percentRate5Star)%</p>
                                     </div>
                                 </div>
                                 <div class="reviews-rating-bar">
                                     <div class="single-reviews-rating-bar">
-                                        <p class="value">4 Starts</p>
+                                        <p class="value">4 Star</p>
                                         <div class="rating-bar-inner">
-                                            <div class="bar-inner" style="width: 20%;"></div>
+                                            <div class="bar-inner" style="width: @(percentRate4Star)%;"></div>
                                         </div>
-                                        <p class="percent">20%</p>
+                                        <p class="percent">@(percentRate4Star) %</p>
                                     </div>
                                 </div>
                                 <div class="reviews-rating-bar">
                                     <div class="single-reviews-rating-bar">
-                                        <p class="value">3 Starts</p>
+                                        <p class="value">3 Star</p>
                                         <div class="rating-bar-inner">
-                                            <div class="bar-inner" style="width: 10%;"></div>
+                                            <div class="bar-inner" style="width: @(percentRate3Star)%;"></div>
                                         </div>
-                                        <p class="percent">10%</p>
+                                        <p class="percent">@(percentRate3Star) %</p>
                                     </div>
                                 </div>
                                 <div class="reviews-rating-bar">
                                     <div class="single-reviews-rating-bar">
-                                        <p class="value">2 Starts</p>
+                                        <p class="value">2 Star</p>
                                         <div class="rating-bar-inner">
-                                            <div class="bar-inner" style="width: 5%;"></div>
+                                            <div class="bar-inner" style="width:@(percentRate2Star) %"></div>
                                         </div>
-                                        <p class="percent">05%</p>
+                                        <p class="percent">@(percentRate2Star)%</p>
                                     </div>
                                 </div>
                                 <div class="reviews-rating-bar">
                                     <div class="single-reviews-rating-bar">
-                                        <p class="value">1 Starts</p>
+                                        <p class="value">1 Star</p>
                                         <div class="rating-bar-inner">
-                                            <div class="bar-inner" style="width: 0;"></div>
+                                            <div class="bar-inner" style="width:@(percentRate1Star)%"></div>
                                         </div>
-                                        <p class="percent">0%</p>
+                                        <p class="percent">@(percentRate1Star)%</p>
+                                    </div>
+                                </div>
+                                <div class="reviews-rating-bar">
+                                    <div class="single-reviews-rating-bar">
+                                        <p class="value">0 Star</p>
+                                        <div class="rating-bar-inner">
+                                            <div class="bar-inner" style="width:@(percentRate0Star)%"></div>
+                                        </div>
+                                        <p class="percent">@(percentRate0Star)%</p>
                                     </div>
                                 </div>
                             </div>
@@ -215,7 +250,7 @@
                                 <div class="rating-star">
                                     <p>Click on star to review</p>
                                     <ul id="stars" class="stars">
-                                        <li class="star" data-value='1'><i class="mdi mdi-star"></i></li>
+                                        <li class="star selected" data-value='1'><i class="mdi mdi-star"></i></li>
                                         <li class="star" data-value='2'><i class="mdi mdi-star"></i></li>
                                         <li class="star" data-value='3'><i class="mdi mdi-star"></i></li>
                                         <li class="star" data-value='4'><i class="mdi mdi-star"></i></li>
@@ -243,179 +278,121 @@
 
                         <div class="reviews-btn flex-wrap">
                             <div class="reviews-btn-left">
-                                <div class="dropdown-style">
-                                    <div class="dropdown dropdown-white">
-                                        <button class="main-btn primary-btn" type="button" id="dropdownMenu-1" data-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="true">
-                                            All Stars (213) <i class="mdi mdi-chevron-down"></i>
-                                        </button>
-
-                                        <ul class="dropdown-menu sub-menu-bar" aria-labelledby="dropdownMenu-1">
-                                            <li><a href="#">Dropped Menu 1</a></li>
-                                            <li><a href="#">Dropped Menu 2</a></li>
-                                            <li><a href="#">Dropped Menu 3</a></li>
-                                            <li><a href="#">Dropped Menu 4</a></li>
-                                        </ul>
+                                <div class="select-item" style="padding-right: 20px;">
+                                    <div class="star-select">
+                                        <select id="selectedStar">
+                                            <option value="0">All Star</option>
+                                            <option value="5">5 Star</option>
+                                            <option value="4">4 Star</option>
+                                            <option value="3">3 Star</option>
+                                            <option value="2">2 Star</option>
+                                            <option value="1">1 Star</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="dropdown-style">
-                                    <div class="dropdown dropdown-white">
-                                        <button class="main-btn primary-btn-border" type="button" id="dropdownMenu-1" data-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="true">
-                                            Sort by Latest <i class="mdi mdi-chevron-down"></i>
-                                        </button>
 
-                                        <ul class="dropdown-menu sub-menu-bar" aria-labelledby="dropdownMenu-1">
-                                            <li><a href="#">Dropped Menu 1</a></li>
-                                            <li><a href="#">Dropped Menu 2</a></li>
-                                            <li><a href="#">Dropped Menu 3</a></li>
-                                            <li><a href="#">Dropped Menu 4</a></li>
-                                        </ul>
+                                <div class="select-item" style="padding-right: 20px;">
+                                    <div class="star-select">
+                                        <select id="selectedSort">
+                                            <option value="1">Sort date ascending</option>
+                                            <option value="2">Sort date descending</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="reviews-btn-right">
-                                <a href="#" class="main-btn">with photo (18)</a>
-                                <a href="#" class="main-btn">additional feedback (23)</a>
-                            </div>
+                        <div id="reviewComponet">
+
                         </div>
 
                         <div class="reviews-comment">
                             <ul class="comment-items">
-                                <li>
-                                    <div class="single-review-comment">
-                                        <div class="comment-user-info">
-                                            <div class="comment-author">
-                                                <img src="/assets/images/review/author-1.jpg" alt="">
-                                            </div>
-                                            <div class="comment-content">
-                                                <h6 class="name">User Name</h6>
-
-                                                <p>
-                                                    <i class="mdi mdi-star"></i>
-                                                    <span class="rating"><strong>4</strong> of 5</span>
-                                                    <span class="date">20 Nov 2019 22:01</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="comment-user-text">
-                                            <p>
-                                                Good headphones. The sound is clear. AND the bottoms repyat and top ring. Currently
-                                                are really not taken. For me quiet. With my Beats of course can not be compared. But
-                                                for the money and definitely recommend. The one who took happy as an elephant.
-                                                Product as advertised, looks good Quality, sound is not the best but because of
-                                                cost-benefit ratio it seems very good to me, recommended the seller .
-                                            </p>
-                                            <ul class="comment-meta">
-                                                <li><i class="mdi mdi-thumb-up"></i> <span>31</span></li>
-                                                <li><a href="#">Like</a></li>
-                                                <li><a href="#">Replay</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <ul class="comment-replay">
-                                        <li>
-                                            <div class="single-review-comment">
-                                                <div class="comment-user-info">
-                                                    <div class="comment-author">
-                                                        <img src="/assets/images/review/author-2.jpg" alt="">
-                                                    </div>
-                                                    <div class="comment-content">
-                                                        <h6 class="name">User Name</h6>
-
-                                                        <p>
-                                                            <i class="mdi mdi-star"></i>
-                                                            <span class="rating"><strong>4</strong> of 5</span>
-                                                            <span class="date">20 Nov 2019 22:01</span>
-                                                        </p>
-                                                    </div>
+                                @foreach (var review in Model.Reviews)
+                                {
+                                    <li>
+                                        <div class="single-review-comment">
+                                            <div class="comment-user-info">
+                                                <div class="comment-author">
+                                                    <img src="/assets/images/review/author-1.jpg" alt="">
                                                 </div>
-                                                <div class="comment-user-text">
+                                                <div class="comment-content">
+                                                    <h6 class="name">@review.User.Username</h6>
+
                                                     <p>
-                                                        Good headphones. The sound is clear. AND the bottoms repyat and top ring.
-                                                        Currently are really not taken.
+                                                        <i class="mdi mdi-star"></i>
+                                                        <span class="rating"><strong>@review.Rating</strong> of 5</span>
+                                                        <span class="date">@review.ReviewDate.Value.ToString("dd/MM/yyy HH:mm:ss")</span>
                                                     </p>
-                                                    <div class="comment-image flex-wrap">
-                                                        <div class="image">
-                                                            <img src="/assets/images/review/attachment-1.jpg" alt="">
-                                                        </div>
-                                                        <div class="image">
-                                                            <img src="/assets/images/review/attachment-2.jpg" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <ul class="comment-meta">
-                                                        <li><i class="mdi mdi-thumb-up"></i> <span>31</span></li>
-                                                        <li><a href="#">Like</a></li>
-                                                        <li><a href="#">Replay</a></li>
-                                                    </ul>
                                                 </div>
                                             </div>
-                                        </li>
-                                        <li>
-                                            <div class="single-review-comment">
-                                                <div class="comment-user-info">
-                                                    <div class="comment-author">
-                                                        <img src="/assets/images/review/author-3.jpg" alt="">
-                                                    </div>
-                                                    <div class="comment-content">
-                                                        <h6 class="name">User Name</h6>
-
-                                                        <p>
-                                                            <i class="mdi mdi-star"></i>
-                                                            <span class="rating"><strong>4</strong> of 5</span>
-                                                            <span class="date">20 Nov 2019 22:01</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="comment-user-text">
-                                                    <p>
-                                                        Good headphones. The sound is clear. AND the bottoms repyat and top ring.
-                                                        Currently are really not taken.
-                                                    </p>
-                                                    <ul class="comment-meta">
-                                                        <li><i class="mdi mdi-thumb-up"></i> <span>31</span></li>
-                                                        <li><a href="#">Like</a></li>
-                                                        <li><a href="#">Replay</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <div class="single-review-comment">
-                                        <div class="comment-user-info">
-                                            <div class="comment-author">
-                                                <img src="/assets/images/review/author-4.jpg" alt="">
-                                            </div>
-                                            <div class="comment-content">
-                                                <h6 class="name">User Name</h6>
-
+                                            <div class="comment-user-text">
                                                 <p>
-                                                    <i class="mdi mdi-star"></i>
-                                                    <span class="rating"><strong>4</strong> of 5</span>
-                                                    <span class="date">20 Nov 2019 22:01</span>
+                                                    @review.Content
                                                 </p>
+                                                <ul class="comment-meta">
+                                                    <li><i class="mdi mdi-thumb-up"></i> <span>@review.LikeReact</span></li>
+                                                    <li><a href="javascript:void(0)" onclick="likeReview(@(review.UserId), 1)">Like</a></li>
+                                                    <li><a href="javascript:void(0)" onclick="replyReview(@(review.ReviewId),1)">Reply</a></li>
+                                                </ul>
                                             </div>
                                         </div>
-                                        <div class="comment-user-text">
-                                            <p>
-                                                Good headphones. The sound is clear. AND the bottoms repyat and top ring. Currently
-                                                are really not taken. For me quiet. With my Beats of course can not be compared. But
-                                                for the money and definitely recommend. The one who took happy as an elephant.
-                                                Product as advertised, looks good Quality, sound is not the best but because of
-                                                cost-benefit ratio it seems very good to me, recommended the seller .
-                                            </p>
-                                            <ul class="comment-meta">
-                                                <li><i class="mdi mdi-thumb-up"></i> <span>31</span></li>
-                                                <li><a href="#">Like</a></li>
-                                                <li><a href="#">Replay</a></li>
-                                            </ul>
+
+                                        <div id="replyReview@(review.ReviewId)" class="rating-form" style="display: none">
+                                                <div class="single-form form-default">
+                                                    <label>Write your Comment</label>
+                                                    <div class="form-input">
+                                                        <textarea placeholder="Your comment here" id="contentCmt@(review.ReviewId)"></textarea>
+                                                        <i class="mdi mdi-message-text-outline"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="single-rating-form flex-wrap">
+                                                    <div class="rating-form-btn">
+                                                    <button class="main-btn primary-btn" onclick="sendReply(@(review.ReviewId), @(review.UserId),2)">Send</button>
+                                                    </div>
+                                                </div>
                                         </div>
-                                    </div>
-                                </li>
+
+                                        <ul class="comment-replay" id="commentByReview@(review.ReviewId)">
+                                            @foreach (var comment in review.Comments)
+                                            {
+                                            <li>
+                                                <div class="single-review-comment">
+                                                    <div class="comment-user-info">
+                                                        <div class="comment-author">
+                                                            <img src="/assets/images/review/author-2.jpg" alt="">
+                                                        </div>
+                                                        <div class="comment-content">
+                                                            <h6 class="name">@comment.User.Username</h6>
+
+                                                            <p>
+                                                                <span class="date">@comment.CommentDate.Value.ToString("dd/MM/yyyy HH:mm:ss")</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-user-text">
+                                                        <p>
+                                                            @comment.Comment1
+                                                        </p>
+                                                        <ul class="comment-meta">
+                                                            <li><i class="mdi mdi-thumb-up"></i> <span>@comment.LikeReact</span></li>
+                                                            <li><a href="#" onclick="likeComment(@(comment.UserId), 1)">Like</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            }                                         
+                                        </ul>
+                                        @if(review.Comments.Count() == 3 && review.Comments.Count() < review.totalComment)
+                                        {
+                                            <div style="padding: 10px 0px 0px 50px">
+                                                <a href="#" onclick="viewComment(@review.ReviewId)" view-type="0" id="showComment@(review.ReviewId)">Hiển thị tất cả bình luận</a>
+                                            </div>
+                                        }
+                                        
+                                    </li>
+                                    
+                                }
                             </ul>
                         </div>
                     </div>
@@ -529,3 +506,42 @@
     </div>
 </section>
 <!--====== Subscribe Part Ends ======-->
+
+<script>
+    function LoadReviewComponent(){
+
+    }
+
+    function viewComment(reviewId) {
+        var typeView = $("#showComment" + reviewId).attr('view-type');
+        if(typeView == 0){
+            $("#showComment" + reviewId).attr('view-type',1);
+        }else{
+            $("#showComment" + reviewId).attr('view-type',0);
+        }
+    }
+
+    function replyReview(reviewId, userCmtId){
+        if (userCmtId == 0){
+            window.location.href = "/User/Login";
+        }else{
+            $("#replyReview" + reviewId).css("display","block");
+        }
+    }
+
+    function sendReply(reviewId, userReviewId, userCmtId){
+        var content = $("#contentCmt"+reviewId).val();
+        $.ajax({
+            url: 'http://localhost:5216/api/Comment/AddComment',
+            method: 'GET',
+            dataType: 'json',
+            data: { reviewId: reviewId, userCmtId: userCmtId, content: content },
+            success: function (comment) {
+                console.log(comment);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+</script>

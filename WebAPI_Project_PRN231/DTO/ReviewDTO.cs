@@ -12,5 +12,6 @@
 
         public UserDTO? User { get; set; }
         public List<CommentDTO> Comments { get; set; }
+        public int totalComment { get; set; }
     }
 }
