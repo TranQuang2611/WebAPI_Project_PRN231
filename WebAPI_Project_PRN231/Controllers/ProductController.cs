@@ -37,9 +37,9 @@ namespace WebAPI_Project_PRN231.Controllers
             return View(product);
         }
 
-        public async Task<IActionResult> ReviewComponent(int id)
+        public async Task<IActionResult> ReviewComponent(ReviewModel model)
         {
-            List<ReviewDTO> reviews = await new CallApi().GetReviewOfProduct(id);
+            List<ReviewDTO> reviews = await new CallApi().GetReviewOfProduct(model);
             return PartialView(reviews);
         }
 

@@ -17,7 +17,7 @@
                             <p>
                                 <i class="mdi mdi-star"></i>
                                 <span class="rating"><strong>@review.Rating</strong> of 5</span>
-                                <span class="date">@review.ReviewDate.Value.ToString("dd/MM/yyy HH:mm:ss")</span>
+                                <span class="date">@review.ReviewDate.Value.ToString("d/M/yyyy H:m:s")</span>
                             </p>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                                         <h6 class="name">@comment.User.Username</h6>
 
                                         <p>
-                                            <span class="date">@comment.CommentDate.Value.ToString("dd/MM/yyyy HH:mm:ss")</span>
+                                            <span class="date">@comment.CommentDate.Value.ToString("d/M/yyyy H:m:s")</span>
                                         </p>
                                     </div>
                                 </div>
@@ -86,66 +86,9 @@
     </ul>
 </div>
 
-<script>
-    function viewComment(reviewId) {
-        var typeView = $("#showComment" + reviewId).attr('view-type');
-        if (typeView == 0) {
-            $("#showComment" + reviewId).attr('view-type', 1);
-            $("#showComment" + reviewId).text("Hiển thị ít bình luận")
-        } else {
-            $("#showComment" + reviewId).attr('view-type', 0);
-            $("#showComment" + reviewId).text("Hiển thị tất cả bình luận")
-        }
-    }
+@section Scripts{
+    <script>
+        
+    </script>
+}
 
-    function replyReview(reviewId, userCmtId) {
-        if (userCmtId == 0) {
-            window.location.href = "/User/Login";
-        } else {
-            $("#replyReview" + reviewId).css("display", "block");
-        }
-    }
-
-    function closeReply(reviewId) {
-        $("#replyReview" + reviewId).css("display", "none");
-    }
-
-    function sendReply(reviewId, userReviewId, userCmtId) {
-        var content = $("#contentCmt" + reviewId).val();
-        if (content == "") {
-            alert("Vui lòng nhập comment trước khi gửi")
-        } else {
-            $.ajax({
-                url: 'http://localhost:5216/api/Comment/AddComment',
-                method: 'GET',
-                dataType: 'json',
-                data: { reviewId: reviewId, userCmtId: userCmtId, content: content },
-                success: function (comment) {
-                    var newLiCmt = $(`<li><div class='single-review-comment'>`
-                        + `<div class='comment-user-info'>`
-                        + `<div class='comment-author'>`
-                        + `<img src='/assets/images/review/author-2.jpg' alt = '' >`
-                        + `</div>`
-                        + `<div class= 'comment-content'>`
-                        + `<h6 class="name">` + 123 + `</h6>`
-                        + `<p><span class="date" >` + 123 + `</span></p>`
-                        + `</div>`
-                        + `</div>`
-                        + `<div class= "comment-user-text" >`
-                        + `<p>` + 123 + `</p>`
-                        + `</div>`
-                        + `</div>`
-                        + `</li>`);
-                    $('#commentByReview' + reviewId).prepend(newLiCmt);
-                    closeReply(reviewId);
-                    var date = comment["commentDate"];
-                    var currentVal = new Date(date);
-                    console.log(currentVal.toString("dd/MM/yyyy");
-                },
-                error: function (xhr, status, error) {
-                    console.log(error);
-                }
-            });
-        }
-    }
-</script>
