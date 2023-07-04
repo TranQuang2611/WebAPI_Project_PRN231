@@ -302,11 +302,11 @@
                             </div>
                         </div>
 
-                        <div id="reviewComponet">
+                        <div id="reviewComponent">
 
                         </div>
 
-                        <div class="reviews-comment">
+                       @* <div class="reviews-comment">
                             <ul class="comment-items">
                                 @foreach (var review in Model.Reviews)
                                 {
@@ -331,26 +331,25 @@
                                                     @review.Content
                                                 </p>
                                                 <ul class="comment-meta">
-                                                    <li><i class="mdi mdi-thumb-up"></i> <span>@review.LikeReact</span></li>
-                                                    <li><a href="javascript:void(0)" onclick="likeReview(@(review.UserId), 1)">Like</a></li>
                                                     <li><a href="javascript:void(0)" onclick="replyReview(@(review.ReviewId),1)">Reply</a></li>
                                                 </ul>
                                             </div>
                                         </div>
 
                                         <div id="replyReview@(review.ReviewId)" class="rating-form" style="display: none">
-                                                <div class="single-form form-default">
-                                                    <label>Write your Comment</label>
-                                                    <div class="form-input">
-                                                        <textarea placeholder="Your comment here" id="contentCmt@(review.ReviewId)"></textarea>
-                                                        <i class="mdi mdi-message-text-outline"></i>
-                                                    </div>
+                                            <div class="single-form form-default">
+                                                <label>Write your Comment</label>
+                                                <div class="form-input">
+                                                    <textarea placeholder="Your comment here" id="contentCmt@(review.ReviewId)"></textarea>
+                                                    <i class="mdi mdi-message-text-outline"></i>
                                                 </div>
-                                                <div class="single-rating-form flex-wrap">
-                                                    <div class="rating-form-btn">
+                                            </div>
+                                            <div class="single-rating-form flex-wrap">
+                                                <div class="rating-form-btn">
                                                     <button class="main-btn primary-btn" onclick="sendReply(@(review.ReviewId), @(review.UserId),2)">Send</button>
-                                                    </div>
+                                                    <button class="main-btn primary-btn" style="background: red" onclick="closeReply(@(review.ReviewId))">Close</button>
                                                 </div>
+                                            </div>
                                         </div>
 
                                         <ul class="comment-replay" id="commentByReview@(review.ReviewId)">
@@ -374,10 +373,6 @@
                                                         <p>
                                                             @comment.Comment1
                                                         </p>
-                                                        <ul class="comment-meta">
-                                                            <li><i class="mdi mdi-thumb-up"></i> <span>@comment.LikeReact</span></li>
-                                                            <li><a href="#" onclick="likeComment(@(comment.UserId), 1)">Like</a></li>
-                                                        </ul>
                                                     </div>
                                                 </div>
                                             </li>
@@ -394,7 +389,7 @@
                                     
                                 }
                             </ul>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
@@ -506,42 +501,17 @@
     </div>
 </section>
 <!--====== Subscribe Part Ends ======-->
-
-<script>
-    function LoadReviewComponent(){
-
-    }
-
-    function viewComment(reviewId) {
-        var typeView = $("#showComment" + reviewId).attr('view-type');
-        if(typeView == 0){
-            $("#showComment" + reviewId).attr('view-type',1);
-        }else{
-            $("#showComment" + reviewId).attr('view-type',0);
+@section Scripts {
+    <script>
+        function LoadReviewComponent() {
+            $("#reviewComponent").load("/Product/ReviewComponent", { id: @Model.ProductId }, function () {
+                console.log("load OK");
+            });
         }
-    }
 
-    function replyReview(reviewId, userCmtId){
-        if (userCmtId == 0){
-            window.location.href = "/User/Login";
-        }else{
-            $("#replyReview" + reviewId).css("display","block");
-        }
-    }
+        LoadReviewComponent();
+    </script>
+}
 
-    function sendReply(reviewId, userReviewId, userCmtId){
-        var content = $("#contentCmt"+reviewId).val();
-        $.ajax({
-            url: 'http://localhost:5216/api/Comment/AddComment',
-            method: 'GET',
-            dataType: 'json',
-            data: { reviewId: reviewId, userCmtId: userCmtId, content: content },
-            success: function (comment) {
-                console.log(comment);
-            },
-            error: function (xhr, status, error) {
-                console.log(error);
-            }
-        });
-    }
-</script>
+
+
