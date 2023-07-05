@@ -25,7 +25,7 @@ namespace WebAPI_Project_PRN231.Api
     {
         private readonly HttpClient _httpClient;
 
-        public CallApi(HttpClient httpClient)
+        public CallApi(MyHttpClient httpClient)
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri("http://localhost:5216/");
