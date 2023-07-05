@@ -10,18 +10,19 @@ namespace WebAPI_Project_PRN231.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;       
+        private readonly ILogger<HomeController> _logger;
+        private readonly CallApi _callApi;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, CallApi callApi, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
-            
+            _callApi = callApi;
         }
 
         public async Task<IActionResult> Index()
         {
-            var listProd = await new CallApi().GetNewestProduct<ProductDTO>();
-            var listFeatureProd = await new CallApi().GetFeatureProd<ProductDTO>();
+            var listProd = await _callApi.GetNewestProduct<ProductDTO>();
+            var listFeatureProd = await _callApi.GetFeatureProd<ProductDTO>();
             ViewBag.listFeatureProd = listFeatureProd;
             return View("Index", listProd);
         }

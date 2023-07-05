@@ -3,6 +3,7 @@
 *@
 @{
     Layout = "_Layout";
+    string returnUrl = (string)ViewBag.ReturnUrl;
 }
 
 <html>
@@ -20,6 +21,8 @@
         <input type="text" id="Password" name="Password" required>
 
         <input type="submit" value="Submit">
+
+        <input type="hidden" name="returnUrl" value="@(!string.IsNullOrEmpty(returnUrl) ? returnUrl : "/Home/Index")" />
     </form>
 
 </body>

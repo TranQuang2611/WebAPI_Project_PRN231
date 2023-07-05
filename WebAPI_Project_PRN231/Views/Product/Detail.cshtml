@@ -1,4 +1,5 @@
-﻿@using WebAPI_Project_PRN231.DTO;
+﻿@using Newtonsoft.Json;
+@using WebAPI_Project_PRN231.DTO;
 @model ProductDTO
 
 @{
@@ -10,6 +11,15 @@
     decimal percentRate2Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 2).Count()* 100 / percentRateStar, 2) : 0;
     decimal percentRate1Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 1).Count() * 100 / percentRateStar, 2) : 0;
     decimal percentRate0Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 0).Count() * 100 / percentRateStar, 2) : 0;
+    string stringUser = Context.Session.GetString("user");
+    UserDTO user = new UserDTO();
+    if (!string.IsNullOrEmpty(stringUser))
+    {
+        user = JsonConvert.DeserializeObject<UserDTO>(stringUser);
+    }
+    var listUserIdReviewed = Model.Reviews.Select(x => x.UserId).Distinct();
+    bool isReviewed = (user.UserId != 0 && listUserIdReviewed.Contains(user.UserId));
+    ReviewDTO reviewOfUser = isReviewed ? Model.Reviews.First(x => x.UserId == user.UserId) : null;
 }
 
 <style>
@@ -254,32 +264,64 @@
                                 </div>
                             </div>
 
-                            <div class="reviews-rating-form">
-                                <div class="rating-star">
-                                    <p>Click on star to review</p>
-                                    <ul id="stars" class="stars">
-                                        <li class="star selected" data-value='1'><i class="mdi mdi-star"></i></li>
-                                        <li class="star" data-value='2'><i class="mdi mdi-star"></i></li>
-                                        <li class="star" data-value='3'><i class="mdi mdi-star"></i></li>
-                                        <li class="star" data-value='4'><i class="mdi mdi-star"></i></li>
-                                        <li class="star" data-value='5'><i class="mdi mdi-star"></i></li>
-                                    </ul>
-                                </div>
-                                <div class="rating-form">
-                                    <div class="single-form form-default">
-                                        <label>Write your Review</label>
-                                        <div class="form-input">
-                                            <textarea id="content-review" placeholder="Your review here"></textarea>
-                                            <i class="mdi mdi-message-text-outline"></i>
+                            @if (isReviewed)
+                            {
+                                int star = reviewOfUser.Rating??5;
+                                <div class="reviews-rating-form">
+                                    <div class="rating-star">
+                                        <label>Your rating</label>
+                                        <ul id="stars" style="display:flex">
+                                            @for (int i = 1; i <= star; i++)
+                                            {
+                                                <li style="font-size: 24px; color: #ffbe27" data-value='@i'><i class="mdi mdi-star"></i></li>
+                                            }
+                                            @for (int k = ++star; k <= 5; k++)
+                                            {
+                                                <li style="font-size: 24px" data-value='k'><i class="mdi mdi-star"></i></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="rating-form">
+                                        <div class="single-form form-default">
+                                            <label>Your review</label>
+                                            <div class="form-input">
+                                                <textarea id="content-review" value="@reviewOfUser.Content" readonly>@reviewOfUser.Content</textarea>
+                                                <i class="mdi mdi-message-text-outline"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="single-rating-form flex-wrap">
-                                        <div class="rating-form-btn">
-                                            <button class="main-btn primary-btn" onclick="writeReview(@(Model.ProductId), 1)">write a Review</button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="reviews-rating-form">
+                                    <div class="rating-star">
+                                        <p>Click on star to review</p>
+                                        <ul id="stars" class="stars">
+                                            <li class="star selected" data-value='1'><i class="mdi mdi-star"></i></li>
+                                            <li class="star" data-value='2'><i class="mdi mdi-star"></i></li>
+                                            <li class="star" data-value='3'><i class="mdi mdi-star"></i></li>
+                                            <li class="star" data-value='4'><i class="mdi mdi-star"></i></li>
+                                            <li class="star" data-value='5'><i class="mdi mdi-star"></i></li>
+                                        </ul>
+                                    </div>
+                                    <div class="rating-form">
+                                        <div class="single-form form-default">
+                                            <label>Write your Review</label>
+                                            <div class="form-input">
+                                                <textarea id="content-review" placeholder="Your review here"></textarea>
+                                                <i class="mdi mdi-message-text-outline"></i>
+                                            </div>
+                                        </div>
+                                        <div class="single-rating-form flex-wrap">
+                                            <div class="rating-form-btn">
+                                                <button class="main-btn primary-btn" onclick="writeReview(@(Model.ProductId), @user.UserId)">write a Review</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
+                            
                         </div>
 
                         <div class="reviews-btn flex-wrap">
@@ -467,14 +509,13 @@
                     data: { reviewId: reviewId, userCmtId: userCmtId, content: content },
                     success: function (comment) {
                         var date = ConvertDateToString(comment["commentDate"]);
-
                         var newLiCmt = $(`<li><div class='single-review-comment'>`
                             + `<div class='comment-user-info'>`
                             + `<div class='comment-author'>`
                             + `<img src='/assets/images/review/author-2.jpg' alt = '' >`
                             + `</div>`
                             + `<div class= 'comment-content'>`
-                            + `<h6 class="name">` + 123 + `</h6>`
+                            + `<h6 class="name">` + comment["userName"] + `</h6>`
                             + `<p><span class="date" >` + date + `</span></p>`
                             + `</div>`
                             + `</div>`
@@ -529,7 +570,7 @@
                                 + `<img src="/assets/images/review/author-1.jpg" alt="">`
                                 + `</div>`
                                 + `<div class="comment-content">`
-                                + `<h6 class="name">` + 123 + `</h6>`
+                                + `<h6 class="name">` + @user.Username + `</h6>`
                                 + `<p>`
                                 + `<i class="mdi mdi-star"></i>`
                                 + `<span class="rating"><strong>` + review["rating"] + `</strong> of 5</span>`
@@ -556,7 +597,7 @@
                                 + `</div>`
                                 + `<div class="single-rating-form flex-wrap">`
                                 + `<div class="rating-form-btn">`
-                                + `<button class="main-btn primary-btn" onclick="sendReply(` + review["reviewId"] + `,` + review["userId"] + `,` + 2 + `)">Send</button>`
+                                + `<button class="main-btn primary-btn" onclick="sendReply(` + review["reviewId"] + `,` + review["userId"] + `,` + @user.UserId + `)">Send</button>`
                                 + ` <button class="main-btn primary-btn" style="background: red" onclick="closeReply(` + review["reviewId"] + `)">Close</button>`
                                 + `</div>`
                                 + `</div>`

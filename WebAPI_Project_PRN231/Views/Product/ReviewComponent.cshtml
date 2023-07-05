@@ -1,5 +1,15 @@
-﻿@using WebAPI_Project_PRN231.DTO;
+﻿@using Newtonsoft.Json;
+@using WebAPI_Project_PRN231.DTO;
 @model List<ReviewDTO>
+
+@{
+    string stringUser = Context.Session.GetString("user");
+    UserDTO user = new UserDTO();
+    if (!string.IsNullOrEmpty(stringUser))
+    {
+        user = JsonConvert.DeserializeObject<UserDTO>(stringUser);
+    }
+}
 
 <div class="reviews-comment">
     <ul class="comment-items" id="reviewBox">
@@ -26,7 +36,7 @@
                             @review.Content
                         </p>
                         <ul class="comment-meta">
-                            <li><a href="javascript:void(0)" onclick="replyReview(@(review.ReviewId),1)">Reply</a></li>
+                            <li><a href="javascript:void(0)" onclick="replyReview(@(review.ReviewId),@user.UserId)">Reply</a></li>
                         </ul>
                     </div>
                 </div>
@@ -41,7 +51,7 @@
                     </div>
                     <div class="single-rating-form flex-wrap">
                         <div class="rating-form-btn">
-                            <button class="main-btn primary-btn" onclick="sendReply(@(review.ReviewId), @(review.UserId),2)">Send</button>
+                            <button class="main-btn primary-btn" onclick="sendReply(@(review.ReviewId), @(review.UserId), @user.UserId)">Send</button>
                             <button class="main-btn primary-btn" style="background: red" onclick="closeReply(@(review.ReviewId))">Close</button>
                         </div>
                     </div>

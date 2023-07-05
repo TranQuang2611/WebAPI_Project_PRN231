@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using WebAPI_Project_PRN231.Api;
 using WebAPI_Project_PRN231.DTO;
 
@@ -6,21 +7,36 @@ namespace WebAPI_Project_PRN231.Controllers
 {
     public class UserController : Controller
     {
-        [HttpGet]
-        public IActionResult Login()
+        private readonly CallApi _callApi;
+        private readonly ISession _session;
+        public UserController(CallApi callApi, HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
         {
+            _callApi = callApi;
+            _session = httpContextAccessor.HttpContext.Session;
+        }
+
+        [HttpGet]
+        public IActionResult Login(string returnUrl = "")
+        {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Logon(LoginModel model)
         {
-            ApiRespond respond = await new CallApi().Login(model);
+            ApiRespond respond = await _callApi.Login(model);
             if(respond != null)
             {
-
+                _session.SetString("token", respond.Token);
+                string user = JsonConvert.SerializeObject(respond.UserDTO);
+                _session.SetString("user", user);
             }
-            return View("Login");
+            if (!string.IsNullOrEmpty(model.ReturnUrl))
+            {
+                return Redirect(model.ReturnUrl);
+            }
+            return Redirect("/Home/Index");
         }
     }
 }

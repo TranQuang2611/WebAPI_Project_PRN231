@@ -1,3 +1,5 @@
+using WebAPI_Project_PRN231.Api;
+
 internal class Program
 {
     private static void Main(string[] args)
@@ -6,6 +8,18 @@ internal class Program
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
+
+        builder.Services.AddSession();
+        builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        builder.Services.AddDistributedMemoryCache();
+
+        builder.Services.AddScoped(sp => new HttpClient
+        {
+            BaseAddress = new Uri("http://localhost:5216/")
+
+        });
+
+        builder.Services.AddScoped<CallApi>();
 
         var app = builder.Build();
 
@@ -19,6 +33,7 @@ internal class Program
         app.UseRouting();
 
         app.UseAuthorization();
+        app.UseSession();
 
         app.MapControllerRoute(
             name: "default",

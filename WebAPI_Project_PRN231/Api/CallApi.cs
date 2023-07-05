@@ -5,30 +5,18 @@ using WebAPI_Project_PRN231.DTO;
 
 namespace WebAPI_Project_PRN231.Api
 {
-    public class MyHttpClient : HttpClient
-    {
-        private string _token;
-
-        public void Get()
-        {
-            _httpClient.BaseAddress = new Uri("http://localhost:5216/");
-            // set header....
-        }
-
-        public void SetToken(string token)
-        {
-            _token = token;
-        }
-    }
-
     public class CallApi
     {
         private readonly HttpClient _httpClient;
-
-        public CallApi(MyHttpClient httpClient)
+        private readonly ISession _session;
+        public CallApi(HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri("http://localhost:5216/");
+            _session = httpContextAccessor.HttpContext.Session;
+            if (!string.IsNullOrEmpty(_session.GetString("token")))
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer" , _session.GetString("token"));
+            }
         }
 
         public async Task<List<ProductDTO>> GetAllProduct<ProductDTO>()

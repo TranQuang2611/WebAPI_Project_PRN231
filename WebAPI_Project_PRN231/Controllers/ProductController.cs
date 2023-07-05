@@ -6,18 +6,25 @@ namespace WebAPI_Project_PRN231.Controllers
 {
     public class ProductController : Controller
     {
+        private readonly CallApi _callApi;
+
+        public ProductController(CallApi callApi)
+        {
+            _callApi = callApi;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Index(SearchForm modelSearch)
         {
-            List<ColorDTO> colors = await new CallApi().GetAllColors();
-            List<RamDTO> rams = await new CallApi().GetAllRams();
-            List<CategoryDTO> categories = await new CallApi().GetAllCategory();
-            List<SizeDTO> sizes = await new CallApi().GetAllSizes();
-            List<BrandDTO> brands = await new CallApi().GetAllBrand();
+            List<ColorDTO> colors = await _callApi.GetAllColors();
+            List<RamDTO> rams = await _callApi.GetAllRams();
+            List<CategoryDTO> categories = await _callApi.GetAllCategory();
+            List<SizeDTO> sizes = await _callApi.GetAllSizes();
+            List<BrandDTO> brands = await _callApi.GetAllBrand();
             if(modelSearch.nameProd == null) {
                 modelSearch.nameProd = ""; 
             }
-            List<ProductDTO> products = await new CallApi().SearchProduct(modelSearch);
+            List<ProductDTO> products = await _callApi.SearchProduct(modelSearch);
             ViewBag.listColor = colors;
             ViewBag.listRam = rams;
             ViewBag.Size = sizes;
@@ -28,8 +35,8 @@ namespace WebAPI_Project_PRN231.Controllers
         }
 
         public async Task<IActionResult> Detail(int id)
-        {
-            ProductDTO product = await new CallApi().GetProductDetail(id);
+        {   
+            ProductDTO product = await _callApi.GetProductDetail(id);
             if(product == null)
             {
                 return Redirect("/Home/Error");
@@ -39,7 +46,7 @@ namespace WebAPI_Project_PRN231.Controllers
 
         public async Task<IActionResult> ReviewComponent(ReviewModel model)
         {
-            List<ReviewDTO> reviews = await new CallApi().GetReviewOfProduct(model);
+            List<ReviewDTO> reviews = await _callApi.GetReviewOfProduct(model);
             return PartialView(reviews);
         }
 
