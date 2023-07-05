@@ -5,12 +5,29 @@ using WebAPI_Project_PRN231.DTO;
 
 namespace WebAPI_Project_PRN231.Api
 {
+    public class MyHttpClient : HttpClient
+    {
+        private string _token;
+
+        public void Get()
+        {
+            _httpClient.BaseAddress = new Uri("http://localhost:5216/");
+            // set header....
+        }
+
+        public void SetToken(string token)
+        {
+            _token = token;
+        }
+    }
+
     public class CallApi
     {
-        private readonly HttpClient _httpClient = new HttpClient();
+        private readonly HttpClient _httpClient;
 
-        public CallApi()
+        public CallApi(HttpClient httpClient)
         {
+            _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri("http://localhost:5216/");
         }
 
@@ -124,10 +141,19 @@ namespace WebAPI_Project_PRN231.Api
 
         public async Task<List<ReviewDTO>> GetReviewOfProduct(ReviewModel model)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync("api/Review?ProductId=" + model.ProductId+ "&Star="+model.Star+"&Sort"+model.Sort);
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("api/Review", model);
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
             List<ReviewDTO> result = JsonConvert.DeserializeObject<List<ReviewDTO>>(responseBody);
+            return result;
+        }
+
+        public async Task<ApiRespond> Login(LoginModel model)
+        {
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("api/User/Login", model);
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+            ApiRespond result = JsonConvert.DeserializeObject<ApiRespond>(responseBody);
             return result;
         }
     }

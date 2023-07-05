@@ -2,10 +2,10 @@
 @model List<ReviewDTO>
 
 <div class="reviews-comment">
-    <ul class="comment-items">
+    <ul class="comment-items" id="reviewBox">
         @foreach (var review in Model)
         {
-            <li>
+            <li class="review-component-box">
                 <div class="single-review-comment">
                     <div class="comment-user-info">
                         <div class="comment-author">

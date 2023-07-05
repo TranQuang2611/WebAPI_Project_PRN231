@@ -4,12 +4,12 @@
 @{
     Layout = "_Layout";
     decimal percentRateStar = Model.Reviews.Count();
-    decimal percentRate5Star = percentRateStar != 0 ? Model.Reviews.Where(x => x.Rating == 5).Count() * 100 / percentRateStar : 0;
-    decimal percentRate4Star = percentRateStar != 0 ? Model.Reviews.Where(x => x.Rating == 4).Count() * 100 / percentRateStar : 0;
-    decimal percentRate3Star = percentRateStar != 0 ? Model.Reviews.Where(x => x.Rating == 3).Count() * 100 / percentRateStar : 0;
-    decimal percentRate2Star = percentRateStar != 0 ?Model.Reviews.Where(x => x.Rating == 2).Count()* 100 / percentRateStar : 0;
-    decimal percentRate1Star = percentRateStar != 0 ? Model.Reviews.Where(x => x.Rating == 1).Count() * 100 / percentRateStar : 0;
-    decimal percentRate0Star = percentRateStar != 0 ? Model.Reviews.Where(x => x.Rating == 0).Count() * 100 / percentRateStar : 0;
+    decimal percentRate5Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 5).Count() * 100 / percentRateStar, 2) : 0;
+    decimal percentRate4Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 4).Count() * 100 / percentRateStar, 2) : 0;
+    decimal percentRate3Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 3).Count() * 100 / percentRateStar, 2) : 0;
+    decimal percentRate2Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 2).Count()* 100 / percentRateStar, 2) : 0;
+    decimal percentRate1Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 1).Count() * 100 / percentRateStar, 2) : 0;
+    decimal percentRate0Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 0).Count() * 100 / percentRateStar, 2) : 0;
 }
 
 <style>
@@ -28,6 +28,14 @@
     .star-select .nice-select ul li:hover {
         background: #542ded !important;
         color: #fff !important
+    }
+
+    .single-reviews-rating-bar .percent{
+        width : 100px !important;
+    }
+
+    .review-component-box{
+        border-bottom : 2px solid black !important;
     }
 </style>
 <!--====== Breadcrumbs Part Start ======-->
@@ -261,7 +269,7 @@
                                     <div class="single-form form-default">
                                         <label>Write your Review</label>
                                         <div class="form-input">
-                                            <textarea placeholder="Your review here"></textarea>
+                                            <textarea id="content-review" placeholder="Your review here"></textarea>
                                             <i class="mdi mdi-message-text-outline"></i>
                                         </div>
                                     </div>
@@ -291,7 +299,7 @@
 
                                 <div class="select-item" style="padding-right: 20px;">
                                     <div class="star-select">
-                                        <select id="selectedSort">
+                                        <select id="selectedSort" onchange="viewByStar(@(Model.ProductId))">
                                             <option value="1">Sort date ascending</option>
                                             <option value="0" selected>Sort date descending</option>
                                         </select>
@@ -303,91 +311,6 @@
                         <div id="reviewComponent">
 
                         </div>
-
-                       @* <div class="reviews-comment">
-                            <ul class="comment-items">
-                                @foreach (var review in Model.Reviews)
-                                {
-                                    <li>
-                                        <div class="single-review-comment">
-                                            <div class="comment-user-info">
-                                                <div class="comment-author">
-                                                    <img src="/assets/images/review/author-1.jpg" alt="">
-                                                </div>
-                                                <div class="comment-content">
-                                                    <h6 class="name">@review.User.Username</h6>
-
-                                                    <p>
-                                                        <i class="mdi mdi-star"></i>
-                                                        <span class="rating"><strong>@review.Rating</strong> of 5</span>
-                                                        <span class="date">@review.ReviewDate.Value.ToString("dd/MM/yyy HH:mm:ss")</span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="comment-user-text">
-                                                <p>
-                                                    @review.Content
-                                                </p>
-                                                <ul class="comment-meta">
-                                                    <li><a href="javascript:void(0)" onclick="replyReview(@(review.ReviewId),1)">Reply</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div id="replyReview@(review.ReviewId)" class="rating-form" style="display: none">
-                                            <div class="single-form form-default">
-                                                <label>Write your Comment</label>
-                                                <div class="form-input">
-                                                    <textarea placeholder="Your comment here" id="contentCmt@(review.ReviewId)"></textarea>
-                                                    <i class="mdi mdi-message-text-outline"></i>
-                                                </div>
-                                            </div>
-                                            <div class="single-rating-form flex-wrap">
-                                                <div class="rating-form-btn">
-                                                    <button class="main-btn primary-btn" onclick="sendReply(@(review.ReviewId), @(review.UserId),2)">Send</button>
-                                                    <button class="main-btn primary-btn" style="background: red" onclick="closeReply(@(review.ReviewId))">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <ul class="comment-replay" id="commentByReview@(review.ReviewId)">
-                                            @foreach (var comment in review.Comments)
-                                            {
-                                            <li>
-                                                <div class="single-review-comment">
-                                                    <div class="comment-user-info">
-                                                        <div class="comment-author">
-                                                            <img src="/assets/images/review/author-2.jpg" alt="">
-                                                        </div>
-                                                        <div class="comment-content">
-                                                            <h6 class="name">@comment.User.Username</h6>
-
-                                                            <p>
-                                                                <span class="date">@comment.CommentDate.Value.ToString("dd/MM/yyyy HH:mm:ss")</span>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="comment-user-text">
-                                                        <p>
-                                                            @comment.Comment1
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            }                                         
-                                        </ul>
-                                        @if(review.Comments.Count() == 3 && review.Comments.Count() < review.totalComment)
-                                        {
-                                            <div style="padding: 10px 0px 0px 50px">
-                                                <a href="#" onclick="viewComment(@review.ReviewId)" view-type="0" id="showComment@(review.ReviewId)">Hiển thị tất cả bình luận</a>
-                                            </div>
-                                        }
-                                        
-                                    </li>
-                                    
-                                }
-                            </ul>
-                        </div>*@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
@@ -504,7 +427,7 @@
         LoadReviewComponent(@(Model.ProductId), 0, 0);
 
         function LoadReviewComponent(prodId, selectedStar, sort) {
-            $("#reviewComponent").load("/Product/ReviewComponent", { Id: prodId }, function () {
+            $("#reviewComponent").load("/Product/ReviewComponent", { ProductId: prodId, Star: selectedStar, Sort: sort }, function () {
                 console.log("load OK");
             });
         }
@@ -572,7 +495,85 @@
 
         function viewByStar(prodId){
             var selectedStar = $("#selectedStar").val();
-            var selectedStar = $("#selectedSort").val();
+            var selectedSort = $("#selectedSort").val();
+            LoadReviewComponent(prodId, selectedStar, selectedSort);
+        }
+
+        function writeReview(prodId, userId){
+            var content = $("#content-review").val();
+            var rating = 1;
+
+            $("#stars .star").each(function () {
+                var isSelected = $(this).hasClass("selected");
+                if(isSelected){
+                    rating = $(this).attr("data-value");
+                }
+            })
+
+            if(content == ""){
+                alert("Vui lòng nhập review trước khi gửi");
+                return;
+            }else{
+                $.ajax({
+                    url: 'http://localhost:5216/api/Review/AddReview',
+                    method: 'GET',
+                    dataType: 'json',
+                    data: { prodId: prodId, userReviewId: userId, content: content, rating: rating },
+                    success: function (review) {
+                        var selectedStar = $("#selectedStar").val();
+                        if (selectedStar == rating || selectedStar == 0){
+                            var date = ConvertDateToString(review["reviewDate"]);
+                            var newLiReview = $(`<li class="review-component-box"><div class="single-review-comment">`
+                                + `<div class="comment-user-info">`
+                                + `<div class="comment-author">`
+                                + `<img src="/assets/images/review/author-1.jpg" alt="">`
+                                + `</div>`
+                                + `<div class="comment-content">`
+                                + `<h6 class="name">` + 123 + `</h6>`
+                                + `<p>`
+                                + `<i class="mdi mdi-star"></i>`
+                                + `<span class="rating"><strong>` + review["rating"] + `</strong> of 5</span>`
+                                + `<span class="date">` + date + `</span>`
+                                + `</p>`
+                                + `</div>`
+                                + `</div>`
+                                + `<div class="comment-user-text">`
+                                + `<p>` + review["content"] + `</p>`
+                                + `<ul class="comment-meta">`
+                                + `<li><a href="javascript:void(0)" onclick="replyReview(` + review["reviewId"] + `,` + 1 + `)">Reply</a></li>`
+                                + `</ul>`
+                                + `</div>`
+                                + `</div>`
+
+                                //Write review
+                                + `<div id="replyReview` + review["reviewId"] + `" class="rating-form" style="display: none">`
+                                + `<div class="single-form form-default">`
+                                + `<label>Write your Comment</label>`
+                                + `<div class="form-input">`
+                                + `<textarea placeholder="Your comment here" id="contentCmt` + review["reviewId"] + `"></textarea>`
+                                + `<i class="mdi mdi-message-text-outline"></i>`
+                                + `</div>`
+                                + `</div>`
+                                + `<div class="single-rating-form flex-wrap">`
+                                + `<div class="rating-form-btn">`
+                                + `<button class="main-btn primary-btn" onclick="sendReply(` + review["reviewId"] + `,` + review["userId"] + `,` + 2 + `)">Send</button>`
+                                + ` <button class="main-btn primary-btn" style="background: red" onclick="closeReply(` + review["reviewId"] + `)">Close</button>`
+                                + `</div>`
+                                + `</div>`
+                                + `</div>`
+                                + ` </li>`
+
+                                + `<ul class="comment-replay" id="commentByReview` + review["reviewId"] + `">`
+                                + `</ul>`
+                            );
+                            $("#reviewBox").prepend(newLiReview);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            }
         }
 
         function ConvertDateToString(dateString){
