@@ -541,6 +541,12 @@
         }
 
         function writeReview(prodId, userId){
+            if(userId == 0){
+                var returnUrl = window.location.pathname + window.location.search;
+                window.location.href = "/User/Login?returnUrl=" + returnUrl;
+                return;
+            }
+
             var content = $("#content-review").val();
             var rating = 1;
 

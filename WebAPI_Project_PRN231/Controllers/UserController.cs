@@ -9,7 +9,7 @@ namespace WebAPI_Project_PRN231.Controllers
     {
         private readonly CallApi _callApi;
         private readonly ISession _session;
-        public UserController(CallApi callApi, HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
+        public UserController(CallApi callApi, IHttpContextAccessor httpContextAccessor)
         {
             _callApi = callApi;
             _session = httpContextAccessor.HttpContext.Session;
@@ -36,6 +36,12 @@ namespace WebAPI_Project_PRN231.Controllers
             {
                 return Redirect(model.ReturnUrl);
             }
+            return Redirect("/Home/Index");
+        }
+
+        public IActionResult Logout()
+        {
+            _session.Clear();
             return Redirect("/Home/Index");
         }
     }

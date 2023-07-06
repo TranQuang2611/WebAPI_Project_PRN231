@@ -1,5 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@using Newtonsoft.Json;
+@using WebAPI_Project_PRN231.DTO;
+<!DOCTYPE html>
 <html lang="en">
+
+@{
+    string stringUser = Context.Session.GetString("user");
+    UserDTO user = null;
+    if (!string.IsNullOrEmpty(stringUser))
+    {
+        user = JsonConvert.DeserializeObject<UserDTO>(stringUser);
+    }
+}
 <head>
     <meta charset="utf-8">
     <!--====== Title ======-->
@@ -86,7 +97,17 @@
                             <!-- navbar top right Start -->
                             <div class="navbar-top-right">
                                 <ul class="navbar-top-link">
-                                    <li><a href="login-page.html"><i class="mdi mdi-account"></i>Login</a></li>
+                                    @if(user != null)
+                                    {
+                                        <li><a href="javascript:void(0)"><i class="mdi mdi-account"></i>Trang quản lí</a></li>
+                                        <li><a href="javascript:void(0)"><i class="mdi mdi-account"></i>@user.Username</a></li>
+                                        <li><a href="/User/Logout"><i class="mdi mdi-logout"></i>Log out</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="login-page.html"><i class="mdi mdi-account"></i>Login</a></li>
+                                    }
+                                    
                                 </ul>
                             </div>
                             <!-- navbar top right Ends -->

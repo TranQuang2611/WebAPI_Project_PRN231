@@ -76,3 +76,7 @@ CREATE TABLE Comments (
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (ReviewID) REFERENCES Reviews(ReviewID)
 );
+
+alter table Users
+    alter column Role nvarchar(50) null
+go
