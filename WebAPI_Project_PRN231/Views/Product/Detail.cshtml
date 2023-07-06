@@ -10,7 +10,6 @@
     decimal percentRate3Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 3).Count() * 100 / percentRateStar, 2) : 0;
     decimal percentRate2Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 2).Count()* 100 / percentRateStar, 2) : 0;
     decimal percentRate1Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 1).Count() * 100 / percentRateStar, 2) : 0;
-    decimal percentRate0Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 0).Count() * 100 / percentRateStar, 2) : 0;
     string stringUser = Context.Session.GetString("user");
     UserDTO user = new UserDTO();
     if (!string.IsNullOrEmpty(stringUser))
@@ -251,15 +250,6 @@
                                             <div class="bar-inner" style="width:@(percentRate1Star)%"></div>
                                         </div>
                                         <p class="percent">@(percentRate1Star)%</p>
-                                    </div>
-                                </div>
-                                <div class="reviews-rating-bar">
-                                    <div class="single-reviews-rating-bar">
-                                        <p class="value">0 Star</p>
-                                        <div class="rating-bar-inner">
-                                            <div class="bar-inner" style="width:@(percentRate0Star)%"></div>
-                                        </div>
-                                        <p class="percent">@(percentRate0Star)%</p>
                                     </div>
                                 </div>
                             </div>

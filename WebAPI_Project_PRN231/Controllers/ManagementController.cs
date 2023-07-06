@@ -23,14 +23,21 @@ namespace WebAPI_Project_PRN231.Controllers
             }
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            if(user == null || !user.IsAdmin)
+            if (user == null || !user.IsAdmin)
             {
                 return Redirect("/Home/Error");
             }
-
-            return View();
+            SearchForm modelSearch = new SearchForm();
+            List<ColorDTO> colors = await _callApi.GetAllColors();
+            List<RamDTO> rams = await _callApi.GetAllRams();
+            List<SizeDTO> sizes = await _callApi.GetAllSizes();
+            List<ProductDTO> products = await _callApi.SearchProduct(modelSearch);
+            ViewBag.listColor = colors;
+            ViewBag.listRam = rams;
+            ViewBag.Size = sizes;
+            return View(products);
         }
     }
 }

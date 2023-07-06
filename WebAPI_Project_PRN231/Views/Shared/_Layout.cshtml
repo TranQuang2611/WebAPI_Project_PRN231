@@ -99,13 +99,16 @@
                                 <ul class="navbar-top-link">
                                     @if(user != null)
                                     {
-                                        <li><a href="javascript:void(0)"><i class="mdi mdi-account"></i>Trang quản lí</a></li>
+                                        if (user.IsAdmin)
+                                        {
+                                            <li><a href="/Management/Index"><i class="mdi mdi-account"></i>Trang quản lí</a></li>
+                                        }
                                         <li><a href="javascript:void(0)"><i class="mdi mdi-account"></i>@user.Username</a></li>
                                         <li><a href="/User/Logout"><i class="mdi mdi-logout"></i>Log out</a></li>
                                     }
                                     else
                                     {
-                                        <li><a href="login-page.html"><i class="mdi mdi-account"></i>Login</a></li>
+                                        <li><a href="/User/Login"><i class="mdi mdi-account"></i>Login</a></li>
                                     }
                                     
                                 </ul>
