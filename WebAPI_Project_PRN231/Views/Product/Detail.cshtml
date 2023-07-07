@@ -349,83 +349,80 @@
 <!--====== Subscribe Part Ends ======-->
 @section Scripts {   
     <script>
-        //Start load
-        $('#stars li').on('mouseover', function () {
-            var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
-
-            // Now highlight all the stars that's not after the current hovered star
-            $(this).parent().children('li.star').each(function (e) {
-                if (e < onStar) {
-                    $(this).addClass('hover');
-                }
-                else {
-                    $(this).removeClass('hover');
-                }
-            });
-
-        }).on('mouseout', function () {
-            $(this).parent().children('li.star').each(function (e) {
-                $(this).removeClass('hover');
-            });
-        });
-
-
-        /* 2. Action to perform on click */
-        var spansCounts = $('#stars li').length
-        $('#stars li').on('click', function (e) {
-            console.log($(this).index())
-            $('#stars li').removeClass('selected');
-
-            for (var i = 0; i < $(this).index() + 1; i++) {
-                $('#stars li').eq(i).addClass('selected')
-            }
-        })
-
-
-        /*-------- Rating 2 --------*/
-
-        /* 1. Visualizing things on Hover - See next part for action on click */
-        $('#stars2 li').on('mouseover', function () {
-            var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
-
-            // Now highlight all the stars that's not after the current hovered star
-            $(this).parent().children('li.star').each(function (e) {
-                if (e < onStar) {
-                    $(this).addClass('hover');
-                }
-                else {
-                    $(this).removeClass('hover');
-                }
-            });
-
-        }).on('mouseout', function () {
-            $(this).parent().children('li.star').each(function (e) {
-                $(this).removeClass('hover');
-            });
-        });
-
-
-        /* 2. Action to perform on click */
-        var spansCounts = $('#stars2 li').length
-        $('#stars2 li').on('click', function (e) {
-            console.log($(this).index())
-            $('#stars2 li').removeClass('selected');
-
-            for (var i = 0; i < $(this).index() + 1; i++) {
-                $('#stars2 li').eq(i).addClass('selected')
-            }
-        })
-        //End load
-
-
         LoadHeaderReviewComponent(@(Model.ProductId));
 
         LoadReviewComponent(@(Model.ProductId), 0, 0);
-        
 
         function LoadHeaderReviewComponent(prodId) {
             $("#headerReviewComponent").load("/Product/HeaderReviewComponent", { productId: prodId }, function () {
                 console.log("load OK Header");
+                //Start load
+                $('#stars li').on('mouseover', function () {
+                    var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+                    // Now highlight all the stars that's not after the current hovered star
+                    $(this).parent().children('li.star').each(function (e) {
+                        if (e < onStar) {
+                            $(this).addClass('hover');
+                        }
+                        else {
+                            $(this).removeClass('hover');
+                        }
+                    });
+
+                }).on('mouseout', function () {
+                    $(this).parent().children('li.star').each(function (e) {
+                        $(this).removeClass('hover');
+                    });
+                });
+
+
+                /* 2. Action to perform on click */
+                var spansCounts = $('#stars li').length
+                $('#stars li').on('click', function (e) {
+                    console.log($(this).index())
+                    $('#stars li').removeClass('selected');
+
+                    for (var i = 0; i < $(this).index() + 1; i++) {
+                        $('#stars li').eq(i).addClass('selected')
+                    }
+                })
+
+
+                /*-------- Rating 2 --------*/
+
+                /* 1. Visualizing things on Hover - See next part for action on click */
+                $('#stars2 li').on('mouseover', function () {
+                    var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+                    // Now highlight all the stars that's not after the current hovered star
+                    $(this).parent().children('li.star').each(function (e) {
+                        if (e < onStar) {
+                            $(this).addClass('hover');
+                        }
+                        else {
+                            $(this).removeClass('hover');
+                        }
+                    });
+
+                }).on('mouseout', function () {
+                    $(this).parent().children('li.star').each(function (e) {
+                        $(this).removeClass('hover');
+                    });
+                });
+
+
+                /* 2. Action to perform on click */
+                var spansCounts = $('#stars2 li').length
+                $('#stars2 li').on('click', function (e) {
+                    console.log($(this).index())
+                    $('#stars2 li').removeClass('selected');
+
+                    for (var i = 0; i < $(this).index() + 1; i++) {
+                        $('#stars2 li').eq(i).addClass('selected')
+                    }
+                })
+                //End load
             });
         }
 

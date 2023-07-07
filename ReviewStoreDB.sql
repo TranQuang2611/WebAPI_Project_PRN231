@@ -78,5 +78,5 @@ CREATE TABLE Comments (
 );
 
 alter table Users
-    alter column Role nvarchar(50) null
+    add Role nvarchar(50) null
 go
