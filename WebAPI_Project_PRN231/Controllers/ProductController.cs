@@ -50,5 +50,11 @@ namespace WebAPI_Project_PRN231.Controllers
             return PartialView(reviews);
         }
 
+        public async Task<IActionResult> HeaderReviewComponent(int productId)
+        {
+            ProductDTO product = await _callApi.GetProductDetail(productId);
+            return PartialView(product);
+        }
+
     }
 }

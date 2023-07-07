@@ -1,0 +1,160 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Newtonsoft.Json;
+@using WebAPI_Project_PRN231.DTO;
+@model ProductDTO
+@{
+    decimal percentRateStar = Model.Reviews.Count();
+    decimal percentRate5Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 5).Count() * 100 / percentRateStar, 2) : 0;
+    decimal percentRate4Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 4).Count() * 100 / percentRateStar, 2) : 0;
+    decimal percentRate3Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 3).Count() * 100 / percentRateStar, 2) : 0;
+    decimal percentRate2Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 2).Count() * 100 / percentRateStar, 2) : 0;
+    decimal percentRate1Star = percentRateStar != 0 ? decimal.Round(Model.Reviews.Where(x => x.Rating == 1).Count() * 100 / percentRateStar, 2) : 0;
+    string stringUser = Context.Session.GetString("user");
+    UserDTO user = new UserDTO();
+    if (!string.IsNullOrEmpty(stringUser))
+    {
+        user = JsonConvert.DeserializeObject<UserDTO>(stringUser);
+    }
+    var listUserIdReviewed = Model.Reviews.Select(x => x.UserId).Distinct();
+    bool isReviewed = (user.UserId != 0 && listUserIdReviewed.Contains(user.UserId));
+    ReviewDTO reviewOfUser = isReviewed ? Model.Reviews.First(x => x.UserId == user.UserId) : null;
+}
+<style>
+    .star-select .nice-select {
+        background: #542ded;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 500;
+        margin-top: 8px;
+    }
+
+    .star-select .nice-select ul li {
+        color: black;
+    }
+
+    .star-select .nice-select ul li:hover {
+        background: #542ded !important;
+        color: #fff !important
+    }
+
+    .single-reviews-rating-bar .percent {
+        width: 100px !important;
+    }
+
+    .review-component-box {
+        border-bottom: 2px solid black !important;
+    }
+</style>
+
+<div class="reviews-rating-wrapper flex-wrap">
+    <div class="reviews-rating-star">
+        <p class="rating-review"><i class="mdi mdi-star"></i> <span>@Model.AverageStar</span> of 5</p>
+
+        <div class="reviews-rating-bar">
+            <div class="single-reviews-rating-bar">
+                <p class="value">5 Star</p>
+                <div class="rating-bar-inner">
+                    <div class="bar-inner" style="width: @(percentRate5Star)%;"></div>
+                </div>
+                <p class="percent">@(percentRate5Star)%</p>
+            </div>
+        </div>
+        <div class="reviews-rating-bar">
+            <div class="single-reviews-rating-bar">
+                <p class="value">4 Star</p>
+                <div class="rating-bar-inner">
+                    <div class="bar-inner" style="width: @(percentRate4Star)%;"></div>
+                </div>
+                <p class="percent">@(percentRate4Star) %</p>
+            </div>
+        </div>
+        <div class="reviews-rating-bar">
+            <div class="single-reviews-rating-bar">
+                <p class="value">3 Star</p>
+                <div class="rating-bar-inner">
+                    <div class="bar-inner" style="width: @(percentRate3Star)%;"></div>
+                </div>
+                <p class="percent">@(percentRate3Star) %</p>
+            </div>
+        </div>
+        <div class="reviews-rating-bar">
+            <div class="single-reviews-rating-bar">
+                <p class="value">2 Star</p>
+                <div class="rating-bar-inner">
+                    <div class="bar-inner" style="width:@(percentRate2Star) %"></div>
+                </div>
+                <p class="percent">@(percentRate2Star)%</p>
+            </div>
+        </div>
+        <div class="reviews-rating-bar">
+            <div class="single-reviews-rating-bar">
+                <p class="value">1 Star</p>
+                <div class="rating-bar-inner">
+                    <div class="bar-inner" style="width:@(percentRate1Star)%"></div>
+                </div>
+                <p class="percent">@(percentRate1Star)%</p>
+            </div>
+        </div>
+    </div>
+
+    @if (isReviewed)
+    {
+        int star = reviewOfUser.Rating ?? 5;
+        <div class="reviews-rating-form">
+            <div class="rating-star">
+                <label>Your rating</label>
+                <ul id="stars" style="display:flex">
+                    @for (int i = 1; i <= star; i++)
+                    {
+                        <li style="font-size: 24px; color: #ffbe27" data-value='@i'><i class="mdi mdi-star"></i></li>
+                    }
+                    @for (int k = ++star; k <= 5; k++)
+                    {
+                        <li style="font-size: 24px" data-value='k'><i class="mdi mdi-star"></i></li>
+                    }
+                </ul>
+            </div>
+            <div class="rating-form">
+                <div class="single-form form-default">
+                    <label>Your review</label>
+                    <div class="form-input">
+                        <textarea id="content-review" value="@reviewOfUser.Content" readonly>@reviewOfUser.Content</textarea>
+                        <i class="mdi mdi-message-text-outline"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="reviews-rating-form">
+            <div class="rating-star">
+                <p>Click on star to review</p>
+                <ul id="stars" class="stars">
+                    <li class="star selected" data-value='1'><i class="mdi mdi-star"></i></li>
+                    <li class="star" data-value='2'><i class="mdi mdi-star"></i></li>
+                    <li class="star" data-value='3'><i class="mdi mdi-star"></i></li>
+                    <li class="star" data-value='4'><i class="mdi mdi-star"></i></li>
+                    <li class="star" data-value='5'><i class="mdi mdi-star"></i></li>
+                </ul>
+            </div>
+            <div class="rating-form">
+                <div class="single-form form-default">
+                    <label>Write your Review</label>
+                    <div class="form-input">
+                        <textarea id="content-review" placeholder="Your review here"></textarea>
+                        <i class="mdi mdi-message-text-outline"></i>
+                    </div>
+                </div>
+                <div class="single-rating-form flex-wrap">
+                    <div class="rating-form-btn">
+                        <button class="main-btn primary-btn" onclick="writeReview(@(Model.ProductId), @user.UserId, '@(user.Username)')">write a Review</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

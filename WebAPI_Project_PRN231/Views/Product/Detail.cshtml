@@ -203,114 +203,7 @@
                             <h4 class="title">Customer Reviews (@Model.Reviews.Count())</h4>
                         </div>
 
-                        <div class="reviews-rating-wrapper flex-wrap">
-                            <div class="reviews-rating-star">
-                                <p class="rating-review"><i class="mdi mdi-star"></i> <span>@Model.AverageStar</span> of 5</p>
-
-                                <div class="reviews-rating-bar">
-                                    <div class="single-reviews-rating-bar">
-                                        <p class="value">5 Star</p>
-                                        <div class="rating-bar-inner">
-                                            <div class="bar-inner" style="width: @(percentRate5Star)%;"></div>
-                                        </div>
-                                        <p class="percent">@(percentRate5Star)%</p>
-                                    </div>
-                                </div>
-                                <div class="reviews-rating-bar">
-                                    <div class="single-reviews-rating-bar">
-                                        <p class="value">4 Star</p>
-                                        <div class="rating-bar-inner">
-                                            <div class="bar-inner" style="width: @(percentRate4Star)%;"></div>
-                                        </div>
-                                        <p class="percent">@(percentRate4Star) %</p>
-                                    </div>
-                                </div>
-                                <div class="reviews-rating-bar">
-                                    <div class="single-reviews-rating-bar">
-                                        <p class="value">3 Star</p>
-                                        <div class="rating-bar-inner">
-                                            <div class="bar-inner" style="width: @(percentRate3Star)%;"></div>
-                                        </div>
-                                        <p class="percent">@(percentRate3Star) %</p>
-                                    </div>
-                                </div>
-                                <div class="reviews-rating-bar">
-                                    <div class="single-reviews-rating-bar">
-                                        <p class="value">2 Star</p>
-                                        <div class="rating-bar-inner">
-                                            <div class="bar-inner" style="width:@(percentRate2Star) %"></div>
-                                        </div>
-                                        <p class="percent">@(percentRate2Star)%</p>
-                                    </div>
-                                </div>
-                                <div class="reviews-rating-bar">
-                                    <div class="single-reviews-rating-bar">
-                                        <p class="value">1 Star</p>
-                                        <div class="rating-bar-inner">
-                                            <div class="bar-inner" style="width:@(percentRate1Star)%"></div>
-                                        </div>
-                                        <p class="percent">@(percentRate1Star)%</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            @if (isReviewed)
-                            {
-                                int star = reviewOfUser.Rating??5;
-                                <div class="reviews-rating-form">
-                                    <div class="rating-star">
-                                        <label>Your rating</label>
-                                        <ul id="stars" style="display:flex">
-                                            @for (int i = 1; i <= star; i++)
-                                            {
-                                                <li style="font-size: 24px; color: #ffbe27" data-value='@i'><i class="mdi mdi-star"></i></li>
-                                            }
-                                            @for (int k = ++star; k <= 5; k++)
-                                            {
-                                                <li style="font-size: 24px" data-value='k'><i class="mdi mdi-star"></i></li>
-                                            }
-                                        </ul>
-                                    </div>
-                                    <div class="rating-form">
-                                        <div class="single-form form-default">
-                                            <label>Your review</label>
-                                            <div class="form-input">
-                                                <textarea id="content-review" value="@reviewOfUser.Content" readonly>@reviewOfUser.Content</textarea>
-                                                <i class="mdi mdi-message-text-outline"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="reviews-rating-form">
-                                    <div class="rating-star">
-                                        <p>Click on star to review</p>
-                                        <ul id="stars" class="stars">
-                                            <li class="star selected" data-value='1'><i class="mdi mdi-star"></i></li>
-                                            <li class="star" data-value='2'><i class="mdi mdi-star"></i></li>
-                                            <li class="star" data-value='3'><i class="mdi mdi-star"></i></li>
-                                            <li class="star" data-value='4'><i class="mdi mdi-star"></i></li>
-                                            <li class="star" data-value='5'><i class="mdi mdi-star"></i></li>
-                                        </ul>
-                                    </div>
-                                    <div class="rating-form">
-                                        <div class="single-form form-default">
-                                            <label>Write your Review</label>
-                                            <div class="form-input">
-                                                <textarea id="content-review" placeholder="Your review here"></textarea>
-                                                <i class="mdi mdi-message-text-outline"></i>
-                                            </div>
-                                        </div>
-                                        <div class="single-rating-form flex-wrap">
-                                            <div class="rating-form-btn">
-                                                <button class="main-btn primary-btn" onclick="writeReview(@(Model.ProductId), @user.UserId, '@(user.Username)')">write a Review</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
+                        <div id="headerReviewComponent">
                             
                         </div>
 
@@ -454,9 +347,87 @@
     </div>
 </section>
 <!--====== Subscribe Part Ends ======-->
-@section Scripts {
+@section Scripts {   
     <script>
+        //Start load
+        $('#stars li').on('mouseover', function () {
+            var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+            // Now highlight all the stars that's not after the current hovered star
+            $(this).parent().children('li.star').each(function (e) {
+                if (e < onStar) {
+                    $(this).addClass('hover');
+                }
+                else {
+                    $(this).removeClass('hover');
+                }
+            });
+
+        }).on('mouseout', function () {
+            $(this).parent().children('li.star').each(function (e) {
+                $(this).removeClass('hover');
+            });
+        });
+
+
+        /* 2. Action to perform on click */
+        var spansCounts = $('#stars li').length
+        $('#stars li').on('click', function (e) {
+            console.log($(this).index())
+            $('#stars li').removeClass('selected');
+
+            for (var i = 0; i < $(this).index() + 1; i++) {
+                $('#stars li').eq(i).addClass('selected')
+            }
+        })
+
+
+        /*-------- Rating 2 --------*/
+
+        /* 1. Visualizing things on Hover - See next part for action on click */
+        $('#stars2 li').on('mouseover', function () {
+            var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+            // Now highlight all the stars that's not after the current hovered star
+            $(this).parent().children('li.star').each(function (e) {
+                if (e < onStar) {
+                    $(this).addClass('hover');
+                }
+                else {
+                    $(this).removeClass('hover');
+                }
+            });
+
+        }).on('mouseout', function () {
+            $(this).parent().children('li.star').each(function (e) {
+                $(this).removeClass('hover');
+            });
+        });
+
+
+        /* 2. Action to perform on click */
+        var spansCounts = $('#stars2 li').length
+        $('#stars2 li').on('click', function (e) {
+            console.log($(this).index())
+            $('#stars2 li').removeClass('selected');
+
+            for (var i = 0; i < $(this).index() + 1; i++) {
+                $('#stars2 li').eq(i).addClass('selected')
+            }
+        })
+        //End load
+
+
+        LoadHeaderReviewComponent(@(Model.ProductId));
+
         LoadReviewComponent(@(Model.ProductId), 0, 0);
+        
+
+        function LoadHeaderReviewComponent(prodId) {
+            $("#headerReviewComponent").load("/Product/HeaderReviewComponent", { productId: prodId }, function () {
+                console.log("load OK Header");
+            });
+        }
 
         function LoadReviewComponent(prodId, selectedStar, sort) {
             $("#reviewComponent").load("/Product/ReviewComponent", { ProductId: prodId, Star: selectedStar, Sort: sort }, function () {
@@ -604,6 +575,7 @@
                                 + `</ul>`
                             );
                             $("#reviewBox").prepend(newLiReview);
+                            LoadHeaderReviewComponent(@(Model.ProductId));
                         }
                     },
                     error: function (xhr, status, error) {
@@ -622,7 +594,7 @@
             var minutes = date.getMinutes().toString();
             var second = date.getSeconds().toString();
             return day + "/" + month + "/" + year + " " + hour + ":" + minutes + ":" + second; 
-        }
+        }       
     </script>
 }
 
