@@ -33,10 +33,14 @@ namespace WebAPI_Project_PRN231.Controllers
             List<ColorDTO> colors = await _callApi.GetAllColors();
             List<RamDTO> rams = await _callApi.GetAllRams();
             List<SizeDTO> sizes = await _callApi.GetAllSizes();
+            List<CategoryDTO> categories = await _callApi.GetAllCategory();
+            List<BrandDTO> brands = await _callApi.GetAllBrand();
             List<ProductDTO> products = await _callApi.SearchProduct(modelSearch);
             ViewBag.listColor = colors;
             ViewBag.listRam = rams;
             ViewBag.Size = sizes;
+            ViewBag.listCategory = categories;
+            ViewBag.listBrand = brands;
             return View(products);
         }
     }

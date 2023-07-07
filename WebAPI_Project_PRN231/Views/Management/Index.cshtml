@@ -5,6 +5,8 @@
     List<ColorDTO> listColor = (List<ColorDTO>)ViewBag.listColor;
     List<RamDTO> listRam = (List<RamDTO>)ViewBag.listRam;
     List<SizeDTO> listSize = (List<SizeDTO>)ViewBag.Size;
+    List<CategoryDTO> listCategory = (List<CategoryDTO>)ViewBag.listCategory;
+    List<BrandDTO> listBrand = (List<BrandDTO>)ViewBag.listBrand;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -67,9 +69,9 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="/Management/Index">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span>
+                    <span>Product Management</span>
                 </a>
             </li>
 
@@ -114,6 +116,10 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <div style="display:flex; align-items:center">
+                            <a href="/Home/Index" style="font-size: 18px; font-weight: bold;">Trang Review Sản phẩm</a>
+                        </div>
+
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
@@ -125,7 +131,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="/User/Logout" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -143,8 +149,11 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Product List</h6>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body">                          
                             <div class="table-responsive">
+                                <button type="button" class="btn btn-primary" style="margin-bottom: 20px" onclick="addProduct()">
+                                    Add Product
+                                </button>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
@@ -176,7 +185,7 @@
                                                 <td class="price">@item.UnitPrice</td>
                                                 <td class="sell-price">@item.UnitSellPrice</td>
                                                 <td class="instock">@item.UnitInStock</td>
-                                                <td class="des" des-value="@item.Description">@item.Description.Substring(0, 100) ...</td>
+                                                <td class="des" des-value="@item.Description">@(item.Description.Length > 100 ? item.Description.Substring(0, 100) + " ..." : item.Description)</td>
                                                 <td>
                                                     <a href="javascript:void(0)" onclick="editModal(@item.ProductId)">Edit |</a>
                                                     <a href="javascript:void(0)">Delete </a>
@@ -228,7 +237,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="/User/Logout">Logout</a>
                 </div>
             </div>
         </div>
@@ -245,6 +254,24 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" id="prod-id"/>
+                    <div class="form-group add-prod-field" style="display:none">
+                        <label>Category:</label>
+                        <select class="form-control" id="add-category">
+                            @foreach (var item in listCategory)
+                            {
+                                <option value="@item.CategoryId">@item.CategoryName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group add-prod-field" style="display: none">
+                        <label>Brand:</label>
+                        <select class="form-control" id="add-brand">
+                            @foreach (var item in listBrand)
+                            {
+                                <option value="@item.BrandId">@item.BrandName</option>
+                            }
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">ProductName:</label>
                         <input type="text" class="form-control" id="update-prod-name">
@@ -276,13 +303,17 @@
                             }
                         </select>
                     </div>
+                    <div class="form-group add-prod-field" style="display: none">
+                        <label class="col-form-label">UnitPrice:</label>
+                        <input type="number" class="form-control" id="add-price" min="1">
+                    </div>
                     <div class="form-group">
                         <label class="col-form-label">UnitSellPrice:</label>
-                        <input type="number" class="form-control" id="update-sellprice">
+                        <input type="number" class="form-control" id="update-sellprice" min="1">
                     </div> 
                     <div class="form-group">
                         <label class="col-form-label">UnitInStock:</label>
-                        <input type="number" class="form-control" id="update-instock">
+                        <input type="number" class="form-control" id="update-instock" min="1">
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">Description:</label>
@@ -291,7 +322,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="saveProduct()">Update</button>
+                    <button type="button" id="submit-button" class="btn btn-primary" onclick="saveProduct()">Update</button>
                 </div>
             </div>
         </div>
@@ -333,55 +364,177 @@
             $("#update-instock").val(instock);
             $("#update-des").val(description);
 
+            $(".add-prod-field").css("display", "none");
+
+            $("#submit-button").text("Update");
+            $("#editModal").modal("show");
+        }
+
+        function addProduct(){
+            $("#prod-id").val(0);
+            $("#update-prod-name").val("");
+            $("#update-color").val($("#update-color option:first").val());
+            $("#update-size").val($("#update-size option:first").val());
+            $("#update-ram").val($("#update-ram option:first").val());
+
+            $("#add-category").val($("#add-category option:first").val());
+            $("#add-brand").val($("#add-brand option:first").val());
+            $("#add-price").val("");
+
+            $("#update-sellprice").val("");
+            $("#update-instock").val("");
+            $("#update-des").val("");
+
+            $(".add-prod-field").css("display","block");
+
+            $("#submit-button").text("Create");
             $("#editModal").modal("show");
         }
 
         function saveProduct(){      
             var prodId = $("#prod-id").val();
-            var model = {
-                ProductId: prodId, 
-                ProductName: $("#update-prod-name").val(), 
-                ColorId: $("#update-color").val(), 
-                SizeId: $("#update-size").val(),
-                RamId: $("#update-ram").val(), 
-                UnitSellPrice: $("#update-sellprice").val(), 
-                UnitInStock: $("#update-instock").val(), 
-                Description: $("#update-des").val()
+
+            //if ($("#update-prod-name").val() == "") {
+            //    Swal.fire('Thông báo', "Vui lòng nhập tên sản phẩm", 'error');
+            //    return;
+            //}           
+
+            //if ($("#update-sellprice").val() == "") {
+            //    Swal.fire('Thông báo', "Vui lòng nhập giá bán", 'error');
+            //    return;
+            //}
+            //if ($("#update-instock").val() == "") {
+            //    Swal.fire('Thông báo', "Vui lòng nhập số lượng trong kho", 'error');
+            //    return;
+            //}
+            //if ($("#update-des").val() == "") {
+            //    Swal.fire('Thông báo', "Vui lòng nhập mô tả sản phẩm", 'error');
+            //    return;
+            //}
+            if (!validateProd(prodId)){
+                return;
             }
-            $.ajax({
-                url: 'http://localhost:5216/api/Products/Update',
-                method: 'POST',
-                data: JSON.stringify(model),
-                contentType: 'application/json; charset=utf-8',
-                success: function (product) {
-                    var des = product["description"].substring(0, 100);
-                    $("#prod-" + prodId).find("td.prod-name").text(product["productName"]);
 
-                    $("#prod-" + prodId).find("td.color-name").attr("color-value", product["colorId"]);
-                    $("#prod-" + prodId).find("td.color-name").text($("#update-color option:selected").text());
-
-                    $("#prod-" + prodId).find("td.size-size").attr("size-value", product["sizeId"]);
-                    $("#prod-" + prodId).find("td.size-size").text($("#update-size option:selected").text());
-
-                    $("#prod-" + prodId).find("td.ram-size").attr("ram-value", product["ramId"]);
-                    $("#prod-" + prodId).find("td.ram-size").text($("#update-ram option:selected").text());
-
-                    $("#prod-" + prodId).find("td.sell-price").text(product["unitSellPrice"]);
-                    $("#prod-" + prodId).find("td.instock").text(product["unitInStock"]);
-
-                    $("#prod-" + prodId).find("td.des").attr("des-value", product["description"]);
-                    $("#prod-" + prodId).find("td.des").text(des + " ...");
-
-                    $("#editModal").modal("hide");
-                    Swal.fire('Thông báo', "Update thành công sản phẩm ID = " + prodId, 'success');
-                },
-                error: function (xhr, status, error) {
-                    console.log(xhr.responseText);
-                    Swal.fire('Thông báo', "Có lỗi xảy ra", 'error');
+            if(prodId > 0){
+                var model = {
+                    ProductId: prodId,
+                    ProductName: $("#update-prod-name").val(),
+                    ColorId: $("#update-color").val(),
+                    SizeId: $("#update-size").val(),
+                    RamId: $("#update-ram").val(),
+                    UnitSellPrice: $("#update-sellprice").val(),
+                    UnitInStock: $("#update-instock").val(),
+                    Description: $("#update-des").val()
                 }
-            });
+                //Update
+                $.ajax({
+                    url: 'http://localhost:5216/api/Products/Update',
+                    method: 'POST',
+                    data: JSON.stringify(model),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (product) {
+                        var des = product["description"].substring(0, 100);
+                        $("#prod-" + prodId).find("td.prod-name").text(product["productName"]);
+
+                        $("#prod-" + prodId).find("td.color-name").attr("color-value", product["colorId"]);
+                        $("#prod-" + prodId).find("td.color-name").text($("#update-color option:selected").text());
+
+                        $("#prod-" + prodId).find("td.size-size").attr("size-value", product["sizeId"]);
+                        $("#prod-" + prodId).find("td.size-size").text($("#update-size option:selected").text());
+
+                        $("#prod-" + prodId).find("td.ram-size").attr("ram-value", product["ramId"]);
+                        $("#prod-" + prodId).find("td.ram-size").text($("#update-ram option:selected").text());
+
+                        $("#prod-" + prodId).find("td.sell-price").text(product["unitSellPrice"]);
+                        $("#prod-" + prodId).find("td.instock").text(product["unitInStock"]);
+
+                        $("#prod-" + prodId).find("td.des").attr("des-value", product["description"]);
+                        $("#prod-" + prodId).find("td.des").text(des + " ...");
+
+                        $("#editModal").modal("hide");
+                        Swal.fire('Thông báo', "Update thành công sản phẩm ID = " + prodId, 'success');
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                        Swal.fire('Thông báo', "Có lỗi xảy ra", 'error');
+                    }
+                });
+            }else{
+                //Create
+                var model = {
+                    ProductId: prodId,
+                    ProductName: $("#update-prod-name").val(),
+                    ColorId: $("#update-color").val(),
+                    SizeId: $("#update-size").val(),
+                    RamId: $("#update-ram").val(),
+                    UnitSellPrice: $("#update-sellprice").val(),
+                    UnitInStock: $("#update-instock").val(),
+                    Description: $("#update-des").val(),
+                    CategoryId: $("#add-category").val(),
+                    BrandId: $("#add-brand").val(),
+                    UnitPrice: $("#add-price").val()
+                }
+
+                $.ajax({
+                    url: 'http://localhost:5216/api/Products/Create',
+                    method: 'POST',
+                    data: JSON.stringify(model),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (product) {
+                        var table = $('#dataTable').DataTable();
+                        var newRow = $('<tr id="prod-' + product["productId"]+ '">');
+                        var prodId = $('<td class="prod-id">').text(product["productId"]);
+                        var prodName = $('<td class="prod-name">').text(product["productName"]);
+                        var prodColor = $('<td class="color-name" color-value = "' + product["colorId"] + '">').text($("#update-color option:selected").text());
+                        var prodSize = $('<td class="size-size" size-value="' + product["sizeId"] + '">').text($("#update-size option:selected").text());
+                        var prodRam = $('<td class="ram-size" ram-value="' + product["ramId"] + '">').text($("#update-ram option:selected").text());
+                        var prodPrice = $('<td class="price">').text(product["unitPrice"]);
+                        var prodSell = $('<td class="sell-price">').text(product["unitSellPrice"]);
+                        var prodInstock = $('<td class="instock">').text(product["unitInStock"]);
+                        var prodDes = $('<td class="des" des-value="' + product["description"] + '">').text(product["description"].length > 100 ? product["description"].substring(0, 100) : product["description"]);
+                        var prodCat = $('<td class="cat-name">').text($("#add-category option:selected").text());
+                        var prodBrand = $('<td class="brand-name">').text($("#add-brand option:selected").text());
+                        var action = $('<td>').append('<a href="javascript:void(0)" onclick="editModal(' + product["productId"] + ')">Edit |</a><a href = "javascript:void(0)"> Delete </a>')
+                        newRow.append(prodId, prodCat, prodBrand, prodName, prodColor, prodSize, prodRam, prodPrice, prodSell, prodInstock, prodDes, action);
+                        table.row.add(newRow).draw();
+                        $("#editModal").modal("hide");
+                        Swal.fire('Thông báo', "Tạo mới thành công sản phẩm ID = " + product["productId"], 'success');
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                        Swal.fire('Thông báo', "Có lỗi xảy ra", 'error');
+                    }
+                });
+            }
         }
 
+        function validateProd(prodId){
+            if ($("#update-prod-name").val() == "") {
+                Swal.fire('Thông báo', "Vui lòng nhập tên sản phẩm", 'error');
+                return false;
+            }
+
+            if(prodId == 0){
+                if ($("#add-price").val() == "") {
+                    Swal.fire('Thông báo', "Vui lòng nhập giá nhập kho", 'error');
+                    return false;
+                }
+            }
+
+            if ($("#update-sellprice").val() == "") {
+                Swal.fire('Thông báo', "Vui lòng nhập giá bán", 'error');
+                return false;
+            }
+            if ($("#update-instock").val() == "") {
+                Swal.fire('Thông báo', "Vui lòng nhập số lượng trong kho", 'error');
+                 return false;
+            }
+            if ($("#update-des").val() == "") {
+                Swal.fire('Thông báo', "Vui lòng nhập mô tả sản phẩm", 'error');
+                return false;
+            }
+            return true;
+        }
 
     </script>
 </body>

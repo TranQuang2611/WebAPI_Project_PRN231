@@ -79,7 +79,7 @@
                             <div class="product-image-active-1">
                                 @for (int i = 0; i < 6; i++)
                                 { <div class="single-image">
-                                        <img src="@Model.ProductImg" alt="">
+                                        <img src="@(!string.IsNullOrEmpty(Model.ProductImg) ? Model.ProductImg : "/assets/images/noImg.jpg")" alt="">
                                 </div>
                                 }
                             </div>
@@ -89,7 +89,7 @@
                                 @for (int i = 0; i < 6; i++)
                                 {
                                     <div class="single-thumb">
-                                        <img src="@Model.ProductImg" alt="">
+                                        <img src="@(!string.IsNullOrEmpty(Model.ProductImg) ? Model.ProductImg : "/assets/images/noImg.jpg")" alt="">
                                     </div>
                                 }
                             </div>
@@ -108,7 +108,7 @@
                                 {
                                     <div class="single-item active">
                                         <div class="items-image">
-                                            <img src="@Model.ProductImg" alt="product">
+                                            <img src="@(!string.IsNullOrEmpty(Model.ProductImg) ? Model.ProductImg : "/assets/images/noImg.jpg")" alt="product">
                                         </div>
                                         <p class="text">Oculus Go</p>
                                     </div>
@@ -305,7 +305,7 @@
                                         </div>
                                         <div class="single-rating-form flex-wrap">
                                             <div class="rating-form-btn">
-                                                <button class="main-btn primary-btn" onclick="writeReview(@(Model.ProductId), @user.UserId)">write a Review</button>
+                                                <button class="main-btn primary-btn" onclick="writeReview(@(Model.ProductId), @user.UserId, '@(user.Username)')">write a Review</button>
                                             </div>
                                         </div>
                                     </div>
@@ -530,7 +530,7 @@
             LoadReviewComponent(prodId, selectedStar, selectedSort);
         }
 
-        function writeReview(prodId, userId){
+        function writeReview(prodId, userId, userName){
             if(userId == 0){
                 var returnUrl = window.location.pathname + window.location.search;
                 window.location.href = "/User/Login?returnUrl=" + returnUrl;
@@ -566,7 +566,7 @@
                                 + `<img src="/assets/images/review/author-1.jpg" alt="">`
                                 + `</div>`
                                 + `<div class="comment-content">`
-                                + `<h6 class="name">` + @user.Username + `</h6>`
+                                + `<h6 class="name">` + userName + `</h6>`
                                 + `<p>`
                                 + `<i class="mdi mdi-star"></i>`
                                 + `<span class="rating"><strong>` + review["rating"] + `</strong> of 5</span>`
