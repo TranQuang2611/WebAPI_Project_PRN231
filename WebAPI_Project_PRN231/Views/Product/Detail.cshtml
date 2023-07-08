@@ -19,6 +19,7 @@
     var listUserIdReviewed = Model.Reviews.Select(x => x.UserId).Distinct();
     bool isReviewed = (user.UserId != 0 && listUserIdReviewed.Contains(user.UserId));
     ReviewDTO reviewOfUser = isReviewed ? Model.Reviews.First(x => x.UserId == user.UserId) : null;
+    string token = Context.Session.GetString("token");
 }
 
 <style>
@@ -200,7 +201,7 @@
                 <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="review-wrapper">
                         <div class="reviews-title">
-                            <h4 class="title">Customer Reviews (@Model.Reviews.Count())</h4>
+                            <h4 class="title" id="numberReview">Customer Reviews (@Model.Reviews.Count())</h4>
                         </div>
 
                         <div id="headerReviewComponent">
@@ -349,6 +350,8 @@
 <!--====== Subscribe Part Ends ======-->
 @section Scripts {   
     <script>
+        var returnUrl = window.location.pathname + window.location.search;
+
         LoadHeaderReviewComponent(@(Model.ProductId));
 
         LoadReviewComponent(@(Model.ProductId), 0, 0);
@@ -432,20 +435,9 @@
             });
         }
 
-        function viewComment(reviewId) {
-            var typeView = $("#showComment" + reviewId).attr('view-type');
-            if (typeView == 0) {
-                $("#showComment" + reviewId).attr('view-type', 1);
-                $("#showComment" + reviewId).text("Hiển thị ít bình luận")
-            } else {
-                $("#showComment" + reviewId).attr('view-type', 0);
-                $("#showComment" + reviewId).text("Hiển thị tất cả bình luận")
-            }
-        }
-
         function replyReview(reviewId, userCmtId) {
             if (userCmtId == 0) {
-                window.location.href = "/User/Login";
+                window.location.href = "/User/Login?returnUrl="+ returnUrl;
             } else {
                 $("#replyReview" + reviewId).css("display", "block");
             }
@@ -465,6 +457,7 @@
                     method: 'GET',
                     dataType: 'json',
                     data: { reviewId: reviewId, userCmtId: userCmtId, content: content },
+                    headers: { "Authorization": "Bearer " + '@token' },
                     success: function (comment) {
                         var date = ConvertDateToString(comment["commentDate"]);
                         var newLiCmt = $(`<li><div class='single-review-comment'>`
@@ -499,8 +492,7 @@
         }
 
         function writeReview(prodId, userId, userName){
-            if(userId == 0){
-                var returnUrl = window.location.pathname + window.location.search;
+            if(userId == 0){               
                 window.location.href = "/User/Login?returnUrl=" + returnUrl;
                 return;
             }
@@ -524,6 +516,7 @@
                     method: 'GET',
                     dataType: 'json',
                     data: { prodId: prodId, userReviewId: userId, content: content, rating: rating },
+                    headers: { "Authorization": "Bearer " + '@token' },
                     success: function (review) {
                         var selectedStar = $("#selectedStar").val();
                         if (selectedStar == rating || selectedStar == 0){
@@ -572,6 +565,7 @@
                                 + `</ul>`
                             );
                             $("#reviewBox").prepend(newLiReview);
+                            $("#numberReview").text("Customer Reviews " + "(" + @(Model.Reviews.Count()+1) + ")");
                             LoadHeaderReviewComponent(@(Model.ProductId));
                         }
                     },

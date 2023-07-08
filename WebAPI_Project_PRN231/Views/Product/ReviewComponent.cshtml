@@ -83,13 +83,6 @@
                         </li>
                     }
                 </ul>
-                @if (review.Comments.Count() == 3 && review.Comments.Count() < review.totalComment)
-                {
-                    <div style="padding: 10px 0px 0px 50px">
-                        <a href="#" onclick="viewComment(@review.ReviewId)" view-type="0" id="showComment@(review.ReviewId)">Hiển thị tất cả bình luận</a>
-                    </div>
-                }
-
             </li>
 
         }

@@ -18,8 +18,17 @@ namespace WebAPI_Project_PRN231.Controllers
         [HttpGet]
         public IActionResult Login(string returnUrl = "")
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
+            string sessionUser = _session.GetString("user");
+            if(string.IsNullOrEmpty(sessionUser))
+            {
+                ViewBag.ReturnUrl = returnUrl;
+                return View();
+            }
+            else
+            {
+                return Redirect("/Home/Index");
+            }
+            
         }
 
         [HttpPost]

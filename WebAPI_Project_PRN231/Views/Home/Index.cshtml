@@ -115,7 +115,7 @@
                         <span class="icon-text text-style-1">NEW</span>
                         <div class="product-active">
                             <div class="product-item active">
-                                    <img src="@item.ProductImg" alt="product">
+                                    <img src="@(!string.IsNullOrEmpty(item.ProductImg) ? item.ProductImg : "/assets/images/noImg.jpg")" alt="product">
                             </div>
                             <div class="product-item">
                                 <img src="/assets/images/product-1/product-2.jpg" alt="product">
@@ -155,7 +155,7 @@
                     <div class="product-image">
                         <div class="product-active">
                             <div class="product-item active">
-                                <img src="@item.ProductImg" alt="product">
+                                    <img src="" @(!string.IsNullOrEmpty(item.ProductImg) ? item.ProductImg : "/assets/images/noImg.jpg")" alt="product">
                             </div>
                         </div>
                     </div>

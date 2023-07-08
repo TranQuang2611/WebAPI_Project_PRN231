@@ -7,6 +7,7 @@
     List<SizeDTO> listSize = (List<SizeDTO>)ViewBag.Size;
     List<CategoryDTO> listCategory = (List<CategoryDTO>)ViewBag.listCategory;
     List<BrandDTO> listBrand = (List<BrandDTO>)ViewBag.listBrand;
+    string token = Context.Session.GetString("token");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -394,23 +395,6 @@
         function saveProduct(){      
             var prodId = $("#prod-id").val();
 
-            //if ($("#update-prod-name").val() == "") {
-            //    Swal.fire('Thông báo', "Vui lòng nhập tên sản phẩm", 'error');
-            //    return;
-            //}           
-
-            //if ($("#update-sellprice").val() == "") {
-            //    Swal.fire('Thông báo', "Vui lòng nhập giá bán", 'error');
-            //    return;
-            //}
-            //if ($("#update-instock").val() == "") {
-            //    Swal.fire('Thông báo', "Vui lòng nhập số lượng trong kho", 'error');
-            //    return;
-            //}
-            //if ($("#update-des").val() == "") {
-            //    Swal.fire('Thông báo', "Vui lòng nhập mô tả sản phẩm", 'error');
-            //    return;
-            //}
             if (!validateProd(prodId)){
                 return;
             }
@@ -432,6 +416,7 @@
                     method: 'POST',
                     data: JSON.stringify(model),
                     contentType: 'application/json; charset=utf-8',
+                    headers: { "Authorization": "Bearer " + '@token' },
                     success: function (product) {
                         var des = product["description"].substring(0, 100);
                         $("#prod-" + prodId).find("td.prod-name").text(product["productName"]);
@@ -480,6 +465,7 @@
                     method: 'POST',
                     data: JSON.stringify(model),
                     contentType: 'application/json; charset=utf-8',
+                    headers: { "Authorization": "Bearer " + '@token' },
                     success: function (product) {
                         var table = $('#dataTable').DataTable();
                         var newRow = $('<tr id="prod-' + product["productId"]+ '">');

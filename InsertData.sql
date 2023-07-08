@@ -1,7 +1,8 @@
 INSERT INTO Users (Username, Password)
-VALUES ('admin', '1'),
-('admin2', '1'),
-('admin3', '1');
+VALUES ('admin', '1','admin'),
+('reviewer1', '1','reviewer'),
+('reviewer2', '1','reviewer'),
+('reviewer3', '1','reviewer');
 
 
 INSERT INTO Category (CategoryName)

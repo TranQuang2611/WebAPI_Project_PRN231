@@ -4,7 +4,8 @@ create database ReviewStore
 CREATE TABLE Users (
     UserID INT PRIMARY KEY identity(1,1),
     Username NVARCHAR(50) NOT NULL,
-    Password VARCHAR(50) NOT NULL
+    Password VARCHAR(50) NOT NULL,
+    Role nvarchar(50) null
 );
 
 Create TABLE Category(
@@ -76,7 +77,3 @@ CREATE TABLE Comments (
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (ReviewID) REFERENCES Reviews(ReviewID)
 );
-
-alter table Users
-    add Role nvarchar(50) null
-go
