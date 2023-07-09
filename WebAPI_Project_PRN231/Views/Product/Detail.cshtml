@@ -460,7 +460,7 @@
                     headers: { "Authorization": "Bearer " + '@token' },
                     success: function (comment) {
                         var date = ConvertDateToString(comment["commentDate"]);
-                        var newLiCmt = $(`<li><div class='single-review-comment'>`
+                        var newLiCmt = $(`<li id="li-comment-` + comment["commentId"] + `"><div class='single-review-comment'>`
                             + `<div class='comment-user-info'>`
                             + `<div class='comment-author'>`
                             + `<img src='/assets/images/review/author-2.jpg' alt = '' >`
@@ -471,7 +471,28 @@
                             + `</div>`
                             + `</div>`
                             + `<div class= "comment-user-text" >`
-                            + `<p>` + comment["comment1"] + `</p>`
+                            + `<p id="comment-` + comment["commentId"] + `">` + comment["comment1"] + `</p>`
+
+                            + `<div class="rating-form" style="display:none" id="box-comment-` + comment["commentId"] + `">`
+                            + `<div class="single-form form-default">`
+                            + `<div class="form-input">`
+                            + `<textarea id="updateCmt-` + comment["commentId"] + `">` + comment["comment1"] + `</textarea>`
+                            + `<i class="mdi mdi-message-text-outline"></i>`
+                            + `</div>`
+                            + `</div>`
+                            + `<div class="single-rating-form flex-wrap">`
+                            + `<div class="rating-form-btn">`
+                            + `<button class="main-btn primary-btn" onclick = "saveUpdateCmt(` + comment["commentId"] + `)"> Save </button>`
+                            + `<button class="main-btn primary-btn" style = "background: red" onclick ="closeEditCmt(` + comment["commentId"] + `)"> Close</button>`
+                            + `</div>`
+                            + `</div>`
+                            + `</div>`
+
+                            + `<ul class="comment-meta" id ="button-cmt-` + comment["commentId"] + `">`
+                            + `<li><a href="javascript:void(0)" onclick = "editComment(`+comment["commentId"]+`)">Edit</a></li>`
+                            + `<li><a href="javascript:void(0)" onclick="deleteComment(` + comment["commentId"] + `)">Delete</a></li>`
+                            + `</ul>`
+
                             + `</div>`
                             + `</div>`
                             + `</li>`);
@@ -576,10 +597,85 @@
             }
         }
 
+        function editComment(cmtId){
+            var content = $("#comment-" + cmtId).text().trim();
+            $("#box-comment-"+cmtId).css("display","block");
+            $("#updateCmt-" + cmtId).val(content);
+            $("#comment-" + cmtId).css("display", "none");
+            $("#button-cmt-" + cmtId).css("display", "none");
+            
+        }
+
+        function closeEditCmt(cmtId){
+            $("#box-comment-" + cmtId).css("display", "none");
+            $("#comment-" + cmtId).css("display", "block");
+            $("#button-cmt-" + cmtId).css("display", "block");
+        }
+
+        function saveUpdateCmt(cmtId){
+            var newContent = $("#updateCmt-" + cmtId).val();
+            if (newContent.trim() == "") {
+                Swal.fire('Thông báo', "Không được để trống bình luận", 'error');
+                return;
+            }
+            var param = { cmtId: cmtId, newContent: newContent };
+            $.ajax({
+                url: 'http://localhost:5216/api/Comment/Update',
+                method: 'post',
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify(param),
+                headers: { "Authorization": "Bearer " + '@token' },
+                success: function (comment) {
+                    var date = ConvertDateToString(comment["commentDate"]);
+                    $("#li-comment-" + cmtId + " .single-review-comment .comment-user-info .comment-content .date").text(date);
+                    $("#comment-" + cmtId).text(comment["comment1"]);
+                    $("#box-comment-" + cmtId).css("display", "none");
+                    $("#comment-" + cmtId).css("display", "block");
+                    $("#button-cmt-" + cmtId).css("display", "block");
+                },
+                error: function (xhr, status, error) {
+                }
+            });
+        }
+
+        function deleteComment(cmtId){
+            Swal.fire({
+                title: 'Bạn có đồng ý xóa comment này?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var param = { cmtId: cmtId }
+                    $.ajax({
+                        url: 'http://localhost:5216/api/Comment/Delete',
+                        method: 'delete',
+                        dataType: 'json',
+                        contentType: "application/json",
+                        data: JSON.stringify(param),
+                        headers: { "Authorization": "Bearer " + '@token' },
+                        success: function (res) {
+                            if (res.message == "success") {
+                                $("#li-comment-" + cmtId).remove();
+                                Swal.fire('Đã xóa comment', '', 'success');
+                            }else{
+                                Swal.fire('Có lỗi xảy ra', 'Thông báo', 'error')
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            Swal.fire('Có lỗi xảy ra', 'Thông báo', 'error')
+                        }
+                    });
+                    
+                }
+            })
+            
+        }
+
         function ConvertDateToString(dateString){
             var date = new Date(dateString);
-            var day = date.getDay().toString();
-            var month = date.getMonth().toString();
+            var day = date.getDate().toString();
+            var month = (date.getMonth() + 1).toString();
             var year = date.getFullYear().toString();
             var hour = date.getHours().toString();
             var minutes = date.getMinutes().toString();

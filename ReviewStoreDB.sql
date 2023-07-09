@@ -47,6 +47,7 @@ CREATE TABLE Products (
 	UnitInStock INT,
 	[Description]  NVARCHAR(max),
 	CategoryID int,
+	IsActive bit,
 	FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID),
 	FOREIGN KEY (BrandID) REFERENCES Brand(BrandID),
 	FOREIGN KEY (ColorID) REFERENCES Color(ColorID),
@@ -77,3 +78,6 @@ CREATE TABLE Comments (
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (ReviewID) REFERENCES Reviews(ReviewID)
 );
+
+ALTER TABLE Products
+ADD IsActive bit;

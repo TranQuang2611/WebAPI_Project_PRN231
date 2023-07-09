@@ -8,7 +8,7 @@
     if (!string.IsNullOrEmpty(stringUser))
     {
         user = JsonConvert.DeserializeObject<UserDTO>(stringUser);
-    }
+    }   
 }
 
 <div class="reviews-comment">
@@ -60,7 +60,8 @@
                 <ul class="comment-replay" id="commentByReview@(review.ReviewId)">
                     @foreach (var comment in review.Comments)
                     {
-                        <li>
+                        var isOwnCmt = comment.UserId == user.UserId ? true : false;
+                        <li id="li-comment-@comment.CommentId">
                             <div class="single-review-comment">
                                 <div class="comment-user-info">
                                     <div class="comment-author">
@@ -75,9 +76,31 @@
                                     </div>
                                 </div>
                                 <div class="comment-user-text">
-                                    <p>
+                                    <p id="comment-@comment.CommentId">
                                         @comment.Comment1
                                     </p>
+                                    <div class="rating-form" style="display:none" id="box-comment-@comment.CommentId">
+                                        <div class="single-form form-default">
+                                            <div class="form-input">
+                                                <textarea id="updateCmt-@comment.CommentId">@comment.Comment1</textarea>
+                                                <i class="mdi mdi-message-text-outline"></i>
+                                            </div>
+                                        </div>
+                                        <div class="single-rating-form flex-wrap">
+                                            <div class="rating-form-btn">
+                                                <button class="main-btn primary-btn" onclick="saveUpdateCmt(@(comment.CommentId))">Save</button>
+                                                <button class="main-btn primary-btn" style="background: red" onclick="closeEditCmt(@(comment.CommentId))">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if (isOwnCmt)
+                                    {
+                                        <ul class="comment-meta" id="button-cmt-@comment.CommentId">
+                                            <li><a href="javascript:void(0)" onclick="editComment(@(comment.CommentId))">Edit</a></li>
+                                            <li><a href="javascript:void(0)" onclick="deleteComment(@(comment.CommentId))">Delete</a></li>
+                                        </ul>
+                                    }
                                 </div>
                             </div>
                         </li>
