@@ -35,7 +35,7 @@ namespace WebAPI_Project_PRN231.Controllers
             List<SizeDTO> sizes = await _callApi.GetAllSizes();
             List<CategoryDTO> categories = await _callApi.GetAllCategory();
             List<BrandDTO> brands = await _callApi.GetAllBrand();
-            List<ProductDTO> products = await _callApi.SearchProduct(modelSearch);
+            List<ProductDTO> products = await _callApi.SearchProductByAdmin(modelSearch);
             ViewBag.listColor = colors;
             ViewBag.listRam = rams;
             ViewBag.Size = sizes;

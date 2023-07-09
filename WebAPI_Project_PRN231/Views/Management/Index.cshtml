@@ -188,8 +188,8 @@
                                                 <td class="instock">@item.UnitInStock</td>
                                                 <td class="des" des-value="@item.Description">@(item.Description.Length > 100 ? item.Description.Substring(0, 100) + " ..." : item.Description)</td>
                                                 <td>
-                                                    <a href="javascript:void(0)" onclick="editModal(@item.ProductId)">Edit |</a>
-                                                    <a href="javascript:void(0)">Delete </a>
+                                                    <a href="javascript:void(0)" onclick="editModal(@item.ProductId)">Edit | </a>
+                                                    <a href="javascript:void(0)" id="hide-prod-@item.ProductId" hide-value="@(item.IsActive == true ? 0 : 1)" onclick="hideProduct(@item.ProductId)">@(item.IsActive == true ? "Hide" : "Active") </a>
                                                 </td>
                                             </tr>
                                         }
@@ -480,7 +480,7 @@
                         var prodDes = $('<td class="des" des-value="' + product["description"] + '">').text(product["description"].length > 100 ? product["description"].substring(0, 100) : product["description"]);
                         var prodCat = $('<td class="cat-name">').text($("#add-category option:selected").text());
                         var prodBrand = $('<td class="brand-name">').text($("#add-brand option:selected").text());
-                        var action = $('<td>').append('<a href="javascript:void(0)" onclick="editModal(' + product["productId"] + ')">Edit |</a><a href = "javascript:void(0)"> Delete </a>')
+                        var action = $('<td>').append('<a href="javascript:void(0)" onclick="editModal(' + product["productId"] + ')">Edit | </a><a id="hide-prod-' + product["productId"] + '" href="javascript:void(0)" hide-value="0" onclick="hideProduct(' + product["productId"] + ')">Hide</a>')
                         newRow.append(prodId, prodCat, prodBrand, prodName, prodColor, prodSize, prodRam, prodPrice, prodSell, prodInstock, prodDes, action);
                         table.row.add(newRow).draw();
                         $("#editModal").modal("hide");
@@ -492,6 +492,64 @@
                     }
                 });
             }
+        }
+
+        function hideProduct(prodId){
+            var actionActive = $("#hide-prod-" + prodId).attr("hide-value") == 0 ? false : true;
+            var param = { prodId: prodId};
+            if(!actionActive){
+                $.ajax({
+                    url: 'http://localhost:5216/api/Products/CheckProduct',
+                    method: 'get',
+                    dataType: 'json',
+                    data: param,
+                    headers: { "Authorization": "Bearer " + '@token' },
+                    success: function (count) {
+                        if (count > 0) {
+                            Swal.fire({
+                                title: 'Sản phẩm này đã được review bạn có muốn ẩn không?',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    handleHideProd(prodId);
+                                }
+                            })
+                        } else {
+                            handleHideProd(prodId)
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                    }
+                });
+            }else{
+                handleHideProd(prodId);
+            }                     
+        }
+
+        function handleHideProd(prodId) {
+            var actionActive = $("#hide-prod-" + prodId).attr("hide-value") == 0 ? false : true;
+            var param = { ProductId: prodId, IsActive: actionActive };
+            $.ajax({
+                url: 'http://localhost:5216/api/Products/Hide',
+                method: 'post',
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify(param),
+                headers: { "Authorization": "Bearer " + '@token' },
+                success: function (prod) {
+                    var active = prod["isActive"];
+                    if (active == true) {
+                        $("#hide-prod-" + prodId).attr("hide-value", "0");
+                        $("#hide-prod-" + prodId).text("Hide");
+                    }else{
+                        $("#hide-prod-" + prodId).attr("hide-value", "1");
+                        $("#hide-prod-" + prodId).text("Active");
+                    }
+                },
+                error: function (xhr, status, error) {
+                }
+            });
         }
 
         function validateProd(prodId){

@@ -107,6 +107,17 @@ namespace WebAPI_Project_PRN231.Api
             return ls;
         }
 
+        public async Task<List<ProductDTO>> SearchProductByAdmin(SearchForm searchForm)
+        {
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("api/Products/SearchByAdmin", searchForm);
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            List<ProductDTO> ls = JsonConvert.DeserializeObject<List<ProductDTO>>(responseBody);
+
+            return ls;
+        }
+
         public async Task<List<BrandDTO>> GetAllBrand()
         {
             HttpResponseMessage response = await _httpClient.GetAsync("api/Brand");
