@@ -1,8 +1,8 @@
-INSERT INTO Users (Username, Password)
-VALUES ('admin', '1','admin'),
-('reviewer1', '1','reviewer'),
-('reviewer2', '1','reviewer'),
-('reviewer3', '1','reviewer');
+INSERT INTO Users (Username, Password, Image, Role)
+VALUES ('admin', '1','/assets/images/review/author-1.jpg','admin'),
+('reviewer1', '1','/assets/images/review/author-2.jpg','reviewer'),
+('reviewer2', '1','/assets/images/review/author-3.jpg','reviewer'),
+('reviewer3', '1','/assets/images/review/author-4.jpg','reviewer');
 
 
 INSERT INTO Category (CategoryName)

@@ -5,6 +5,7 @@ CREATE TABLE Users (
     UserID INT PRIMARY KEY identity(1,1),
     Username NVARCHAR(50) NOT NULL,
     Password VARCHAR(50) NOT NULL,
+    Image nvarchar(200),
     Role nvarchar(50) null
 );
 
@@ -81,3 +82,7 @@ CREATE TABLE Comments (
 
 ALTER TABLE Products
 ADD IsActive bit;
+
+alter table Users
+    add Image nvarchar(200)
+go

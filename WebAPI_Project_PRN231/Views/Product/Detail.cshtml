@@ -463,7 +463,7 @@
                         var newLiCmt = $(`<li id="li-comment-` + comment["commentId"] + `"><div class='single-review-comment'>`
                             + `<div class='comment-user-info'>`
                             + `<div class='comment-author'>`
-                            + `<img src='/assets/images/review/author-2.jpg' alt = '' >`
+                            + `<img src='@(user.Image)' alt = '' >`
                             + `</div>`
                             + `<div class= 'comment-content'>`
                             + `<h6 class="name">` + comment["userName"] + `</h6>`
@@ -545,7 +545,7 @@
                             var newLiReview = $(`<li class="review-component-box"><div class="single-review-comment">`
                                 + `<div class="comment-user-info">`
                                 + `<div class="comment-author">`
-                                + `<img src="/assets/images/review/author-1.jpg" alt="">`
+                                + `<img src="@(user.Image)" alt="">`
                                 + `</div>`
                                 + `<div class="comment-content">`
                                 + `<h6 class="name">` + userName + `</h6>`

@@ -21,6 +21,7 @@ namespace WebAPI_Project_PRN231.Controllers
             string sessionUser = _session.GetString("user");
             if(string.IsNullOrEmpty(sessionUser))
             {
+                ViewBag.mess = "";
                 ViewBag.ReturnUrl = returnUrl;
                 return View();
             }
@@ -37,9 +38,18 @@ namespace WebAPI_Project_PRN231.Controllers
             ApiRespond respond = await _callApi.Login(model);
             if(respond != null)
             {
-                _session.SetString("token", respond.Token);
-                string user = JsonConvert.SerializeObject(respond.UserDTO);
-                _session.SetString("user", user);
+                if(respond.Success)
+                {
+                    _session.SetString("token", respond.Token);
+                    string user = JsonConvert.SerializeObject(respond.UserDTO);
+                    _session.SetString("user", user);
+                }
+                else
+                {
+                    ViewBag.mess = respond.Message;
+                    return View("Login");
+                }
+                
             }
             if (!string.IsNullOrEmpty(model.ReturnUrl))
             {
