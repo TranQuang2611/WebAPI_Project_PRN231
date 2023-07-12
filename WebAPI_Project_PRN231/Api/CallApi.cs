@@ -155,5 +155,14 @@ namespace WebAPI_Project_PRN231.Api
             ApiRespond result = JsonConvert.DeserializeObject<ApiRespond>(responseBody);
             return result;
         }
+
+        public async Task<List<ReviewDTO>> GetAllReviews()
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync("api/Review/GetAll");
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+            List<ReviewDTO> result = JsonConvert.DeserializeObject<List<ReviewDTO>>(responseBody);
+            return result;
+        }
     }
 }

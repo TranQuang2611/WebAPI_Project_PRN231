@@ -62,9 +62,9 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="/Management/Review">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span>
+                    <span>Review Management</span>
                 </a>
             </li>
 
@@ -565,11 +565,14 @@
                 }
             }
 
-            if ($("#update-sellprice").val() == "") {
-                Swal.fire('Thông báo', "Vui lòng nhập giá bán", 'error');
+            var price = $("#update-sellprice").val();
+            if (price == "" || price.indexOf(".") > 0 || parseFloat(price) < 0) {
+                Swal.fire('Thông báo', "Vui lòng nhập giá bán hợp lệ", 'error');
                 return false;
             }
-            if ($("#update-instock").val() == "") {
+
+            var instock = $("#update-instock").val();
+            if (instock == "" || parseInt(instock) < 0) {
                 Swal.fire('Thông báo', "Vui lòng nhập số lượng trong kho", 'error');
                  return false;
             }

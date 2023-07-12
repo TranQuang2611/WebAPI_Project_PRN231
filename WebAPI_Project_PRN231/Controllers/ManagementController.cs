@@ -43,5 +43,15 @@ namespace WebAPI_Project_PRN231.Controllers
             ViewBag.listBrand = brands;
             return View(products);
         }
+
+        public async Task<IActionResult> Review()
+        {
+            if (user == null || !user.IsAdmin)
+            {
+                return Redirect("/Home/Error");
+            }
+            List<ReviewDTO> reviews = await _callApi.GetAllReviews();
+            return View(reviews);
+        }
     }
 }

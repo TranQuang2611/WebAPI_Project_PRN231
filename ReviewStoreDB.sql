@@ -62,9 +62,10 @@ CREATE TABLE Reviews (
     UserID INT,
     ProductID INT,
     Rating INT,
-	ReviewDate Datetime,
-	LikeReact int,
+    ReviewDate Datetime,
+    LikeReact int,
     [Content] NVARCHAR(MAX),
+    IsActive bit,
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
@@ -85,4 +86,8 @@ ADD IsActive bit;
 
 alter table Users
     add Image nvarchar(200)
+go
+
+alter table Reviews
+    add IsActive bit
 go
