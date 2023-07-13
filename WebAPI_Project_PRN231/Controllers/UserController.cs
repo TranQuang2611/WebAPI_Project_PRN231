@@ -63,5 +63,33 @@ namespace WebAPI_Project_PRN231.Controllers
             _session.Clear();
             return Redirect("/Home/Index");
         }
+
+        public async Task<IActionResult> Register(RegisterModel model)
+        {
+            string mess = "";
+            bool isSuccess = true;
+            try
+            {
+                if (model.UserName != "" && model.Password != "")
+                {
+                    mess =  await _callApi.Register(model);
+                    if(mess != "") {
+                        isSuccess = false;
+                    }
+                    else
+                    {
+                        mess = "Đăng kí thành công tài khoản (" + model.UserName.Trim() + ")";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                isSuccess = false;
+                mess = "Có lỗi xảy ra";
+            }
+            ViewBag.mess = mess;
+            ViewBag.isSuccess = isSuccess;
+            return View();
+        }
     }
 }

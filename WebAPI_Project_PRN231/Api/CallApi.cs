@@ -164,5 +164,13 @@ namespace WebAPI_Project_PRN231.Api
             List<ReviewDTO> result = JsonConvert.DeserializeObject<List<ReviewDTO>>(responseBody);
             return result;
         }
+
+        public async Task<string> Register(RegisterModel model)
+        {
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("api/User/Register", model);
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+            return responseBody;
+        }
     }
 }
