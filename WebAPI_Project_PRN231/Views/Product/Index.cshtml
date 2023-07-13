@@ -7,6 +7,7 @@
     List<CategoryDTO> listCategory = (List<CategoryDTO>)ViewBag.listCategory;
     List<BrandDTO> listBrand = (List<BrandDTO>)ViewBag.listBrand;
     SearchForm searchForm = (SearchForm)ViewBag.modelSearch;
+    string nameProd = (string)ViewBag.nameProd ?? "";
     int i = 0;
 }
 @model List<ProductDTO>
@@ -78,7 +79,7 @@
                                 </div>
                                 <div class="collapse show">
                                     <div>
-                                        <input id="nameProd" name="nameProd" class="form-control" />
+                                        <input id="nameProd" name="nameProd" class="form-control" value="@nameProd" />
                                     </div>
                                 </div>
                             </div>

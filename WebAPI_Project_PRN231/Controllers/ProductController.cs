@@ -31,6 +31,7 @@ namespace WebAPI_Project_PRN231.Controllers
             ViewBag.listCategory = categories;
             ViewBag.listBrand = brands;
             ViewBag.modelSearch = modelSearch;
+            ViewBag.nameProd = modelSearch.nameProd;
             return View("Index", products);
         }
 

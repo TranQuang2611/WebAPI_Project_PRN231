@@ -585,10 +585,10 @@
                                 + `<ul class="comment-replay" id="commentByReview` + review["reviewId"] + `">`
                                 + `</ul>`
                             );
-                            $("#reviewBox").prepend(newLiReview);
-                            $("#numberReview").text("Customer Reviews " + "(" + @(Model.Reviews.Count()+1) + ")");
-                            LoadHeaderReviewComponent(@(Model.ProductId));
+                            $("#reviewBox").prepend(newLiReview);                            
                         }
+                        $("#numberReview").text("Customer Reviews " + "(" + @(Model.Reviews.Count() + 1) + ")");
+                        LoadHeaderReviewComponent(@(Model.ProductId));
                     },
                     error: function (xhr, status, error) {
                         console.log(error);
